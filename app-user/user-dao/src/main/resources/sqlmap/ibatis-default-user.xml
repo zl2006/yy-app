@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<setting name="lazyLoadingEnabled" value="true" />
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<setting name="useColumnLabel" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="autoMappingBehavior" value="PARTIAL" />
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<setting name="defaultStatementTimeout" value="25" />
+		<setting name="safeRowBoundsEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="false" />
+		<setting name="localCacheScope" value="SESSION" />
+		<setting name="jdbcTypeForNull" value="OTHER" />
+		<setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias alias="TA-DICTIONARY" type="org.yy.user.model.Dictionary" />
+		<typeAlias alias="TA-DICTIONARY-DTO" type="org.yy.user.dto.DictionaryDTO" />
+
+		<typeAlias alias="TA-LOG" type="org.yy.user.model.Log" />
+		<typeAlias alias="TA-LOG-DTO" type="org.yy.user.dto.LogDTO" />
+		
+		<typeAlias alias="TA-ORGAN" type="org.yy.user.model.Organ" />
+		<typeAlias alias="TA-ORGAN-DTO" type="org.yy.user.dto.OrganDTO" />
+		
+		<typeAlias alias="TA-RESOURCE" type="org.yy.user.model.Resource" />
+		<typeAlias alias="TA-RESOURCE-DTO" type="org.yy.user.dto.ResourceDTO" />
+		
+		<typeAlias alias="TA-ROLE" type="org.yy.user.model.Role" />
+		<typeAlias alias="TA-ROLE-DTO" type="org.yy.user.dto.RoleDTO" />
+		
+		<typeAlias alias="TA-SYSTEM" type="org.yy.user.model.System" />
+		<typeAlias alias="TA-SYSTEM-DTO" type="org.yy.user.dto.SystemDTO" />
+		
+		<typeAlias alias="TA-USER" type="org.yy.user.model.User" />
+		<typeAlias alias="TA-USER-DTO" type="org.yy.user.dto.UserDTO" />
+		
+		<typeAlias alias="TA-USERGROUP" type="org.yy.user.model.UserGroup" />
+		<typeAlias alias="TA-USERGROUP-DTO" type="org.yy.user.dto.UserGroupDTO" />
+	</typeAliases>
+
+
+</configuration>

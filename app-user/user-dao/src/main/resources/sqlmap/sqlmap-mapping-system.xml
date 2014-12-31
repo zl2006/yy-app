@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="system">
+	<resultMap id="RM-SYSTEM" type="TA-SYSTEM">
+		<result property="systemID" column="SYSTEM_ID" />
+		<result property="systemCode" column="SYSTEM_CODE" />
+		<result property="name" column="NAME" />
+		<result property="icon" column="ICON" />
+		<result property="url" column="URL" />
+
+		<result property="description" column="DESCRIPTION" />
+		<result property="status" column="STATUS" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="createPerson" column="CREATE_PERSON" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="updatePerson" column="UPDATE_PERSON" />
+
+	</resultMap>
+
+	<sql id="SQL_SELECT_SYSTEM">
+		<![CDATA[
+	        SELECT
+				a.SYSTEM_ID ,
+   				a.SYSTEM_CODE,
+   				a.NAME,
+   				a.ICON,
+   				a.URL,
+   				a.DESCRIPTION,
+   				a.STATUS,
+   				a.CREATE_TIME,
+   				a.CREATE_PERSON,
+   				a.UPDATE_TIME,
+   				a.UPDATE_PERSON
+	        FROM TB_USERADMIN_SYSTEM a
+	   ]]>
+	</sql>
+	
+
+	<sql id="SQL_WHERE_SYSTEM">
+		<if test="systemCode != null and systemCode != ''">
+			and a.SYSTEM_CODE = #{systemCode}
+		</if>
+		<if test="name != null and name != ''">
+			and a.NAME = #{name}
+		</if>
+		<if test="status != null and status != ''">
+			and a.STATUS = #{status}
+		</if>
+	</sql>
+
+	<!--************************************************************************************************************************* -->
+	<!-- 新增系统信息 -->
+	<insert id="INSERT_SYSTEM" parameterType="TA-SYSTEM">
+		INSERT INTO TB_USERADMIN_SYSTEM (SYSTEM_ID , SYSTEM_CODE, NAME, ICON,URL,
+			STATUS, DESCRIPTION, CREATE_TIME, CREATE_PERSON, UPDATE_TIME, UPDATE_PERSON)
+		values (#{systemID}, #{systemCode}, #{name}, #{icon}, #{url},
+			#{status}, #{description}, #{createTime}, #{createPerson}, #{updateTime}, #{updatePerson})
+		<selectKey resultType="long" keyProperty="systemID">
+			SELECT LAST_INSERT_ID() AS SYSTEM_ID
+		</selectKey>
+	</insert>
+
+
+	<!-- 更新系统 -->
+	<update id="UPDATE_SYSTEM" parameterType="TA-SYSTEM">
+		UPDATE TB_USERADMIN_SYSTEM SET SYSTEM_CODE = #{systemCode}, NAME = #{name}, ICON = #{icon},URL=#{url},
+			STATUS = #{status}, DESCRIPTION = #{description}, UPDATE_TIME = #{updateTime}, UPDATE_PERSON = #{updatePerson}
+		WHERE SYSTEM_ID = #{systemID}
+	</update>
+
+
+	<!-- 根据CODE获取系统 -->
+	<select id="FIND_SYSTEM_BY_CODE" parameterType="java.lang.String"
+		resultMap="RM-SYSTEM">
+		<include refid="SQL_SELECT_SYSTEM" />
+		WHERE a.SYSTEM_CODE = #{value}
+	</select>
+
+
+
+	<!-- 根据系统编号 应用名称 状态,获取系统信息 -->
+	<select id="FIND_SYSTEM_BY_DTO" parameterType="TA-SYSTEM-DTO"
+		resultMap="RM-SYSTEM">
+		<include refid="SQL_SELECT_SYSTEM" />
+		WHERE 1 = 1
+		<include refid="SQL_WHERE_SYSTEM" />
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_SYSTEM_BY_DTO_PAGE_COUNT" parameterType="TA-SYSTEM-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_SYSTEM a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_SYSTEM" />
+	</select>
+	
+	<!-- 查询系统 -->
+	<select id="FIND_ALL_SYSTEM"  resultMap="RM-SYSTEM">
+		<include refid="SQL_SELECT_SYSTEM" /> WHERE  a.STATUS = 1
+	</select>
+	
+	
+	<!--************************************************************************************************************************* -->
+	<!-- 查询用户拥有的系统 -->
+	<select id="FIND_SYSTEM_BY_USER" parameterType="java.lang.String" resultMap="RM-SYSTEM">
+		<include refid="SQL_SELECT_SYSTEM" />
+		    ,TB_USERADMIN_USER b,
+		    TB_USERADMIN_USERROLEREL c,
+		    TB_USERADMIN_ROLE d
+		WHERE
+		    a.SYSTEM_CODE = d.SYSTEM_CODE
+		        and d.ROLE_CODE = c.ROLE_CODE
+		        and c.LOGIN_ID = b.LOGIN_ID
+		        and b.LOGIN_ID = #{value}
+		        and a.STATUS = 1
+		union
+		<include refid="SQL_SELECT_SYSTEM" />
+		    ,TB_USERADMIN_USER b,
+		    TB_USERADMIN_USERGROUPREL c,
+		    TB_USERADMIN_USERGROUP d,
+		    TB_USERADMIN_GROUPROLEREL e,
+		    TB_USERADMIN_ROLE f
+		WHERE
+		    a.SYSTEM_CODE = f.SYSTEM_CODE
+		        and f.ROLE_CODE = e.ROLE_CODE
+		        and e.USERGROUP_ID = c.USERGROUP_ID
+		        and c.LOGIN_ID = b.LOGIN_ID
+		        and b.LOGIN_ID = #{value}
+		        and a.STATUS = 1
+	</select>
+</mapper>
+
+
+

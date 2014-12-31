@@ -1,0 +1,10 @@
+{
+  "family": "gallery",
+  "name": "my97date",
+  "version": “4.8.0”,
+  "description": "jQuery plugin for form manipulation and util support.",
+  "keywords": [ "my97date", "gallery" ],
+  "spm": {
+    "output": ["WdatePicker.js","calendar.js"]
+  }
+}

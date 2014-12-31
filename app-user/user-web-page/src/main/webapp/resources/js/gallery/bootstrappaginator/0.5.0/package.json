@@ -1,0 +1,14 @@
+{
+  "family": "gallery",
+  "name": "bootstrappaginator",
+  "version": "0.5.0",
+  "description": "bootstrap paginator",
+  "keywords": [ "bootstrap", "paginator" ],
+  "spm": {
+    "alias": {
+      "$": "$",
+      "bootstrap":"gallery/bootstrap/3.0.0/bootstrap.js"
+    },
+    "output": ["bootstrappaginator.js"]
+  }
+}

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0 </modelVersion>
+	<parent>
+		<groupId>org.yy</groupId>
+		<artifactId>app-sso</artifactId>
+		<version>1.0</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+	<groupId>org.yy.app-sso</groupId>
+	<artifactId>sso-server-webapp</artifactId>
+	<packaging>war</packaging>
+	<name>sso-server-webapp</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.yy.app-sso</groupId>
+			<artifactId>sso-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.yy.framework</groupId>
+			<artifactId>framework-webframe</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+</project>

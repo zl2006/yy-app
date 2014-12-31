@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<bean id="abstarctIbatisDAO" class="org.yy.framework.base.dao.AbstractIbatisDao"
+		abstract="true">
+		<property name="sqlSession" ref="sqlSession"></property>
+	</bean>
+
+	<bean id="userDAO" class="org.yy.user.dao.impl.UserDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="dictionaryDAO" class="org.yy.user.dao.impl.DictionaryDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="organDAO" class="org.yy.user.dao.impl.OrganDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="logDAO" class="org.yy.user.dao.impl.LogDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="resourceDAO" class="org.yy.user.dao.impl.ResourceDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="systemDAO" class="org.yy.user.dao.impl.SystemDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="userGroupDAO" class="org.yy.user.dao.impl.UserGroupDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+	
+	<bean id="roleDAO" class="org.yy.user.dao.impl.RoleDaoImpl"
+		parent="abstarctIbatisDAO">
+	</bean>
+
+</beans>

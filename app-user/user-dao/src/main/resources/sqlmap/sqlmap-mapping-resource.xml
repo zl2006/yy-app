@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="res">
+	<resultMap id="RM-RESOURCE" type="TA-RESOURCE">
+		<result property="resID" column="RES_ID" />
+		<result property="systemCode" column="SYSTEM_CODE" />
+		<result property="parentResID" column="PARENT_RES_ID" />
+		<result property="name" column="NAME" />
+		<result property="ename" column="ENAME" />
+		<result property="url" column="URL" />
+
+		<result property="type" column="TYPE" />
+		<result property="icon" column="ICON" />
+		<result property="orderNO" column="ORDER_NO" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="status" column="STATUS" />
+		<result property="style" column="STYLE" />
+
+		<result property="hasChild" column="HAS_CHILD" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="createPerson" column="CREATE_PERSON" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="updatePerson" column="UPDATE_PERSON" />
+
+	</resultMap>
+
+	<sql id="SQL_SELECT_RESOURCE">
+		<![CDATA[
+	        SELECT
+				a.RES_ID ,
+   				a.SYSTEM_CODE,
+   				a.PARENT_RES_ID,
+   				a.NAME,
+   				a.ENAME,
+   				a.URL,
+   				a.TYPE,
+   				a.ICON,
+   				a.ORDER_NO,
+   				a.DESCRIPTION,
+   				a.STATUS,
+   				a.STYLE,
+   				a.HAS_CHILD,
+   				a.CREATE_TIME,
+   				a.CREATE_PERSON,
+   				a.UPDATE_TIME,
+   				a.UPDATE_PERSON
+	        FROM TB_USERADMIN_RESOURCE a
+	   ]]>
+	</sql>
+
+	<sql id="SQL_WHERE_RESOURCE">
+		<if test="resID != null and resID != ''">
+			AND a.RES_ID = #{resID}
+		</if>
+		<if test="systemCode != null and systemCode != ''">
+			AND a.SYSTEM_CODE = #{systemCode}
+		</if>
+		<if test="parentResID != null and parentResID != ''">
+			AND a.PARENT_RES_ID = #{parentResID}
+		</if>
+		<if test="name != null and name != ''">
+			AND a.NAME = #{name}
+		</if>
+		<if test="url != null and url != ''">
+			AND a.URL = #{url}
+		</if>
+		<if test="type != null and type != ''">
+			AND a.TYPE = #{type}
+		</if>
+		<if test="status != null and status != ''">
+			AND a.STATUS = #{status}
+		</if>
+	</sql>
+	
+	
+	<!--*************************************************************************************************************************-->
+	<!-- 新增资源信息 -->
+	<insert id="INSERT_RESOURCE" parameterType="TA-RESOURCE">
+		INSERT INTO TB_USERADMIN_RESOURCE  (RES_ID , SYSTEM_CODE, PARENT_RES_ID, NAME,ENAME, URL,TYPE,ICON,
+	   		ORDER_NO, DESCRIPTION, STATUS, STYLE, HAS_CHILD, CREATE_TIME, CREATE_PERSON, UPDATE_TIME, UPDATE_PERSON) 
+		values (#{resID}, #{systemCode},  #{parentResID},   #{name}, #{ename}, #{url}, #{type}, #{icon},
+				#{orderNO}, #{description}, #{status}, #{style},#{hasChild}, #{createTime}, #{createPerson}, #{updateTime}, #{updatePerson}) 
+	   	<selectKey resultType="long" keyProperty="resID">  
+        	SELECT LAST_INSERT_ID() AS RES_ID 
+	    </selectKey>
+	</insert>
+
+
+	<!-- 更新资源信息 -->
+	<update id="UPDATE_RESOURCE" parameterType="TA-RESOURCE">
+		UPDATE TB_USERADMIN_RESOURCE SET SYSTEM_CODE = #{systemCode}, PARENT_RES_ID = #{parentResID}, NAME = #{name}, ENAME = #{ename},URL=#{url}, TYPE = #{type},
+			ICON = #{icon},ORDER_NO = #{orderNO},  STATUS = #{status}, HAS_CHILD = #{hasChild}, STYLE = #{style}, DESCRIPTION = #{description}, 
+			UPDATE_TIME = #{updateTime}, UPDATE_PERSON = #{updatePerson}
+		WHERE RES_ID = #{resID}
+	</update>
+
+
+	<!-- 根据id获取资源信息 -->
+	<select id="FIND_RESOURCE_BY_ID" parameterType="java.lang.Long"
+		resultMap="RM-RESOURCE">
+		<include refid="SQL_SELECT_RESOURCE" /> WHERE a.RES_ID = #{value}
+	</select>
+
+	
+	<!-- 根据资源ID、 资源名称或资源位置等,获取资源信息 -->
+	<select id="FIND_RESOURCE_BY_DTO" parameterType="TA-RESOURCE-DTO" resultMap="RM-RESOURCE">
+		<include refid="SQL_SELECT_RESOURCE" /> WHERE 1 = 1 
+		<include refid="SQL_WHERE_RESOURCE"/>
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_RESOURCE_BY_DTO_PAGE_COUNT" parameterType="TA-RESOURCE-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_RESOURCE a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_RESOURCE" />
+	</select>
+	
+	<!--*************************************************************************************************************************-->
+	<!-- 根据role code获取资源信息 -->
+	<select id="FIND_RESOURCE_BY_ROLE" parameterType="java.lang.String" resultMap="RM-RESOURCE">
+		<include refid="SQL_SELECT_RESOURCE" /> , TB_USERADMIN_POPEDOM b WHERE a.RES_ID = b.RES_ID
+			AND b.ROLE_CODE = #{value}
+	</select>
+	
+	<!-- 新增权限 -->
+	<insert id="INSERT_ROLERESREL" parameterType="java.util.HashMap">
+		INSERT INTO TB_USERADMIN_POPEDOM  (RES_ID , ROLE_CODE,  CREATE_TIME, UPDATE_TIME) 
+		values (#{resID}, #{roleCode}, #{createTime},  #{updateTime}) 
+	</insert>
+	
+	<!-- 删除权限 -->
+	<delete id="DELETE_ROLERESREL" parameterType="java.util.HashMap">
+		DELETE FROM TB_USERADMIN_POPEDOM  WHERE ROLE_CODE = #{roleCode}
+		<if test="resID  != null and resID != ''">
+			AND RES_ID = #{resID}
+		</if>
+	</delete>
+	<!--*************************************************************************************************************************-->
+	<!-- 根据system获取资源信息 -->
+	<select id="FIND_RESOURCE_BY_SYSTEM" parameterType="java.lang.String" resultMap="RM-RESOURCE">
+		<include refid="SQL_SELECT_RESOURCE" /> where a.SYSTEM_CODE = #{value}
+	</select>
+	
+	<!-- 根据system,user 获取资源信息 -->
+	<select id="FIND_RESOURCE_BY_USER" parameterType="java.util.HashMap" resultMap="RM-RESOURCE">
+		<include refid="SQL_SELECT_RESOURCE" /> 
+		    ,TB_USERADMIN_POPEDOM b,
+		    TB_USERADMIN_ROLE c,
+		    TB_USERADMIN_USERROLEREL d
+		where
+		    a.SYSTEM_CODE = #{systemCode}
+		    and a.RES_ID = b.RES_ID
+		    and b.ROLE_CODE = c.ROLE_CODE
+		    and c.ROLE_CODE = d.ROLE_CODE
+		    and d.LOGIN_ID = #{loginID}
+		    order by a.ORDER_NO asc
+	</select>
+
+</mapper>
+

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dic">
+	<resultMap type="TA-DICTIONARY" id="RM-DICTIONARY">
+		<result property="dicID" column="DIC_ID" />
+		<result property="dicCode" column="DIC_CODE" />
+		<result property="name" column="NAME" />
+		<result property="value" column="VALUE" />
+		<result property="orderNO" column="ORDER_NO" />
+
+		<result property="type" column="TYPE" />
+		<result property="status" column="STATUS" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+	
+	<sql id="SQL_SELECT_DICTIONARY">
+		<![CDATA[
+	        SELECT
+				a.DIC_ID,
+   				a.DIC_CODE,
+   				a.NAME,
+   				a.VALUE,
+   				a.ORDER_NO,
+   				a.TYPE,
+   				a.STATUS,
+   				a.DESCRIPTION,
+   				a.CREATE_TIME,
+   				a.UPDATE_TIME
+	        FROM TB_USERADMIN_DICTIONARY a
+	   ]]>
+	</sql>
+	
+	
+	<sql id="SQL_WHERE_DICTIONARY">
+		<if test="dicCode != null and dicCode != ''">
+			AND a.DIC_CODE = #{dicCode}
+		</if>
+		<if test="name != null and name != ''">
+			AND a.NAME = #{name}
+		</if>
+		<if test="type != null and type != ''">
+			AND a.TYPE = #{type}
+		</if>
+		<if test="status != null and status != ''">
+			AND a.STATUS = #{status}
+		</if>
+	</sql>
+	
+	
+	<!--************************************************************************************************************************* -->
+	<!-- 新增字典信息 -->
+	<insert id="INSERT_DICTIONARY" parameterType="TA-DICTIONARY">
+		INSERT INTO TB_USERADMIN_DICTIONARY (DIC_ID , DIC_CODE, NAME, VALUE, ORDER_NO,
+			TYPE, STATUS, DESCRIPTION, CREATE_TIME, UPDATE_TIME)
+		values
+			(#{dicID}, #{dicCode}, #{name}, #{value}, #{orderNO}, #{type}, #{status},
+			#{description}, #{createTime}, #{updateTime})
+		<selectKey resultType="long" keyProperty="dicID">
+			SELECT LAST_INSERT_ID() AS DIC_ID
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 删除字典信息 -->
+	<delete id="DELETE_DICTIONARY" parameterType="java.lang.Long">
+		DELETE FROM TB_USERADMIN_DICTIONARY WHERE DIC_ID = #{value}
+	</delete>
+
+
+	<!-- 更新字典信息 -->
+	<update id="UPDATE_DICTIONARY" parameterType="TA-DICTIONARY">
+		UPDATE TB_USERADMIN_DICTIONARY SET DIC_CODE = #{dicCode}, VALUE = #{value},
+			ORDER_NO = #{orderNO}, name = #{name} , TYPE =  #{type}, STATUS = #{status}, DESCRIPTION = #{description}, UPDATE_TIME = #{updateTime}
+		WHERE DIC_ID = #{dicID}
+	</update>
+	
+
+	<!-- 获取所有的字典信息 -->
+	<select id="FIND_ALL_DICTIONARY" resultMap="RM-DICTIONARY">
+		<include refid="SQL_SELECT_DICTIONARY" />
+	</select>
+
+
+	<!-- 根据字典编码, 字典名称, 字典类型, 状态 获取字典信息 -->
+	<select id="FIND_DICTIONARY_BY_DTO" resultMap="RM-DICTIONARY" parameterType="TA-DICTIONARY-DTO">
+		<include refid="SQL_SELECT_DICTIONARY" /> WHERE 1 = 1
+		<include refid="SQL_WHERE_DICTIONARY" />
+		<if test="pagination != null">LIMIT #{pagination.startNum}, #{pagination.pageSize}</if>
+	</select>
+	<select id="FIND_DICTIONARY_BY_DTO_PAGE_COUNT" resultType="java.lang.Integer"
+		parameterType="TA-DICTIONARY-DTO">
+		SELECT COUNT(1) FROM TB_USERADMIN_DICTIONARY a WHERE 1 = 1
+		<include refid="SQL_WHERE_DICTIONARY" />
+	</select>
+	
+	
+	<!-- 根据id获取组织机构信息 -->
+	<select id="FIND_DICTIONARY_BY_ID" parameterType="java.lang.Long"
+		resultMap="RM-DICTIONARY">
+		<include refid="SQL_SELECT_DICTIONARY" />
+		WHERE a.DIC_ID = #{value}
+	</select>
+
+</mapper>

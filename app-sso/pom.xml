@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.yy</groupId>
+		<artifactId>home</artifactId>
+		<version>1.0</version>
+		<relativePath>../../yy-home/pom.xml</relativePath>
+	</parent>
+    	<artifactId>app-sso</artifactId>
+    	<packaging>pom</packaging>
+    	<name>app-sso</name>
+	
+
+	<!--模块声明-->
+    	<modules>
+		<module>./sso-core</module>			<!--单点登录核心模块-->
+		<module>./sso-client</module>		<!--单点登录web客户端-->	
+		<module>./sso-server-webapp</module>		<!--单点登录服务器端web-->	
+    	</modules>
+</project>

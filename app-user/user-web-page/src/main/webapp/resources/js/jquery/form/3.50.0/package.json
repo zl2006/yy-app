@@ -1,0 +1,13 @@
+{
+  "family": "jquery",
+  "name": "form",
+  "version": "3.50.0",
+  "description": "jQuery plugin for form manipulation and util support.",
+  "keywords": [ "form", "util" ],
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["form.js"]
+  }
+}

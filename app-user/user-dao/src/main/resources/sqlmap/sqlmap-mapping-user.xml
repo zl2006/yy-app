@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<resultMap id="RM-USER" type="TA-USER">
+		<result property="userID" column="USER_ID" />
+		<result property="loginID" column="LOGIN_ID" />
+		<result property="name" column="USERNAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="email" column="EMAIL" />
+
+		<result property="tel" column="TEL" />
+		<result property="sex" column="SEX" />
+		<result property="status" column="STATUS" />
+		<result property="address" column="ADDRESS" />
+		<result property="birthday" column="BIRTHDAY" />
+
+		<result property="latnNo" column="LATNNO" />
+		<result property="loginNumber" column="LOGIN_NUMBER" />
+		<result property="token" column="TOKEN" />
+		<result property="exprieDate" column="EXPIRE_DATE" />
+
+		<result property="lastLoginTime" column="LAST_LOGIN_TIME" />
+		<result property="createPerson" column="CREATE_PERSON" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="updatePerson" column="UPDATE_PERSON" />
+	</resultMap>
+
+	<sql id="SQL_SELECT_USER">
+		<![CDATA[
+	        SELECT
+				a.USER_ID ,
+   				a.LOGIN_ID,
+   				a.USERNAME,
+   				a.PASSWORD,
+   				a.EMAIL,
+   				a.TEL,
+   				a.SEX,
+   				a.STATUS,
+   				a.ADDRESS,
+   				a.BIRTHDAY,
+   				a.LATNNO,
+   				a.LOGIN_NUMBER,
+   				a.EXPIRE_DATE,
+   				a.TOKEN,
+   				a.LAST_LOGIN_TIME,
+   				a.CREATE_TIME,
+   				a.CREATE_PERSON,
+   				a.UPDATE_TIME,
+   				a.UPDATE_PERSON
+	        FROM TB_USERADMIN_USER a
+	   ]]>
+	</sql>
+
+
+	<sql id="SQL_WHERE_USER">
+		<if test="loginID != null and loginID != ''">
+			and a.LOGIN_ID = #loginID#
+		</if>
+		<if test="name != null and name != ''">
+			and a.USERNAME = #name#
+		</if>
+		<if test="tel != null and tel != ''">
+			and a.TEL = #tel#
+		</if>
+	</sql>
+	
+	<!-- 创建用户信息 -->
+	<insert id="INSERT_USER" parameterType="TA-USER">
+		INSERT INTO TB_USERADMIN_USER  (USER_ID , LOGIN_ID, USERNAME, PASSWORD, EMAIL,
+	   		TEL, SEX, STATUS, ADDRESS, BIRTHDAY,
+	   		LATNNO, LOGIN_NUMBER, EXPIRE_DATE, TOKEN, LAST_LOGIN_TIME,
+	   		CREATE_TIME, CREATE_PERSON, UPDATE_TIME, UPDATE_PERSON) 
+		values (#{userID}, #{loginID},  #{name},   #{password},  #{email}, 
+				#{tel}, #{sex},  #{status},   #{address},  #{birthday},
+				#{latnNo}, #{loginNumber},  #{exprieDate},   #{token},  #{lastLoginTime},
+		        #{createTime}, #{createPerson}, #{updateTime}, #{updatePerson}) 
+	   	<selectKey resultType="java.lang.Long" keyProperty="userID">  
+        	SELECT LAST_INSERT_ID() AS USER_ID 
+	    </selectKey>
+	</insert>
+
+
+	<!-- 更新用户信息 -->
+	<update id="UPDATE_USER" parameterType="TA-USER">
+		UPDATE TB_USERADMIN_USER SET LOGIN_ID = #{loginID}, USERNAME = #{name}, EMAIL = #{email},
+			TEL = #{tel}, SEX = #{sex}, STATUS = #{status},
+			ADDRESS = #{address}, BIRTHDAY = #{birthday}, LATNNO = #{latnNo} ,
+			UPDATE_TIME = #{updateTime}, UPDATE_PERSON = #{updatePerson}
+		WHERE USER_ID = #{userID}
+	</update>
+
+
+	<!-- 根据登录id获取用户信息 -->
+	<select id="FIND_USER_BY_LOGINID" parameterType="java.lang.String"
+		resultMap="RM-USER">
+		<include refid="SQL_SELECT_USER" /> WHERE a.LOGIN_ID = #{value}
+	</select>
+
+	
+	<!-- 根据登录ID、姓名或电话号码,获取用户信息 -->
+	<select id="FIND_USER_BY_DTO" parameterType="TA-USER-DTO" resultMap="RM-USER">
+		<include refid="SQL_SELECT_USER" /> WHERE 1 = 1  
+		<include refid="SQL_WHERE_USER"/>
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_USER_BY_DTO_PAGE_COUNT" parameterType="TA-USER-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_USER a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_USER" />
+	</select>
+	
+	
+	<!-- 根据登录ID、姓名或电话号码,获取用户信息 -->
+	<select id="FIND_USER" parameterType="TA-USER-DTO" resultMap="RM-USER">
+		<include refid="SQL_SELECT_USER" /> WHERE 1 = 1  
+		<include refid="SQL_WHERE_USER"/>
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_USER_PAGE_COUNT" parameterType="TA-USER-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_USER a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_USER" />
+	</select>
+	
+	<!-- 根据组织机构查询用户,获取用户信息 -->
+	<select id="FIND_USER_BY_ORGAN" parameterType="java.lang.String" resultMap="RM-USER">
+		<include refid="SQL_SELECT_USER" /> TB_USERADMIN_USERORGANREL b 
+	        	WHERE a.LOGIN_ID = b.LOGIN_ID and  b.ORGAN_CODE = #{value}
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_USER_BY_ORGAN_PAGE_COUNT" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_USER a, TB_USERADMIN_USERORGANREL b 
+	        	WHERE a.LOGIN_ID = b.LOGIN_ID and  b.ORGAN_CODE = #{value}
+	    ]]>
+	</select>
+	
+	
+</mapper>

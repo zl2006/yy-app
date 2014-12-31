@@ -1,0 +1,10 @@
+{
+  "family": "gallery",
+  "name": "juicer",
+  "version": "0.6.5",
+  "description": "javascript template engion",
+  "keywords": [ "juicer", "template" ],
+  "spm": {
+    "output": ["juicer.js"]
+  }
+}

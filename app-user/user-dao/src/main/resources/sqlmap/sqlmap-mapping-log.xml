@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="log">
+	<resultMap id="RM-LOG" type="TA-LOG">
+		<result property="logID" column="LOG_ID" />
+		<result property="operatorID" column="OPERATOR_ID" />
+		<result property="operName" column="OPER_NAME" />
+		<result property="operType" column="OPER_TYPE" />
+		<result property="busiDataType" column="BUSI_DATA_TYPE" />
+
+		<result property="busiDataID" column="BUIS_DATA_ID" />
+		<result property="remark" column="REMARK" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+
+	<sql id="SQL_SELECT_LOG">
+		<![CDATA[
+	        SELECT
+				LOG_ID ,
+   				OPERATOR_ID,
+   				OPER_NAME,
+   				OPER_TYPE,
+   				BUSI_DATA_TYPE,
+   				BUIS_DATA_ID,
+   				REMARK,
+   				CREATE_TIME,
+   				UPDATE_TIME
+	        FROM TB_USERADMIN_LOG
+	   ]]>
+	</sql>
+
+	<sql id="SQL_WHERE_LOG">
+		<if test="operName != null and operName != ''">
+			AND a.OPER_NAME = #{operName}
+		</if>
+		<if test="busiDataType != null and busiDataType != ''">
+			AND a.BUSI_DATA_TYPE = #{busiDataType}
+		</if>
+		<if test="startCreateTime != null and startCreateTime != ''">
+			AND a.CREATE_TIME = #{startCreateTime}
+		</if>
+		<if test="endCreateTime != null and endCreateTime != ''" >
+			AND a.CREATE_TIME = #{endCreateTime}
+		</if>
+	</sql>
+
+
+	<!-- 创建日志信息 -->
+	<insert id="INSERT_LOG" parameterType="TA-LOG">
+		INSERT INTO TB_USERADMIN_LOG (LOG_ID , OPERATOR_ID, OPER_NAME,
+		OPER_TYPE, BUSI_DATA_TYPE,
+		BUIS_DATA_ID, REMARK, CREATE_TIME,UPDATE_TIME)
+		values (#{logID}, #{operatorID}, #{operName}, #{operType}, #{busiDataType},
+		#{busiDataID}, #{remark}, #{createTime}, #{updateTime})
+		<selectKey resultType="int" keyProperty="logID">
+			SELECT LAST_INSERT_ID() AS LOG_ID
+		</selectKey>
+	</insert>
+
+	<!-- 根据ID获取日志 -->
+	<select id="FIND_LOG_BY_ID" parameterType="java.lang.Long"
+		resultMap="RM-LOG">
+		<include refid="SQL_SELECT_LOG" />
+		WHERE LOG_ID = #{value}
+	</select>
+
+	<!-- 根据操作者、日志类型、产生日期,获取日志 -->
+	<select id="FIND_LOG_BY_DTO" parameterType="TA-LOG-DTO"
+		resultMap="RM-LOG">
+		<include refid="SQL_SELECT_LOG" />
+		WHERE 1 = 1
+		<include refid="SQL_WHERE_LOG" />
+		<if  test="pagination != null">
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_LOG_BY_DTO_PAGE_COUNT" parameterType="TA-LOG-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_LOG WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_LOG" />
+	</select>
+</mapper>
+

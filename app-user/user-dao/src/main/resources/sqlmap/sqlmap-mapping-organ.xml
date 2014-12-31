@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="organ">
+
+	<resultMap id="RM-ORGAN" type="TA-ORGAN">
+		<result property="organID" column="ORGAN_ID" />
+		<result property="organCode" column="ORGAN_CODE" />
+		<result property="parentOrganCode" column="PARENT_ORGAN_CODE" />
+		<result property="name" column="NAME" />
+		<result property="sname" column="SNAME" />
+
+		<result property="principal" column="PRINCIPAL" />
+		<result property="secondPrincipal" column="SECOND_PRINCIPAL" />
+		<result property="tel" column="TEL" />
+		<result property="fax" column="FAX" />
+		<result property="postCode" column="POST_CODE" />
+
+		<result property="hasChild" column="HAS_CHILD" />
+		<result property="status" column="STATUS" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="createPerson" column="CREATE_PERSON" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="updatePerson" column="UPDATE_PERSON" />
+	</resultMap>
+
+	<sql id="SQL_SELECT_ORGAN">
+		<![CDATA[
+	        SELECT
+				a.ORGAN_ID ,
+   				a.ORGAN_CODE,
+   				a.PARENT_ORGAN_CODE,
+   				a.NAME,
+   				a.SNAME,
+   				a.PRINCIPAL,
+   				a.SECOND_PRINCIPAL,
+   				a.TEL,
+   				a.FAX,
+   				a.POST_CODE,
+   				a.HAS_CHILD,
+   				a.STATUS,
+   				a.DESCRIPTION,
+   				a.CREATE_TIME,
+   				a.CREATE_PERSON,
+   				a.UPDATE_TIME,
+   				a.UPDATE_PERSON
+	        FROM TB_USERADMIN_ORGAN a
+	   ]]>
+	</sql>
+
+	<sql id="SQL_WHERE_ORGAN">
+		<if test="organCode != null and organCode != ''">
+			and a.ORGAN_CODE = #{organCode}
+		</if>
+		<if test="parentOrganCode != null and parentOrganCode != ''">
+			and a.PARENT_ORGAN_CODE = #{parentOrganCode}
+		</if>
+		<if test="name != null and name != ''">
+			and a.NAME = #{name}
+		</if>
+		<if test="status != null and status != ''">
+			and a.STATUS = #{status}
+		</if>
+	</sql>
+
+	<!--************************************************************************************************************************* -->
+	<!-- 新增组织机构信息 -->
+	<insert id="INSERT_ORGAN" parameterType="TA-ORGAN">
+		INSERT INTO TB_USERADMIN_ORGAN (ORGAN_ID , ORGAN_CODE,
+			PARENT_ORGAN_CODE, NAME, SNAME,PRINCIPAL,SECOND_PRINCIPAL,
+			TEL, FAX,POST_CODE, HAS_CHILD,STATUS, DESCRIPTION, CREATE_TIME, CREATE_PERSON,
+			UPDATE_TIME, UPDATE_PERSON)
+		values (#{organID}, #{organCode}, #{parentOrganCode}, #{name}, #{sname},
+			#{principal}, #{secondPrincipal}, #{tel}, #{fax}, #{postCode},#{hasChild}, #{status}, #{description},
+			#{createTime}, #{createPerson}, #{updateTime}, #{updatePerson})
+		<selectKey resultType="long" keyProperty="organID">
+			SELECT LAST_INSERT_ID() AS ORGAN_ID
+		</selectKey>
+	</insert>
+
+
+	<!-- 更新组织机构信息 -->
+	<update id="UPDATE_ORGAN" parameterType="TA-ORGAN">
+		UPDATE TB_USERADMIN_ORGAN SET ORGAN_CODE = #{organCode}, PARENT_ORGAN_CODE = #{parentOrganCode}, NAME = #{name},PRINCIPAL=#{principal},
+			SECOND_PRINCIPAL = #{secondPrincipal}, SNAME = #{sname},TEL = #{tel},FAX = #{fax},POST_CODE = #{postCode}, 
+			HAS_CHILD = #{hasChild}, STATUS = #{status}, DESCRIPTION = #{description}, UPDATE_TIME = #{updateTime}, UPDATE_PERSON = #{updatePerson}
+		WHERE ORGAN_ID = #{organID}
+	</update>
+
+
+	<!-- 根据id获取组织机构信息 -->
+	<select id="FIND_ORGAN_BY_ID" parameterType="java.lang.Long"
+		resultMap="RM-ORGAN">
+		<include refid="SQL_SELECT_ORGAN" />
+		WHERE a.ORGAN_ID = #{value}
+	</select>
+
+
+	<!-- 根据CODE获取组织机构信息 -->
+	<select id="FIND_ORGAN_BY_CODE" parameterType="java.lang.String"
+		resultMap="RM-ORGAN">
+		<include refid="SQL_SELECT_ORGAN" />
+		WHERE a.ORGAN_CODE = #{value}
+	</select>
+
+
+
+	<!-- 根据登录ID、姓名或电话号码,获取组织信息 -->
+	<select id="FIND_ORGAN_BY_DTO" parameterType="TA-ORGAN-DTO" resultMap="RM-ORGAN">
+		<include refid="SQL_SELECT_ORGAN" />
+		WHERE 1 = 1
+		<include refid="SQL_WHERE_ORGAN" />
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_ORGAN_BY_DTO_PAGE_COUNT" parameterType="TA-ORGAN-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_ORGAN a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_ORGAN" />
+	</select>
+
+	<!--*************************************************************************************************************************-->
+	<!-- 查询用户的组织机构信息 -->
+	<select id="FIND_ORGAN_BY_USER" parameterType="java.lang.String"
+		resultMap="RM-ORGAN">
+		<include refid="SQL_SELECT_ORGAN" /> , TB_USERADMIN_USERORGANREL b WHERE a.ORGAN_CODE = b.ORGAN_CODE AND b.LOGIN_ID = #{value}
+	</select>
+
+	<!-- 插入用户的组织机构关系 -->
+	<insert id="INSERT_USERORGANREF" parameterType="java.util.HashMap">
+		INSERT INTO TB_USERADMIN_USERORGANREL (LOGIN_ID , ORGAN_CODE, CREATE_TIME, UPDATE_TIME)
+		VALUES (#{loginID}, #{organCode}, #{createTime},#{updateTime})
+	</insert>
+
+	<!-- 删除组织机构关系 -->
+	<delete id="DELETE_USERORGANREF" parameterType="java.util.HashMap">
+		DELETE FROM TB_USERADMIN_USERORGANREL WHERE LOGIN_ID = #{loginID}
+		<if test="organCode != null and organCode !=''">
+			AND ORGAN_CODE = #{organCode}
+		</if>
+	</delete>
+
+</mapper>
+

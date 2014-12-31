@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="role">
+	<resultMap id="RM-ROLE" type="TA-ROLE">
+		<result property="roleID" column="ROLE_ID" />
+		<result property="roleCode" column="ROLE_CODE" />
+		<result property="name" column="NAME" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="status" column="STATUS" />
+
+		<result property="systemCode" column="SYSTEM_CODE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="createPerson" column="CREATE_PERSON" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="updatePerson" column="UPDATE_PERSON" />
+
+	</resultMap>
+
+	<sql id="SQL_SELECT_ROLE">
+		<![CDATA[
+	        SELECT
+				a.ROLE_ID ,
+   				a.ROLE_CODE,
+   				a.NAME,
+   				a.DESCRIPTION,
+   				a.STATUS,
+   				a.SYSTEM_CODE,
+   				a.CREATE_TIME,
+   				a.CREATE_PERSON,
+   				a.UPDATE_TIME,
+   				a.UPDATE_PERSON
+	        FROM TB_USERADMIN_ROLE a
+	   ]]>
+	</sql>
+
+
+	<sql id="SQL_WHERE_ROLE">
+		<if test="roleCode != null and roleCode != ''">
+			and a.ROLE_CODE = #{roleCode}
+		</if>
+		<if test="name != null and name != ''">
+			and a.NAME = #{name}
+		</if>
+		<if test="systemCode != null and systemCode != ''">
+			and a.SYSTEM_CODE = #{systemCode}
+		</if>
+		<if test="status != null and status != ''">
+			a.STATUS = #{status}
+		</if>
+	</sql>
+	<!--************************************************************************************************************************* -->
+
+	<!-- 新增角色 -->
+	<insert id="INSERT_ROLE" parameterType="TA-ROLE">
+		INSERT INTO TB_USERADMIN_ROLE (ROLE_ID , ROLE_CODE,SYSTEM_CODE, NAME, STATUS,
+			DESCRIPTION, CREATE_TIME, CREATE_PERSON, UPDATE_TIME, UPDATE_PERSON)
+		values (#{roleID}, #{roleCode},#{systemCode}, #{name}, #{status}, #{description},
+			#{createTime}, #{createPerson}, #{updateTime}, #{updatePerson})
+		<selectKey resultType="long" keyProperty="roleID">
+			SELECT LAST_INSERT_ID() AS ROLE_ID
+		</selectKey>
+	</insert>
+
+
+	<!-- 更新角色 -->
+	<update id="UPDATE_ROLE" parameterType="TA-ROLE">
+		UPDATE TB_USERADMIN_ROLE SET ROLE_CODE = #{roleCode}, NAME = #{name}, STATUS = #{status}, DESCRIPTION = #{description},
+			SYSTEM_CODE = #{systemCode}, UPDATE_TIME = #{updateTime}, UPDATE_PERSON = #{updatePerson}
+		WHERE ROLE_ID = #{roleID}
+	</update>
+
+
+	<!-- 根据CODE获取角色 -->
+	<select id="FIND_ROLE_BY_CODE" parameterType="java.lang.String"
+		resultMap="RM-ROLE">
+		<include refid="SQL_SELECT_ROLE" />
+		WHERE a.ROLE_CODE = #{value}
+	</select>
+
+
+
+	<!-- 根据角色编号 角色名称 状态,获取角色 -->
+	<select id="FIND_ROLE_BY_DTO" parameterType="TA-ROLE-DTO"
+		resultMap="RM-ROLE">
+		<include refid="SQL_SELECT_ROLE" /> WHERE 1 = 1 <include refid="SQL_WHERE_ROLE" />
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_ROLE_BY_DTO_PAGE_COUNT" parameterType="TA-ROLE-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_ROLE a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_ROLE" />
+	</select>
+
+	<!--************************************************************************************************************************* -->
+
+	<!-- 根据用户组ID获取角色 -->
+	<select id="FIND_ROLE_BY_GROUP" parameterType="java.lang.Long"
+		resultMap="RM-ROLE">
+		<include refid="SQL_SELECT_ROLE" />
+			, TB_USERADMIN_GROUPROLEREL b WHERE a.ROLE_CODE = b.ROLE_CODE AND b.USERGROUP_ID  = #{value}
+	</select>
+
+
+	<!-- 新增用户组与角色的关系 -->
+	<insert id="INSERT_GROUPROLEREF" parameterType="java.util.HashMap">
+		INSERT INTO TB_USERADMIN_GROUPROLEREL (USERGROUP_ID , ROLE_CODE, CREATE_TIME, UPDATE_TIME)
+			values (#{userGroupID}, #{roleCode}, #{createTime}, #{updateTime})
+	</insert>
+
+
+	<!-- 删除用户组与角色的关系 -->
+	<delete id="DELETE_USERGROUPREF" parameterType="java.util.HashMap">
+		DELETE FROM TB_USERADMIN_GROUPROLEREL WHERE USERGROUP_ID = #{userGroupID}
+		<if test="roleCode != null">
+			and ROLE_CODE = #{roleCode}
+		</if>
+	</delete>
+	<!--************************************************************************************************************************* -->
+	<!-- 根据用户ID获取角色 -->
+	<select id="FIND_ROLE_BY_USER" parameterType="java.lang.String"
+		resultMap="RM-ROLE">
+		<include refid="SQL_SELECT_ROLE" />
+		, TB_USERADMIN_USERROLEREL b WHERE a.ROLE_CODE = b.ROLE_CODE AND b.LOGIN_ID = #{value}
+	</select>
+
+	<!-- 新增用户与角色的关系 -->
+	<insert id="INSERT_USERROLEREF" parameterType="java.util.HashMap">
+		INSERT INTO TB_USERADMIN_USERROLEREL (LOGIN_ID , ROLE_CODE, CREATE_TIME, UPDATE_TIME)
+			values (#{loginID}, #{roleCode}, #{createTime}, #{updateTime})
+	</insert>
+
+	<!-- 删除用户与角色的关系 -->
+	<delete id="DELETE_USERROLEREF" parameterType="java.util.HashMap">
+		DELETE FROM TB_USERADMIN_USERROLEREL WHERE LOGIN_ID = #{loginID}
+		<if test="roleCode != null">
+			and ROLE_CODE = #{roleCode}
+		</if>
+	</delete>
+	
+	<!--************************************************************************************************************************* -->
+	<!-- 根据系统获取角色 -->
+	<select id="FIND_ROLE_BY_SYSTEM" parameterType="java.lang.String" resultMap="RM-ROLE">
+		<include refid="SQL_SELECT_ROLE" /> where a.systemCode = #{value}
+	</select>
+</mapper>
+
+

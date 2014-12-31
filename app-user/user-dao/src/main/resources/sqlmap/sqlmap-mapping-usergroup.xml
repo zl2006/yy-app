@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="usergroup">
+
+	<resultMap id="RM-USERGROUP" type="TA-USERGROUP">
+		<result property="userGroupID" column="USERGROUP_ID" />
+		<result property="groupName" column="GROUP_NAME" />
+		<result property="status" column="STATUS" />
+		<result property="description" column="DESCRIPTION" />
+		
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="createPerson" column="CREATE_PERSON" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="updatePerson" column="UPDATE_PERSON" />
+	</resultMap>
+
+	<sql id="SQL_SELECT_USERGROUP">
+		<![CDATA[
+	        SELECT
+				a.USERGROUP_ID ,
+   				a.GROUP_NAME,
+   				a.STATUS,
+   				a.DESCRIPTION,
+   				a.CREATE_TIME,
+   				a.CREATE_PERSON,
+   				a.UPDATE_TIME,
+   				a.UPDATE_PERSON
+	        FROM TB_USERADMIN_USERGROUP a
+	   ]]>
+	</sql>
+
+	<sql id="SQL_WHERE_USERGROUP">
+		<if test="groupName != null and groupName != ''">
+			and a.GROUP_NAME = #groupName#
+		</if>
+		<if test="status != null and status != ''">
+			and a.STATUS = #status#
+		</if>
+	</sql>
+	
+	
+	<!--*************************************************************************************************************************-->
+	
+	<!-- 新增户组 -->
+	<insert id="INSERT_USERGROUP" parameterType="TA-USERGROUP">
+		INSERT INTO TB_USERADMIN_USERGROUP  (USERGROUP_ID , GROUP_NAME, STATUS, DESCRIPTION,
+	   		CREATE_TIME, CREATE_PERSON, UPDATE_TIME, UPDATE_PERSON) 
+		values (#{userGroupID}, #{groupName},  #{status},#{description},
+		        #{createTime}, #{createPerson},#{updateTime}, #{updatePerson}) 
+	   	<selectKey resultType="long" keyProperty="userGroupID">  
+        	SELECT LAST_INSERT_ID() AS USERGROUP_ID 
+	    </selectKey>
+	</insert>
+
+
+	<!-- 更新户组 -->
+	<update id="UPDATE_USERGROUP" parameterType="TA-USERGROUP">
+		UPDATE TB_USERADMIN_USERGROUP SET GROUP_NAME = #{groupName}, STATUS = #{status}, DESCRIPTION = #{description},
+			UPDATE_TIME = #{updateTime}, UPDATE_PERSON = #{updatePerson}
+		WHERE USERGROUP_ID = #{userGroupID}
+	</update>
+
+
+	<!-- 根据id获取户组 -->
+	<select id="FIND_USERGROUP_BY_ID" parameterType="java.lang.Long"
+		resultMap="RM-USERGROUP">
+		<include refid="SQL_SELECT_USERGROUP" /> WHERE a.USERGROUP_ID = #{userGroupID}
+	</select>
+
+	
+	<!-- 根据用户组名称、状态,获取户组 -->
+	<select id="FIND_USERGROUP" parameterType="TA-USERGROUP-DTO" resultMap="RM-USERGROUP">
+		<include refid="SQL_SELECT_USERGROUP" /> WHERE 1 = 1 
+		<include refid="SQL_WHERE_USERGROUP"/>
+		<if test="pagination != null" >
+			LIMIT #{pagination.startNum}, #{pagination.pageSize}
+		</if>
+	</select>
+	<select id="FIND_USERGROUP_PAGE_COUNT" parameterType="TA-USERGROUP-DTO"
+		resultType="java.lang.Integer">
+		<![CDATA[
+	        SELECT count(1) FROM TB_USERADMIN_USERGROUP a WHERE 1 = 1  
+	    ]]>
+		<include refid="SQL_WHERE_USERGROUP" />
+	</select>
+	
+	<!--*************************************************************************************************************************-->
+	
+	<!-- 查询用户的用户组信息 -->
+	<select id="FIND_USERGROUP_BY_USER" parameterType="java.lang.String" resultMap="RM-USERGROUP" >
+		<include refid="SQL_SELECT_USERGROUP" /> , TB_USERADMIN_USERGROUPREL b WHERE a.USERGROUP_ID = b.USERGROUP_ID and b.LOGIN_ID = #{value}
+	</select>
+	
+	<!-- 插入用户的用户组关系 -->
+	<insert id="INSERT_USERGROUPREF" parameterType="java.util.HashMap">
+		INSERT INTO TB_USERADMIN_USERGROUPREL  (USERGROUP_ID , LOGIN_ID, CREATE_TIME, UPDATE_TIME) 
+			VALUES (#{userGroupID}, #{loginID}, #{createTime},#{updateTime}) 
+	</insert>
+	
+	<!-- 删除字典信息 -->
+	<delete id="DELETE_USERGROUPREF" parameterType="java.util.HashMap">
+		DELETE FROM TB_USERADMIN_USERGROUPREL  WHERE LOGIN_ID = #{loginID}
+		<if test="userGroupID != null and userGroupID != ''">
+			and USERGROUP_ID = #{userGroupID}
+		</if>
+	</delete>
+</mapper>
+

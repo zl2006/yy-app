@@ -1,0 +1,13 @@
+{
+  "family": "gallery",
+  "name": "bootstrapvalidator",
+  "version": "1.0.3",
+  "description": "bootstrap validator",
+  "keywords": [ "bootstrap", "validator" ],
+  "spm": {
+    "alias": {
+      "$": "$"
+    },
+    "output": ["bootstrap3validator.js"]
+  }
+}
