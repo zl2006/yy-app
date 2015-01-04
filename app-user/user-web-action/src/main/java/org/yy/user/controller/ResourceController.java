@@ -82,7 +82,7 @@ public class ResourceController extends AbsUserController {
         if (res.getParentResID() == null) {
             res.setParentResID(-1l);
         }
-        res.setResID(null); //防止获取到控制权限的资源ＩＤ
+        res.setResID(null); //防止获取到控制权限的资源ＩＤ, 初始化资源ID为空
         resourceService.saveResource(res);
         return processSuccess(SUCCESS_PAGE, res);
     }

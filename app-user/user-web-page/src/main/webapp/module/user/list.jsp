@@ -77,8 +77,8 @@
 									<td><c:if test="${item.sex == 'F'}">女</c:if> <c:if test="${item.sex == 'M'}">男</c:if></td>
 									<td><c:if test="${item.status == 1}">有效</c:if> <c:if test="${item.status == 0}">无效</c:if></td>
 									<td>
-										<a resID="17" class="popedom" condition="1" params="loginID=${item.loginID}"></a>
-										<a resID="46" class="popedom" condition="1" params="loginID=${item.loginID}"></a>
+										<a resID="18" class="popedom" condition="1" params="loginID=${item.loginID}"></a>
+										<a resID="19" class="popedom" condition="1" params="loginID=${item.loginID}"></a>
 									</td>
 								</tr>
 							</c:forEach>

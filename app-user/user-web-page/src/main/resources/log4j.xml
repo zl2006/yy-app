@@ -17,8 +17,6 @@
 	</appender>
 	<!-- end -->
 
-
-
 	<!-- 性能日志文件配置 -->
 	<!-- 文件输出管道，把汇总的perf4j的日志信息写到perfStats.log文件中去 -->
 	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
@@ -41,9 +39,6 @@
 	</logger>
 	<!-- end -->
 
-
-
-
 	<!-- 文件输出输入日志配置 -->
 	<appender name="myFile" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="/tmp/user/user.log" />
@@ -59,7 +54,6 @@
 		value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" /> </layout> </appender> 
 		<logger name="com.runway.bssp.activeXdemo" additivity="false"> <priority 
 		value="info" /> <appender-ref ref="activexAppender" /> </logger> -->
-
 
 	<!-- 数据库调试日志，通过指定包或具体的类实现 -->
 	<logger name="com.ibatis">

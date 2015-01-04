@@ -4,10 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
 	<display-name>simple_web</display-name>
-	<welcome-file-list>
-		<welcome-file>/index.do</welcome-file>
-	</welcome-file-list>
-
 
 	<!-- 日志配置 -->
 	<context-param>
@@ -18,8 +14,10 @@
 		<param-name>log4jRefreshInterval</param-name>
 		<param-value>60000</param-value>
 	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
 	<!-- end -->
-
 
 	<!-- **********************************单点登录Filter*************************************************** -->
 	<filter>
@@ -91,9 +89,6 @@
 	</listener>
 	<!-- listener> <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class> 
 		</listener -->
-	<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -102,13 +97,11 @@
 			<param-value>utf-8</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- ************************************************************************************* -->
-
 
 
 	<!-- ***********************************spring mvc *********************************** -->
@@ -137,18 +130,19 @@
 		<error-code>404</error-code>
 		<location>/common/error404.jsp</location>
 	</error-page>
-
 	<error-page>
 		<error-code>500</error-code>
 		<location>/common/error500.jsp</location>
 	</error-page>
 	<!-- ********************************************************************** -->
 
+	<welcome-file-list>
+		<welcome-file>/index.do</welcome-file>
+	</welcome-file-list>
 
 	<!-- 配置session存在时间 -->
 	<session-config>
 		<session-timeout>60</session-timeout>
 	</session-config>
-
 
 </web-app>

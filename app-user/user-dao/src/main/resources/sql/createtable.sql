@@ -114,7 +114,7 @@ create table user_admin.TB_USERADMIN_USER
    USER_ID              int(11) not null auto_increment comment '用户ID',
    LOGIN_ID             char(64) not null comment '登录ID',
    USERNAME             char(64) not null comment '用户姓名',
-   PASSWORD             char(32) not null comment '密码',
+   PASSWORD             char(64) not null comment '密码',
    EMAIL                char(128) comment '邮箱',
    TEL                  char(32) comment '电话',
    SEX                  char(1) comment '性别:M男,F女',
@@ -336,4 +336,9 @@ alter table user_admin.TB_USERADMIN_POPEDOM add constraint FK_REF_RES_ROLE forei
 
 alter table user_admin.TB_USERADMIN_POPEDOM add constraint FK_REF_ROLE_RES foreign key (RES_ID)
       references user_admin.TB_USERADMIN_RESOURCE (RES_ID);
+      
+      
+      
+ALTER TABLE `user_admin`.`TB_USERADMIN_RESOURCE`  ADD COLUMN `HAS_CHILD` INT(1) NULL AFTER `STYLE`;
+
 

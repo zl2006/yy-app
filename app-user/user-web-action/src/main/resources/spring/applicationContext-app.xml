@@ -24,7 +24,6 @@
 		</property>
 	</bean>
 
-
 	<!-- 数据源配置 -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
@@ -42,7 +41,6 @@
 		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	<!-- end -->
-
 
 	<!-- 事务配置 -->
 	<tx:advice id="txAdvice" transaction-manager="txManager">
@@ -66,8 +64,6 @@
 	</bean>
 	<!-- end -->
 
-
-
 	<!-- 国际化 start -->
 	<!-- 设置国际化属性文件及其默认编码 注意：未设置p:defaultEncoding="UTF-8"前页面出现过乱码 -->
 	<bean id="messageSource"
@@ -80,8 +76,6 @@
 		<property name="useCodeAsDefaultMessage" value="true" />
 	</bean>
 	<!-- 国际化 end -->
-
-
 
 	<!-- cache -->
 	<!-- 
@@ -113,9 +107,8 @@
 	 -->
 	<!-- end -->
 
-
-
 	<!-- 性能监控日志 -->
+	<!-- 
 	<bean id="perf4jInterceptor" class="org.yy.framework.base.log.Perf4jInterceptor"></bean>
 	<bean
 		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
@@ -129,6 +122,6 @@
 				<value>perf4jInterceptor</value>
 			</list>
 		</property>
-	</bean>
+	</bean> -->
 
 </beans>

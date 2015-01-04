@@ -16,6 +16,15 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>org.yy.framework</groupId>
+			<artifactId>framework-webframe</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.yy.framework</groupId>
+			<artifactId>framework-document</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>org.yy.app-user</groupId>
 			<artifactId>user-service-user</artifactId>
 			<version>${project.version}</version>
@@ -25,30 +34,24 @@
 			<artifactId>user-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.yy.app-sso</groupId>
+			<artifactId>sso-client</artifactId>
+			<version>1.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.yy.framework</groupId>
-			<artifactId>framework-webframe</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.yy.framework</groupId>
-			<artifactId>framework-document</artifactId>
-		</dependency>    
-		
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.yy.app-sso</groupId>
-			<artifactId>sso-client</artifactId>
-			<version>1.0</version>
-		</dependency>
+
 
 		<!-- 测试时使用 -->
 		<dependency>
