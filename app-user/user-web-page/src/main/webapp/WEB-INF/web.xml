@@ -18,6 +18,16 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 	<!-- end -->
+	
+	<!--  服务化文档 -->
+	<filter>
+		<filter-name>DocumentFilter</filter-name>
+		<filter-class>org.yy.framework.document.controller.DocumentFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>DocumentFilter</filter-name>
+		<url-pattern>/resources_support/*</url-pattern>
+	</filter-mapping>
 
 	<!-- **********************************单点登录Filter*************************************************** -->
 	<filter>
@@ -29,11 +39,11 @@
 		</init-param>
 		<init-param>
 			<param-name>ssoUrl</param-name>
-			<param-value>http://localhost:8080/sso/</param-value>
+			<param-value>http://localhost:8080/</param-value>
 		</init-param>
 		<init-param>
 			<param-name>returnUrl</param-name>
-			<param-value>http://localhost:8087/user/index.do</param-value>
+			<param-value>http://localhost:8087/index.do</param-value>
 		</init-param>
 	</filter>
 	<filter-mapping>
