@@ -62,6 +62,7 @@
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>  
 	<!-- end -->
 
 	<!-- 国际化 start -->
