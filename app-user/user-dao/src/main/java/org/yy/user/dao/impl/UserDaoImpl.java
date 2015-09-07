@@ -8,7 +8,6 @@
 */
 package org.yy.user.dao.impl;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 import org.yy.framework.base.dao.AbstractMyBatisDao;
@@ -88,7 +87,7 @@ public class UserDaoImpl extends AbstractMyBatisDao implements UserDao {
         try {
             return findBypagination("user.FIND_USER_BY_DTO", userDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("USER_FIND_ERROR", "查询用户异常", e);
         }
     }
@@ -99,7 +98,7 @@ public class UserDaoImpl extends AbstractMyBatisDao implements UserDao {
         try {
             return findBypagination("user.FIND_USER_BY_ORGAN", organ.getOrganCode());
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("USER_FIND_ERROR", "查询用户异常", e);
         }
     }

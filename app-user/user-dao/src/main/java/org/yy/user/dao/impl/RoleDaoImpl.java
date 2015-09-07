@@ -8,7 +8,6 @@
 */
 package org.yy.user.dao.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -93,14 +92,13 @@ public class RoleDaoImpl extends AbstractMyBatisDao implements RoleDao {
         try {
             return findBypagination("role.FIND_ROLE_BY_DTO", roleDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("ROLE_FIND_ERROR", "查询角色信息异常", e);
         }
     }
     
     /***********************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Role> findRole(UserGroup userGroup) {
         try {
@@ -153,7 +151,6 @@ public class RoleDaoImpl extends AbstractMyBatisDao implements RoleDao {
     
     /***********************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Role> findRole(User user) {
         try {
@@ -206,7 +203,6 @@ public class RoleDaoImpl extends AbstractMyBatisDao implements RoleDao {
     
     /***********************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Role> findRole(System system) {
         try {

@@ -8,7 +8,6 @@
 */
 package org.yy.user.dao.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -92,14 +91,13 @@ public class ResourceDaoImpl extends AbstractMyBatisDao implements ResourceDao {
         try {
             return findBypagination("res.FIND_RESOURCE_BY_DTO", resourceDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("RES_FIND_ERROR", "查询资源信息异常", e);
         }
     }
     
     /********************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Resource> findResource(Role role) {
         
@@ -157,7 +155,6 @@ public class ResourceDaoImpl extends AbstractMyBatisDao implements ResourceDao {
     
     /********************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Resource> findResource(System system) {
         try {
@@ -169,7 +166,6 @@ public class ResourceDaoImpl extends AbstractMyBatisDao implements ResourceDao {
     }
     
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     @ReadThroughSingleCache(namespace = namespace + ":findResource", expiration = 60 * 5)
     public List<Resource> findResource(@ParameterValueKeyProvider(order = 0)

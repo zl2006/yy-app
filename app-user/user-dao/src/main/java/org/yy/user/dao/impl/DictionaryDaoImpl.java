@@ -11,7 +11,6 @@ package org.yy.user.dao.impl;
 import static org.yy.user.model.Dictionary.expiration;
 import static org.yy.user.model.Dictionary.namespace;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -81,7 +80,6 @@ public class DictionaryDaoImpl extends AbstractMyBatisDao implements DictionaryD
         }
     }
     
-    @SuppressWarnings("unchecked")
     public List<Dictionary> findDictionary() {
         try {
             return sqlSession.selectList("dic.FIND_ALL_DICTIONARY");
@@ -97,7 +95,7 @@ public class DictionaryDaoImpl extends AbstractMyBatisDao implements DictionaryD
         try {
             return findBypagination("dic.FIND_DICTIONARY_BY_DTO", dicDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("DIC_FIND_ERROR", "查询字典信息异常", e);
         }
     }

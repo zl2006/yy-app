@@ -89,13 +89,12 @@ public class SystemDaoImpl extends AbstractMyBatisDao implements SystemDao {
         try {
             return findBypagination("system.FIND_SYSTEM_BY_DTO", systemDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("SYSTEM_FIND_ERROR", "查询系统信息异常", e);
         }
     }
     
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<System> findSystem() {
         try {
@@ -108,7 +107,6 @@ public class SystemDaoImpl extends AbstractMyBatisDao implements SystemDao {
     
     /** {@inheritDoc} 
     * @throws SQLException */
-    @SuppressWarnings("unchecked")
     @Override
     @ReadThroughSingleCache(namespace = namespace + ":findSystem", expiration = 60 * 5)
     public List<System> findSystem(@ParameterValueKeyProvider

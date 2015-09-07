@@ -8,10 +8,8 @@
 */
 package org.yy.user.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
-import org.yy.framework.basedata.exception.DaoException;
 import org.yy.framework.basedata.query.ResultDto;
 import org.yy.user.dto.DictionaryDTO;
 import org.yy.user.model.Dictionary;

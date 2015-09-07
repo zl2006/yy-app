@@ -8,7 +8,6 @@
 */
 package org.yy.user.dao.impl;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -90,14 +89,13 @@ public class UserGroupDaoImpl extends AbstractMyBatisDao implements UserGroupDao
         try {
             return findBypagination("usergroup.FIND_USERGROUP", userGroupDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("USERGROUP_FIND_ERROR", "查询用户组异常", e);
         }
     }
     
     /*************************************************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<UserGroup> findUserGroup(User user) {
         

@@ -8,7 +8,6 @@
 */
 package org.yy.user.dao.impl;
 
-import java.sql.SQLException;
 import java.util.Date;
 
 import org.yy.framework.base.dao.AbstractMyBatisDao;
@@ -58,7 +57,7 @@ public class LogDaoImpl extends AbstractMyBatisDao implements LogDao {
         try {
             return findBypagination("log.FIND_LOG_BY_DTO", logDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("LOG_FIND_ERROR", "查询日志信息异常", e);
         }
     }

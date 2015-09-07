@@ -8,7 +8,6 @@
 */
 package org.yy.user.dao.impl;
 
-import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -90,14 +89,13 @@ public class OrganDaoImpl extends AbstractMyBatisDao implements OrganDao {
         try {
             return findBypagination("organ.FIND_ORGAN_BY_DTO", organDTO);
         }
-        catch (SQLException e) {
+        catch (Exception e) {
             throw new DaoException("ORGAN_FIND_ERROR", "查询组件机构异常", e);
         }
     }
     
     /***********************************************************************************************/
     /** {@inheritDoc} */
-    @SuppressWarnings("unchecked")
     @Override
     public List<Organ> findOrgan(User user) {
         try {
