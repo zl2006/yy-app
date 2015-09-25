@@ -19,9 +19,13 @@
 		<property name="username" value="useradmin" />
 		<property name="password" value="useradmin" />
 	</bean>
-	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<property name="configLocation" value="classpath:sqlmap/ibatis-default-user.xml" />
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath*:sqlmap/sqlmap-mapping*.xml" />
+		<property name="configLocation" value="classpath*:sqlmap/ibatis-default-user.xml"  ></property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
 	<import resource="classpath*:spring/applicationContext*.xml" />

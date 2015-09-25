@@ -24,7 +24,11 @@
 			<artifactId>user-dto</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.google.code.simple-spring-memcached</groupId>
+			<artifactId>xmemcached-provider</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.yy.framework</groupId>
