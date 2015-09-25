@@ -150,7 +150,7 @@
 			$("#selectOrgan").on('click', function(event){
 				//按需要才加载JS文件
 				seajs.use('organ',function(OrganSelectModal){
-					var organModal = new OrganSelectModal({"base_path" : "${basePath}" ,  "selectedOrgan":function(organCode,organName) {
+					var organModal = new OrganSelectModal({"basePath" : "${basePath}" ,  "selectedOrgan":function(organCode,organName) {
 						$('#organCode').val(organCode);
 						$('#organName').val(organName);
 						organModal.close();

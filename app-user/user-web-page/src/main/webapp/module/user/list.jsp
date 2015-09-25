@@ -100,7 +100,7 @@
 
 	<jsp:include page="/common/footer.jsp"></jsp:include>
 	<script type="text/javascript" src="${basePath }/resources/js/seajs/seajs/2.2.0/sea.js"></script>
-	<script type="text/javascript" src="${basePath }/resources/js/appuser/app.js"></script>
+	<script type="text/javascript" src="${basePath }/resources/js/appuser/app.js?v=0.1"></script>
 	<script type="text/javascript">
 		seajs.use(["${basePath}/resources/js/appuser/business/business"],function(Business){
 			var business = new Business({base_path : "${basePath}" , currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage},opers:${_OPERATOR_JSON_}});

@@ -2,7 +2,7 @@
  * 初始化应用配置
  */
 seajs.config({
-	  base: "http://localhost:8087/user/resources/js/",
+	  base: "http://localhost:8087/resources/js/",
 	  alias: {
 	    "$": "jquery/jquery/1.10.1/jquery.js",
 	    "bootstrap" : "gallery/bootstrap/3.0.0/bootstrap.js",
