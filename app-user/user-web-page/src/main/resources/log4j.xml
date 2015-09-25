@@ -19,18 +19,20 @@
 
 	<!-- 性能日志文件配置 -->
 	<!-- 文件输出管道，把汇总的perf4j的日志信息写到perfStats.log文件中去 -->
+	<!-- 
 	<appender name="fileAppender" class="org.apache.log4j.FileAppender">
 		<param name="File" value="/tmp/user/user-perfStats.log" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%m%n" />
 		</layout>
-	</appender>
+	</appender>  -->
 	<!-- TimeSlice配置多少时间间隔去做一次汇总写入文件中 默认值是 30000 ms -->
+	<!-- 
 	<appender name="CoalescingStatistics"
 		class="org.perf4j.log4j.AsyncCoalescingStatisticsAppender">
 		<param name="TimeSlice" value="10000" />
 		<appender-ref ref="fileAppender" />
-	</appender>
+	</appender>-->
 	<!-- Loggers -->
 	<!-- 配置perf4j logger Additivity设置成false主要因为是不想让代码运行时间的日志输出给上游appenders，即不要在控制台输出。 -->
 	<logger name="org.perf4j.TimingLogger" additivity="false">
@@ -40,6 +42,7 @@
 	<!-- end -->
 
 	<!-- 文件输出输入日志配置 -->
+	<!--  
 	<appender name="myFile" class="org.apache.log4j.RollingFileAppender">
 		<param name="File" value="/tmp/user/user.log" />
 		<param name="Append" value="true" />
@@ -47,7 +50,7 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%p (%c:%L)- %m%n" />
 		</layout>
-	</appender>
+	</appender>-->
 	<!-- appender name="activexAppender" class="org.apache.log4j.DailyRollingFileAppender"> 
 		<param name="File" value="E:/activex.log" /> <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" 
 		/> <layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" 
@@ -83,9 +86,37 @@
 	<!-- end -->
 
 
-	<!-- 为单独的类或包指定日志配置 -->
-	<logger name="com.tydic.simple.dao.user.impl">
-		<level value="info" />
+	<!-- 为单独的类或包指定日志配置, mybatis打印sql（包为mapping文件中的namespace） -->
+	<logger name="log">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="dic">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="organ">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="res">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="role">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="system">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="user">
+		<level value="debug" />
+		<appender-ref ref="myConsole" />
+	</logger>
+	<logger name="usergroup">
+		<level value="debug" />
 		<appender-ref ref="myConsole" />
 	</logger>
 	<!-- end -->
@@ -93,7 +124,7 @@
 
 	<!-- 根logger的设置 ，默认所有的日志配置 -->
 	<root>
-		<priority value="debug" />
+		<priority value="error" />
 		<appender-ref ref="myConsole" />
 		<!-- appender-ref ref="myFile" / -->
 	</root>
