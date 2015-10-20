@@ -69,6 +69,12 @@ public class UserController extends AbsUserController {
 
 	@Resource(name = "systemService")
 	private SystemService systemService;
+	
+	@RequestMapping(value = "presave", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public ModelAndView saveUser() {
+		return processSuccess(moduleName + ADD_PAGE, null);
+	}
 
 	@RequestMapping(value = "save", method = { RequestMethod.GET,
 			RequestMethod.POST })

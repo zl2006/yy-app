@@ -66,6 +66,11 @@ public class UserGroupController extends AbsUserController {
         return processSuccess(moduleName + LIST_PAGE, userGroupService.findUserGroup(userGroupDTO), userGroupDTO);
     }
     
+    @RequestMapping(value = "presave")
+    public ModelAndView saveGroup( ) {
+    	 return processSuccess(moduleName + ADD_PAGE, null);
+    }
+    
     @RequestMapping(value = "save", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView saveGroup(@Param
     UserGroup group, HttpServletRequest request) {
