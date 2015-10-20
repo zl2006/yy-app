@@ -148,17 +148,69 @@
 	
 	<!-- 根据system,user 获取资源信息 -->
 	<select id="FIND_RESOURCE_BY_USER" parameterType="java.util.HashMap" resultMap="RM-RESOURCE">
-		<include refid="SQL_SELECT_RESOURCE" /> 
-		    ,TB_USERADMIN_POPEDOM b,
+		(SELECT 
+		    a.RES_ID,
+		    a.SYSTEM_CODE,
+		    a.PARENT_RES_ID,
+		    a.NAME,
+		    a.ENAME,
+		    a.URL,
+		    a.TYPE,
+		    a.ICON,
+		    a.ORDER_NO,
+		    a.DESCRIPTION,
+		    a.STATUS,
+		    a.STYLE,
+		    a.HAS_CHILD,
+		    a.CREATE_TIME,
+		    a.CREATE_PERSON,
+		    a.UPDATE_TIME,
+		    a.UPDATE_PERSON
+		FROM
+		    TB_USERADMIN_RESOURCE a,
+		    TB_USERADMIN_POPEDOM b,
 		    TB_USERADMIN_ROLE c,
 		    TB_USERADMIN_USERROLEREL d
-		where
-		    a.SYSTEM_CODE = #{systemCode}
-		    and a.RES_ID = b.RES_ID
-		    and b.ROLE_CODE = c.ROLE_CODE
-		    and c.ROLE_CODE = d.ROLE_CODE
-		    and d.LOGIN_ID = #{loginID}
-		    order by a.ORDER_NO asc
+		WHERE
+		    a.SYSTEM_CODE = #{systemCode} 
+		        AND a.RES_ID = b.RES_ID
+		        AND b.ROLE_CODE = c.ROLE_CODE
+		        AND c.ROLE_CODE = d.ROLE_CODE
+		        AND d.LOGIN_ID =  #{loginID}
+		ORDER BY a.ORDER_NO ASC)
+		union 
+		(SELECT 
+		    a.RES_ID,
+		    a.SYSTEM_CODE,
+		    a.PARENT_RES_ID,
+		    a.NAME,
+		    a.ENAME,
+		    a.URL,
+		    a.TYPE,
+		    a.ICON,
+		    a.ORDER_NO,
+		    a.DESCRIPTION,
+		    a.STATUS,
+		    a.STYLE,
+		    a.HAS_CHILD,
+		    a.CREATE_TIME,
+		    a.CREATE_PERSON,
+		    a.UPDATE_TIME,
+		    a.UPDATE_PERSON
+		FROM
+		    TB_USERADMIN_RESOURCE a,
+		    TB_USERADMIN_POPEDOM b,
+		    TB_USERADMIN_ROLE c,
+		    TB_USERADMIN_GROUPROLEREL d,
+		    TB_USERADMIN_USERGROUPREL e
+		WHERE
+		    a.SYSTEM_CODE =#{systemCode} 
+		        AND a.RES_ID = b.RES_ID
+		        AND b.ROLE_CODE = c.ROLE_CODE
+		        AND c.ROLE_CODE = d.ROLE_CODE
+		        AND e.USERGROUP_ID = d.USERGROUP_ID
+		        AND e.LOGIN_ID =  #{loginID}
+		ORDER BY a.ORDER_NO ASC)
 	</select>
 
 </mapper>
