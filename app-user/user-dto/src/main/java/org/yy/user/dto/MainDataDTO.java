@@ -45,57 +45,74 @@ public class MainDataDTO {
 	
 	/**资源ID*/
 	private Long resID;
+	
+	/*public MainDataDTO(){
+	}*/
 
+	public MainDataDTO(User user, String systemCode, boolean portalEnable) {
+		super();
+		this.user = user;
+		this.systemCode = systemCode;
+		this.portalEnable = portalEnable;
+	}
+
+	/**
+	 * 当前用户拥有的所有系统
+	 */
+	public List<org.yy.user.model.System> getSystems() {
+		return systems;
+	}
+
+	/**
+	 * 当前用户拥有的所有资源, 用来做权限判断
+	 */
+	public List<Resource> getResources() {
+		return resources;
+	}
+	
+	/**
+	 * 当前访问的资源ID
+	 */
+	public Long getResID() {
+		return resID;
+	}
+	
+	
 	/**  当前系统编码 */
 	public String getSystemCode() {
-		return this.systemCode;
+		return systemCode;
 	}
 
 	/**
 	 * 当前操作用户
 	 */
 	public User getUser() {
-		return this.user;
-	}
-
-	/**
-	 * 当前资源ID
-	 */
-	public Long getResID() {
-		return resID;
+		return user;
 	}
 	
-	public void setResID(String url) {
-		for( Resource item : resources ){
-			if(url.equals(item.getUrl())){
-				resID = item.getResID();
-				break;
+	/**
+	 * 当前访问的资源
+	 */
+	public Resource getCurrentResource() {
+		if (resID == null) {
+			return null;
+		}
+		for (int i = 0; i < resources.size(); ++i) {
+			if (resources.get(i).getResID()== resID ) {
+				return resources.get(i);
 			}
 		}
+		return null;
 	}
 
 	/**
-	 * 当前用户拥有系统，门户中做为头部顶级菜单
-	 */
-	public List<org.yy.user.model.System> getSystems() {
-		return this.systems;
-	}
-
-	/**
-	 * 当前用户拥有的资源
-	 */
-	public List<Resource> getResources() {
-		return this.resources;
-	}
-
-	/**
-	 * 当前系统
+	 * 当前访问的系统
 	 */
 	public System getCurrentSystem() {
 		if (systemCode == null) {
 			return null;
 		}
-		if (this.systems != null) {
+		if (systems != null) {
 			for (System item : systems) {
 				if (item.getSystemCode().equals(systemCode)) {
 					return item;
@@ -104,14 +121,81 @@ public class MainDataDTO {
 		}
 		return null;
 	}
+	
+	/**
+	 * 当前访问的模块
+	 */
+	public Resource getCurrentModule() {
+
+		Long currentResId = this.resID;
+		if (currentResId == null) {
+			return null;
+		}
+
+		// 最多查询四级
+		int level = 0;
+		for (int i = 0; i < this.resources.size() && level < 4; ++i) {
+			// 顶级菜单时退出
+			if (currentResId == -1) {
+				break;
+			}
+			
+			Resource currentRes = resources.get(i);
+			if (currentRes.getResID() == currentResId ) {
+				//当前资源为模板时直接返回，否则查找父资源
+				if(currentRes.getType().equals(ResType.MODULE.value())){
+					return currentRes;
+				}else{
+					currentResId = currentRes.getParentResID();
+					level++;
+					i = -1;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 当前访问的子模块
+	 */
+	public Resource getCurrentSubModule() {
+
+		Long currentResId = this.resID;
+		if (currentResId == null) {
+			return null;
+		}
+
+		// 最多查询四级
+		int level = 0;
+		for (int i = 0; i < resources.size() && level < 4; ++i) {
+			// 顶级菜单时退出
+			if (currentResId == -1) {
+				break;
+			}
+			
+			Resource currentRes = resources.get(i);
+			if (currentRes.getResID() == currentResId ) {
+				//当前资源为模板时直接返回，否则查找父资源
+				if(currentRes.getType().equals(ResType.SUBMODULE)){
+					return currentRes;
+				}else{
+					currentResId = currentRes.getParentResID();
+					level++;
+					i = -1;
+				}
+			}
+		}
+		return null;
+	}
 
 	/**
-	 * 模块列表（门户中头部子菜单，或单系统中顶级菜单 ）
+	 * 当前系统所有的模块列表
 	 */
 	public List<Resource> getModules() {
 		List<Resource> temp = new ArrayList<Resource>();
 		if (this.resources != null) {
-			for (Resource item : this.resources) {
+			for (Resource item : resources) {
 				if (ResType.MODULE.value().equals(item.getType())) {
 					temp.add(item);
 				}
@@ -121,13 +205,18 @@ public class MainDataDTO {
 	}
 
 	/**
-	 * 子模块列表（左侧菜单标题）
+	 * 当前访问模块下的子模块列表
 	 */
 	public List<Resource> getSubModules() {
 		List<Resource> temp = new ArrayList<Resource>();
+		
+		Resource currentModule = getCurrentModule();
+		if(currentModule == null){
+			return temp;
+		}
 		if (this.resources != null) {
-			for (Resource item : this.resources) {
-				if (ResType.MODULE.value().equals(item.getType())) {
+			for (Resource item : resources) {
+				if (ResType.SUBMODULE.value().equals(item.getType())  && item.getParentResID() == currentModule.getResID()) {
 					temp.add(item);
 				}
 			}
@@ -136,19 +225,51 @@ public class MainDataDTO {
 	}
 
 	/**
-	 * 获取模块功能
+	 * 当前访问模块下的模块功能
 	 */
 	public List<Resource> getModuleFunctions() {
 		List<Resource> temp = new ArrayList<Resource>();
 		if (resID == null) {
 			return temp;
 		}
+		
+		Resource currentModule = getCurrentModule();
+		if(currentModule == null){
+			return temp;
+		}
 
 		if (this.resources != null) {
 			for (Resource item : this.resources) {
-				if (ResType.MODULEFUNC.value().equals(item.getType())
-						&& item.getParentResID().equals(this.resID)) {
+				if (ResType.MODULEFUNC.value().equals(item.getType()) && item.getParentResID() == currentModule.getResID()) {
 					temp.add(item);
+				}
+			}
+		}
+		return temp;
+	}
+	
+	
+	/**
+	 * 当前访问模块下所有子模块的模块功能
+	 */
+	public List<Resource> getSubModuleFunctions() {
+		List<Resource> temp = new ArrayList<Resource>();
+		if (resID == null) {
+			return temp;
+		}
+		
+		List<Resource> subModules = getSubModules();
+		if(subModules == null || subModules.size() == 0){
+			return temp;
+		}
+
+		if (resources != null) {
+			for (Resource item : resources) {
+				for(Resource subMd : subModules){
+					if (ResType.MODULEFUNC.value().equals(item.getType()) && item.getParentResID() == subMd.getResID()) {
+						temp.add(item);
+						break;
+					}
 				}
 			}
 		}
@@ -164,8 +285,8 @@ public class MainDataDTO {
 			return temp;
 		}
 
-		if (this.resources != null) {
-			for (Resource item : this.resources) {
+		if (resources != null) {
+			for (Resource item : resources) {
 				if (ResType.LISTOPER.value().equals(item.getType())
 						&& item.getParentResID().equals(resID)) {
 					temp.add(item);
@@ -184,24 +305,25 @@ public class MainDataDTO {
 			return temp;
 		}
 
-		// 最多查询三级
+		// 最多查询四级
 		int level = 0;
 		long tempResID = this.resID;
-		for (int i = 0; i < this.resources.size() && level < 3; ++i) {
+		for (int i = 0; i < resources.size() && level < 4; ++i) {
 			// 顶级菜单时退出
 			if (tempResID == -1) {
 				break;
 			}
-			if (this.resources.get(i).getResID() == tempResID) {
-				temp.add(0, this.resources.get(i));
-				tempResID = this.resources.get(i).getParentResID();
+			if (resources.get(i).getResID() == tempResID) {
+				temp.add(0, resources.get(i));
+				tempResID = resources.get(i).getParentResID();
 				i = -1;
 				level++;
 			}
 		}
 		return temp;
 	}
-
+	
+	
 	public void setSystemCode(String systemCode) {
 		this.systemCode = systemCode;
 	}
@@ -232,6 +354,15 @@ public class MainDataDTO {
 
 	public void setIndexUrl(String indexUrl) {
 		this.indexUrl = indexUrl;
+	}
+	
+	public void setResID(String url) {
+		for( Resource item : resources ){
+			if(url.equals(item.getUrl())){
+				resID = item.getResID();
+				break;
+			}
+		}
 	}
 	
 }

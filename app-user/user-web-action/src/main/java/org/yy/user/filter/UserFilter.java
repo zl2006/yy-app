@@ -123,14 +123,11 @@ public class UserFilter implements Filter {
                 throw new IOException("user isn't exists");
             }
             //获取默认系统及系统的资源
-            MainDataDTO mainData = new MainDataDTO();
-            mainData.setUser(user);
-            mainData.setPortalEnable(portalEnable);
+            MainDataDTO mainData = new MainDataDTO(user,systemCode,portalEnable);
             
             //只有PC端用户才调用/////////////////////////
             String source = httpReq.getHeader("source");
             if (!"MOBILE".equals(source) && !"PAD".equals(source)) {
-                mainData.setSystemCode(systemCode);
                 mainData.setSystems(systemService.findSystem(user.getLoginID()));
                 mainData.setResources(resourceService.findResource(systemCode, user.getLoginID()));
                 try {
