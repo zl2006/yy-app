@@ -118,7 +118,7 @@ public class UserFilter implements Filter {
             
             /////////////////////////////////////////
             request.setAttribute(AppUserConstants.SITE_MAIN_DATA, mainData);
-            request.setAttribute(AppUserConstants.OPERATOR_JSON,  JSON.toJSONString(mainData.getOperations()));
+            request.setAttribute(AppUserConstants.OPERATOR_JSON,  JSON.toJSONString(mainData.getListOperations()));
             chain.doFilter(request, response);
         }
         catch (Exception ex) {

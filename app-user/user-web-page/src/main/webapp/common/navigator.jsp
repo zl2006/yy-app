@@ -1,6 +1,6 @@
 <%@page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="functions" value="${_SITE_MAIN_DATA_.functions}"></c:set>
+<c:set var="functions" value="${_SITE_MAIN_DATA_.moduleFunctions}"></c:set>
 <c:set var="navigators" value="${_SITE_MAIN_DATA_.navigators}"></c:set>
 <!--  面包屑导航提示 -->
 <ol style="margin-bottom: 5px;" class="breadcrumb">

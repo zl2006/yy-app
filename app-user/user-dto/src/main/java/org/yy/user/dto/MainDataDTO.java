@@ -25,62 +25,58 @@ import org.yy.user.model.constants.ResType;
 */
 public class MainDataDTO {
     
-    /**当前用户所有系统*/
+    /**当前用户拥有系统*/
     private List<System> systems;
     
-    /**当前用户所有资源*/
+    /**当前用户拥有的资源*/
     private List<Resource> resources;
     
-    /**当前用户*/
+    /**当前操作用户*/
     private User user;
     
-    /**系统编码*/
+    /**当前系统编码*/
     private String systemCode;
     
     /**当前资源ID*/
     private Long resID;
     
-    public void setSystems(List<System> systems) {
-        this.systems = systems;
-    }
-    
     /**
-    * 获取当前用户所有系统
-    */
-    public List<org.yy.user.model.System> getSystems() {
-        return this.systems;
-    }
-    
-    /**
-     * 设置系统编码
-     */
-    public void setSystemCode(String systemCode) {
-        this.systemCode = systemCode;
-    }
-    
-    /**
-     * 获取系统编码
+     * 当前系统编码
      */
     public String getSystemCode() {
         return this.systemCode;
     }
     
     /**
-    * @return 返回 resID
-    */
-    public Long getResID() {
-        return resID;
+     * 当前操作用户
+     */
+    public User getUser() {
+        return this.user;
     }
     
     /**
-    * @param 对resID进行赋值
-    */
-    public void setResID(Long resID) {
-        this.resID = resID;
+     * 当前资源ID
+     */
+     public Long getResID() {
+         return resID;
+     }
+    
+     /**
+      * 当前用户拥有系统，门户中做为头部顶级菜单 
+      */
+    public List<org.yy.user.model.System> getSystems() {
+        return this.systems;
     }
     
     /**
-     * 获取当前系统
+     * 当前用户拥有的资源
+     */
+    public List<Resource> getResources() {
+        return this.resources;
+    }
+    
+    /**
+     * 当前系统
      */
     public System getCurrentSystem() {
         if (systemCode == null) {
@@ -96,22 +92,15 @@ public class MainDataDTO {
         return null;
     }
     
-    public void setResources(List<Resource> resources) {
-        this.resources = resources;
-    }
-    
-    public List<Resource> getResources() {
-        return this.resources;
-    }
     
     /**
-     * 菜单列表
+     * 模块列表（门户中头部子菜单，或单系统中顶级菜单 ）
      */
-    public List<Resource> getMenus() {
+    public List<Resource> getModules() {
         List<Resource> temp = new ArrayList<Resource>();
         if (this.resources != null) {
             for (Resource item : this.resources) {
-                if (ResType.MENU.value().equals(item.getType())) {
+                if (ResType.MODULE.value().equals(item.getType())) {
                     temp.add(item);
                 }
             }
@@ -120,17 +109,13 @@ public class MainDataDTO {
     }
     
     /**
-     * 获取当前功能
+     * 子模块列表（左侧菜单标题）
      */
-    public List<Resource> getFunctions() {
+    public List<Resource> getSubModules() {
         List<Resource> temp = new ArrayList<Resource>();
-        if (resID == null) {
-            return temp;
-        }
-        
         if (this.resources != null) {
             for (Resource item : this.resources) {
-                if (ResType.FUNCTION.value().equals(item.getType()) && item.getParentResID().equals(this.resID) ){
+                if (ResType.MODULE.value().equals(item.getType())) {
                     temp.add(item);
                 }
             }
@@ -138,10 +123,11 @@ public class MainDataDTO {
         return temp;
     }
     
+    
     /**
-     * 获取当前列表操作
+     * 获取模块功能
      */
-    public List<Resource> getOperations() {
+    public List<Resource> getModuleFunctions() {
         List<Resource> temp = new ArrayList<Resource>();
         if (resID == null) {
             return temp;
@@ -149,7 +135,27 @@ public class MainDataDTO {
         
         if (this.resources != null) {
             for (Resource item : this.resources) {
-                if (ResType.OPERATION.value().equals(item.getType()) && item.getParentResID().equals(resID)) {
+                if (ResType.MODULEFUNC.value().equals(item.getType()) && item.getParentResID().equals(this.resID) ){
+                    temp.add(item);
+                }
+            }
+        }
+        return temp;
+    }
+    
+    
+    /**
+     * 获取当前的列表操作
+     */
+    public List<Resource> getListOperations() {
+        List<Resource> temp = new ArrayList<Resource>();
+        if (resID == null) {
+            return temp;
+        }
+        
+        if (this.resources != null) {
+            for (Resource item : this.resources) {
+                if (ResType.LISTOPER.value().equals(item.getType()) && item.getParentResID().equals(resID)) {
                     temp.add(item);
                 }
             }
@@ -158,7 +164,7 @@ public class MainDataDTO {
     }
     
     /**
-     * 获取当前导航
+     * 获取当前面包屑导航
      */
     public List<Resource> getNavigators() {
         List<Resource> temp = new ArrayList<Resource>();
@@ -184,15 +190,25 @@ public class MainDataDTO {
         return temp;
     }
     
+
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
+    }
+
+    public void setResID(Long resID) {
+        this.resID = resID;
+    }
+    
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
+    }
+    
     public void setUser(User user) {
         this.user = user;
     }
     
-    /**
-    * @return 返回 user
-    */
-    public User getUser() {
-        return this.user;
+    public void setSystems(List<System> systems) {
+        this.systems = systems;
     }
     
 }
