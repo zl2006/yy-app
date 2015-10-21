@@ -46,9 +46,6 @@ public class MainDataDTO {
 	/**资源ID*/
 	private Long resID;
 	
-	/*public MainDataDTO(){
-	}*/
-
 	public MainDataDTO(User user, String systemCode, boolean portalEnable) {
 		super();
 		this.user = user;
@@ -126,33 +123,7 @@ public class MainDataDTO {
 	 * 当前访问的模块
 	 */
 	public Resource getCurrentModule() {
-
-		Long currentResId = this.resID;
-		if (currentResId == null) {
-			return null;
-		}
-
-		// 最多查询四级
-		int level = 0;
-		for (int i = 0; i < this.resources.size() && level < 4; ++i) {
-			// 顶级菜单时退出
-			if (currentResId == -1) {
-				break;
-			}
-			
-			Resource currentRes = resources.get(i);
-			if (currentRes.getResID() == currentResId ) {
-				//当前资源为模板时直接返回，否则查找父资源
-				if(currentRes.getType().equals(ResType.MODULE.value())){
-					return currentRes;
-				}else{
-					currentResId = currentRes.getParentResID();
-					level++;
-					i = -1;
-				}
-			}
-		}
-		return null;
+		return getResourceForType(ResType.MODULE);
 	}
 	
 	
@@ -160,33 +131,7 @@ public class MainDataDTO {
 	 * 当前访问的子模块
 	 */
 	public Resource getCurrentSubModule() {
-
-		Long currentResId = this.resID;
-		if (currentResId == null) {
-			return null;
-		}
-
-		// 最多查询四级
-		int level = 0;
-		for (int i = 0; i < resources.size() && level < 4; ++i) {
-			// 顶级菜单时退出
-			if (currentResId == -1) {
-				break;
-			}
-			
-			Resource currentRes = resources.get(i);
-			if (currentRes.getResID() == currentResId ) {
-				//当前资源为模板时直接返回，否则查找父资源
-				if(currentRes.getType().equals(ResType.SUBMODULE)){
-					return currentRes;
-				}else{
-					currentResId = currentRes.getParentResID();
-					level++;
-					i = -1;
-				}
-			}
-		}
-		return null;
+		return getResourceForType(ResType.SUBMODULE);
 	}
 
 	/**
@@ -246,6 +191,47 @@ public class MainDataDTO {
 			}
 		}
 		return temp;
+	}
+	
+	/**
+	 * 当前访问的模块功能
+	 */
+	public Resource getCurrentModuleFunc() {
+		return getResourceForType(ResType.MODULEFUNC);
+	}
+	
+	
+	/**
+	 * 当前访问的模块功能
+	 */
+	private Resource getResourceForType(ResType resType) {
+
+		Long currentResId = this.resID;
+		if (currentResId == null) {
+			return null;
+		}
+
+		// 最多查询四级
+		int level = 0;
+		for (int i = 0; i < resources.size() && level < 4; ++i) {
+			// 顶级菜单时退出
+			if (currentResId == -1) {
+				break;
+			}
+			
+			Resource currentRes = resources.get(i);
+			if (currentRes.getResID() == currentResId ) {
+				//当前资源为模板时直接返回，否则查找父资源
+				if(currentRes.getType().equals(resType.value())){
+					return currentRes;
+				}else{
+					currentResId = currentRes.getParentResID();
+					level++;
+					i = -1;
+				}
+			}
+		}
+		return null;
 	}
 	
 	
