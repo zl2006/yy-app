@@ -6,7 +6,7 @@
 <ol style="margin-bottom: 5px;" class="breadcrumb">
 	<span class="glyphicon glyphicon-hand-right"></span>
 	<c:forEach begin="0" var="item" items="${navigators}">
-		<li><a href="${item.url}?resID=${item.resID}">&nbsp;&nbsp;${item.name}</a></li>
+		<li><a href="${item.url}">&nbsp;&nbsp;${item.name}</a></li>
 	</c:forEach>
 </ol>
 <c:if test="${not empty  functions}">
@@ -14,7 +14,7 @@
 	<div class="well">
 		<c:forEach var="item" items="${functions}">
 			<span class="${item.style}"><a style="vertical-align: 3px;margin-left: 3px"
-				href="${item.url}?resID=${item.resID}">${item.name}</a></span>
+				href="${item.url}">${item.name}</a></span>
 		</c:forEach>
 	</div>
 </c:if>
