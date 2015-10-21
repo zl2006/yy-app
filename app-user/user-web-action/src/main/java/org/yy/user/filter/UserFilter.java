@@ -48,7 +48,14 @@ public class UserFilter implements Filter {
     
     private UserService userService;
     
+    //系统编码
     private String systemCode = "";
+    
+    //是否门户
+    private boolean portalEnable =  false;
+    
+    //门户首页
+    private String portalIndexUrl = "http://www.baidu.com";
     
     // 排除的特殊资源
     private Set<String> excludes = new HashSet<String>();
@@ -63,15 +70,27 @@ public class UserFilter implements Filter {
         userService = (UserService)ctx.getBean("userService");
         systemCode = filterConfig.getInitParameter("systemCode");
         
+        //Step 1： 初始化排除地址 
         String excludeStr = filterConfig.getInitParameter("excludes");
-        if (StringUtils.isEmpty(excludeStr)) {
-            return;
+        if (!StringUtils.isEmpty(excludeStr)) {
+	        String[] temp = excludeStr.split(",");
+	        for (String item : temp) {
+	            excludes.add(item);
+	        }
         }
         
-        String[] temp = excludeStr.split(",");
-        for (String item : temp) {
-            excludes.add(item);
+        //Step 2: 初始化是否门户
+        String portalEnableStr = filterConfig.getInitParameter("portalEnable");
+        if (!StringUtils.isEmpty(portalEnableStr) && "true".equals(portalEnableStr.trim())) {
+        	portalEnable = true;
         }
+        
+        //Step 3: 初始化门户首页
+        String portalIndexUrlStr = filterConfig.getInitParameter("portalIndexUrl");
+        if (!StringUtils.isEmpty(portalIndexUrlStr) && "true".equals(portalIndexUrlStr.trim())) {
+        	portalIndexUrl = portalIndexUrlStr.trim();
+        }
+       
     }
     
     /** {@inheritDoc} */
@@ -81,13 +100,18 @@ public class UserFilter implements Filter {
         
         //1. 当为排除掉的资源时不进行验证处理
         HttpServletRequest httpReq = (HttpServletRequest)request;
-        String url = httpReq.getRequestURI();
+        String url  = "http://" + request.getServerName() //服务器地址  
+                + ":"   
+                + httpReq.getServerPort()           //端口号  
+                + httpReq.getContextPath()      //项目名称  
+                + httpReq.getServletPath();     //请求页面或其他地址 
         for (String item : excludes) {
             if (url.endsWith(item)) {
                 chain.doFilter(request, response);
                 return;
             }
         }
+        
         
         //2. 从cookie或session中获取用户ID
         String loginID = SSOUtil.getUserID(httpReq);
@@ -101,19 +125,27 @@ public class UserFilter implements Filter {
             //获取默认系统及系统的资源
             MainDataDTO mainData = new MainDataDTO();
             mainData.setUser(user);
+            mainData.setPortalEnable(portalEnable);
             
             //只有PC端用户才调用/////////////////////////
             String source = httpReq.getHeader("source");
             if (!"MOBILE".equals(source) && !"PAD".equals(source)) {
                 mainData.setSystemCode(systemCode);
+                mainData.setSystems(systemService.findSystem(user.getLoginID()));
+                mainData.setResources(resourceService.findResource(systemCode, user.getLoginID()));
                 try {
-                    mainData.setResID(Long.valueOf(request.getParameter("resID")));
+                    mainData.setResID(url);
                 }
                 catch (Exception ex) {
                     //no handler exception
                 }
-                mainData.setSystems(systemService.findSystem(user.getLoginID()));
-                mainData.setResources(resourceService.findResource(systemCode, user.getLoginID()));
+                
+                //设置首面
+                if(portalEnable){
+                	mainData.setIndexUrl(portalIndexUrl);
+                }else if( mainData.getCurrentSystem() != null){
+                	mainData.setIndexUrl(mainData.getCurrentSystem().getUrl());
+                }
             }
             
             /////////////////////////////////////////
