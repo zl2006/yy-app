@@ -58,13 +58,13 @@
 
 	<sql id="SQL_WHERE_USER">
 		<if test="loginID != null and loginID != ''">
-			and a.LOGIN_ID = #loginID#
+			and a.LOGIN_ID = #{loginID}
 		</if>
 		<if test="name != null and name != ''">
-			and a.USERNAME = #name#
+			and a.USERNAME = #{name}
 		</if>
 		<if test="tel != null and tel != ''">
-			and a.TEL = #tel#
+			and a.TEL = #{tel}
 		</if>
 	</sql>
 	
