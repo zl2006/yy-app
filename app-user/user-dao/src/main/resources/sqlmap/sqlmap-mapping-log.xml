@@ -28,7 +28,7 @@
    				REMARK,
    				CREATE_TIME,
    				UPDATE_TIME
-	        FROM TB_USERADMIN_LOG
+	        FROM TB_USERADMIN_LOG a
 	   ]]>
 	</sql>
 
@@ -40,10 +40,10 @@
 			AND a.BUSI_DATA_TYPE = #{busiDataType}
 		</if>
 		<if test="startCreateTime != null and startCreateTime != ''">
-			AND a.CREATE_TIME = #{startCreateTime}
+			AND a.CREATE_TIME &gt;= #{startCreateTime}
 		</if>
 		<if test="endCreateTime != null and endCreateTime != ''" >
-			AND a.CREATE_TIME = #{endCreateTime}
+			AND a.CREATE_TIME &lt;= #{endCreateTime}
 		</if>
 	</sql>
 
@@ -51,8 +51,7 @@
 	<!-- 创建日志信息 -->
 	<insert id="INSERT_LOG" parameterType="TA-LOG">
 		INSERT INTO TB_USERADMIN_LOG (LOG_ID , OPERATOR_ID, OPER_NAME,
-		OPER_TYPE, BUSI_DATA_TYPE,
-		BUIS_DATA_ID, REMARK, CREATE_TIME,UPDATE_TIME)
+			OPER_TYPE, BUSI_DATA_TYPE, BUIS_DATA_ID, REMARK, CREATE_TIME,UPDATE_TIME)
 		values (#{logID}, #{operatorID}, #{operName}, #{operType}, #{busiDataType},
 		#{busiDataID}, #{remark}, #{createTime}, #{updateTime})
 		<selectKey resultType="int" keyProperty="logID">
@@ -80,7 +79,7 @@
 	<select id="FIND_LOG_BY_DTO_PAGE_COUNT" parameterType="TA-LOG-DTO"
 		resultType="java.lang.Integer">
 		<![CDATA[
-	        SELECT count(1) FROM TB_USERADMIN_LOG WHERE 1 = 1  
+	        SELECT count(1) FROM TB_USERADMIN_LOG a WHERE 1 = 1  
 	    ]]>
 		<include refid="SQL_WHERE_LOG" />
 	</select>
