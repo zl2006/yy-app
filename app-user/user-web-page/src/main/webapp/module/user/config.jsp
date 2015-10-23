@@ -96,6 +96,13 @@
 										<button class="btn btn-primary" type="submit" >确定</button>
 									</div>
 								</div>
+								
+								<div class="form-group"><!-- 错误信息 -->
+										<div class="col-sm-offset-2 col-sm-10">
+											<span id="error_info" style="color: #FF0000;">${errors }</span>
+										</div>
+								</div>
+				               	<div id="result_info" style="display:none"> </div><!-- ajax表单异步请求接收数据 -->
 							</form><!-- form -->
 						</div><!-- bs-example end -->
 					</div><!-- page header end -->
