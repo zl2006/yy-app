@@ -39,18 +39,34 @@ public class MainDataDTO {
 
 	/** 是否门户 */
 	private boolean portalEnable = false;
-	
-	/** 首页*/
+
+	/** 首页 */
 	private String indexUrl;
-	
-	/**资源ID*/
-	private Long resID;
-	
-	public MainDataDTO(User user, String systemCode, boolean portalEnable) {
+
+	/** 资源ID */
+	private Long resID = -1l;
+
+	/**
+	 * 当前访问的URL
+	 */
+	private String url;
+
+	public MainDataDTO(User user, String systemCode, boolean portalEnable,
+			String url) {
 		super();
+		this.url = url;
 		this.user = user;
 		this.systemCode = systemCode;
 		this.portalEnable = portalEnable;
+	}
+
+	/**
+	 * 是否有权限操作些资源
+	 * 
+	 * @return
+	 */
+	public boolean hasPopedom() {
+		return resID != -1l;
 	}
 
 	/**
@@ -66,16 +82,15 @@ public class MainDataDTO {
 	public List<Resource> getResources() {
 		return resources;
 	}
-	
+
 	/**
 	 * 当前访问的资源ID
 	 */
 	public Long getResID() {
 		return resID;
 	}
-	
-	
-	/**  当前系统编码 */
+
+	/** 当前系统编码 */
 	public String getSystemCode() {
 		return systemCode;
 	}
@@ -86,7 +101,7 @@ public class MainDataDTO {
 	public User getUser() {
 		return user;
 	}
-	
+
 	/**
 	 * 当前访问的资源
 	 */
@@ -95,7 +110,7 @@ public class MainDataDTO {
 			return null;
 		}
 		for (int i = 0; i < resources.size(); ++i) {
-			if (resources.get(i).getResID()== resID ) {
+			if (resources.get(i).getResID() == resID) {
 				return resources.get(i);
 			}
 		}
@@ -118,15 +133,14 @@ public class MainDataDTO {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 当前访问的模块
 	 */
 	public Resource getCurrentModule() {
 		return getResourceForType(ResType.MODULE);
 	}
-	
-	
+
 	/**
 	 * 当前访问的子模块
 	 */
@@ -154,14 +168,15 @@ public class MainDataDTO {
 	 */
 	public List<Resource> getSubModules() {
 		List<Resource> temp = new ArrayList<Resource>();
-		
+
 		Resource currentModule = getCurrentModule();
-		if(currentModule == null){
+		if (currentModule == null) {
 			return temp;
 		}
 		if (this.resources != null) {
 			for (Resource item : resources) {
-				if (ResType.SUBMODULE.value().equals(item.getType())  && item.getParentResID() == currentModule.getResID()) {
+				if (ResType.SUBMODULE.value().equals(item.getType())
+						&& item.getParentResID() == currentModule.getResID()) {
 					temp.add(item);
 				}
 			}
@@ -177,30 +192,30 @@ public class MainDataDTO {
 		if (resID == null) {
 			return temp;
 		}
-		
+
 		Resource currentModule = getCurrentModule();
-		if(currentModule == null){
+		if (currentModule == null) {
 			return temp;
 		}
 
 		if (this.resources != null) {
 			for (Resource item : this.resources) {
-				if (ResType.MODULEFUNC.value().equals(item.getType()) && item.getParentResID() == currentModule.getResID()) {
+				if (ResType.MODULEFUNC.value().equals(item.getType())
+						&& item.getParentResID() == currentModule.getResID()) {
 					temp.add(item);
 				}
 			}
 		}
 		return temp;
 	}
-	
+
 	/**
 	 * 当前访问的模块功能
 	 */
 	public Resource getCurrentModuleFunc() {
 		return getResourceForType(ResType.MODULEFUNC);
 	}
-	
-	
+
 	/**
 	 * 当前访问的模块功能
 	 */
@@ -218,13 +233,13 @@ public class MainDataDTO {
 			if (currentResId == -1) {
 				break;
 			}
-			
+
 			Resource currentRes = resources.get(i);
-			if (currentRes.getResID() == currentResId ) {
-				//当前资源为模板时直接返回，否则查找父资源
-				if(currentRes.getType().equals(resType.value())){
+			if (currentRes.getResID() == currentResId) {
+				// 当前资源为模板时直接返回，否则查找父资源
+				if (currentRes.getType().equals(resType.value())) {
 					return currentRes;
-				}else{
+				} else {
 					currentResId = currentRes.getParentResID();
 					level++;
 					i = -1;
@@ -233,8 +248,7 @@ public class MainDataDTO {
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * 当前访问模块下所有子模块的模块功能
 	 */
@@ -243,16 +257,17 @@ public class MainDataDTO {
 		if (resID == null) {
 			return temp;
 		}
-		
+
 		List<Resource> subModules = getSubModules();
-		if(subModules == null || subModules.size() == 0){
+		if (subModules == null || subModules.size() == 0) {
 			return temp;
 		}
 
 		if (resources != null) {
 			for (Resource item : resources) {
-				for(Resource subMd : subModules){
-					if (ResType.MODULEFUNC.value().equals(item.getType()) && item.getParentResID() == subMd.getResID()) {
+				for (Resource subMd : subModules) {
+					if (ResType.MODULEFUNC.value().equals(item.getType())
+							&& item.getParentResID() == subMd.getResID()) {
 						temp.add(item);
 						break;
 					}
@@ -308,22 +323,9 @@ public class MainDataDTO {
 		}
 		return temp;
 	}
-	
-	
-	public void setSystemCode(String systemCode) {
-		this.systemCode = systemCode;
-	}
 
-	public void setResources(List<Resource> resources) {
-		this.resources = resources;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public void setSystems(List<System> systems) {
-		this.systems = systems;
+	public String getUrl() {
+		return url;
 	}
 
 	public boolean isPortalEnable() {
@@ -341,14 +343,45 @@ public class MainDataDTO {
 	public void setIndexUrl(String indexUrl) {
 		this.indexUrl = indexUrl;
 	}
-	
-	public void setResID(String url) {
-		for( Resource item : resources ){
-			if(url.equals(item.getUrl())){
-				resID = item.getResID();
-				break;
+
+	public void initSysAndRes(List<System> systems, List<Resource> resources) {
+		this.systems = systems;
+		this.resources = resources;
+		setResID(this.url);
+	}
+
+	/**
+	 * 设置id时,取最小粒度的匹配
+	 * 
+	 * @param url
+	 */
+	private void setResID(String url) {
+
+		List<Resource> result = new ArrayList<Resource>();
+
+		// 取出所有匹配的资源
+		for (Resource item : resources) {
+			if (url.equals(item.getUrl())) {
+				result.add(item);
 			}
 		}
+
+		// 无匹配时直接返回
+		if (result.size() == 0) {
+			return;
+		}
+
+		// 取出最小粒度的资源ID作为resid
+		Resource temp = result.get(0);
+		for (int i = 1; i < result.size(); ++i) {
+
+			if (Long.parseLong(result.get(i).getType()) > Long.parseLong(temp
+					.getType())) {
+				temp = result.get(i);
+			}
+		}
+
+		this.resID = temp.getResID();
 	}
-	
+
 }

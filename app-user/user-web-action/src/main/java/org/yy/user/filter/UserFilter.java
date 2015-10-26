@@ -31,7 +31,6 @@ import org.yy.user.service.ResourceService;
 import org.yy.user.service.SystemService;
 import org.yy.user.service.UserService;
 
-import com.alibaba.fastjson.JSON;
 
 /**
 * 用户系统过滤器
@@ -98,7 +97,7 @@ public class UserFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
         throws IOException, ServletException {
         
-        //1. 当为排除掉的资源时不进行验证处理
+        //Step 1. 当为排除掉的资源时不进行验证处理
         HttpServletRequest httpReq = (HttpServletRequest)request;
         String url  = "http://" + request.getServerName() //服务器地址  
                 + ":"   
@@ -112,31 +111,23 @@ public class UserFilter implements Filter {
             }
         }
         
-        
-        //2. 从cookie或session中获取用户ID
+        //Step 2. 从cookie或session中获取用户ID
         String loginID = SSOUtil.getUserID(httpReq);
         
-        //3. 获取用户,菜单以及系统资源等公共资源.
+        //Step 3. 获取用户,菜单以及系统资源等公共资源.
         try {
             User user = userService.findUser(loginID);
             if (user == null) {
                 throw new IOException("user isn't exists");
             }
             //获取默认系统及系统的资源
-            MainDataDTO mainData = new MainDataDTO(user,systemCode,portalEnable);
+            MainDataDTO mainData = new MainDataDTO(user,systemCode,portalEnable, url);
             
             //只有PC端用户才调用/////////////////////////
             String source = httpReq.getHeader("source");
             if (!"MOBILE".equals(source) && !"PAD".equals(source)) {
-                mainData.setSystems(systemService.findSystem(user.getLoginID()));
-                mainData.setResources(resourceService.findResource(systemCode, user.getLoginID()));
-                try {
-                    mainData.setResID(url);
-                }
-                catch (Exception ex) {
-                    //no handler exception
-                }
-                
+            	//初始化系统与资源
+            	mainData.initSysAndRes(systemService.findSystem(user.getLoginID()) , resourceService.findResource(systemCode, user.getLoginID()));
                 //设置首面
                 if(portalEnable){
                 	mainData.setIndexUrl(portalIndexUrl);
@@ -147,12 +138,12 @@ public class UserFilter implements Filter {
             
             /////////////////////////////////////////
             request.setAttribute(AppUserConstants.SITE_MAIN_DATA, mainData);
-            request.setAttribute(AppUserConstants.OPERATOR_JSON,  JSON.toJSONString(mainData.getListOperations()));
+            //request.setAttribute(AppUserConstants.OPERATOR_JSON,  JSON.toJSONString(mainData.getListOperations()));
             chain.doFilter(request, response);
         }
         catch (Exception ex) {
-        	ex.printStackTrace();
-            throw new IOException("fetch menu failure");
+        	//ex.printStackTrace();
+            throw new IOException("fetch menu failure",ex);
         }
     }
     
