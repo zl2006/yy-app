@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.yy</groupId>
+		<artifactId>home</artifactId>
+		<version>1.0</version>
+		<relativePath>../../yy-home/pom.xml</relativePath>
+	</parent>
+    	<artifactId>app-portal</artifactId>
+    	<packaging>pom</packaging>
+    	<name>app-portal</name>
+	 
+
+	<!--模块声明-->
+    	<modules>				
+		<module>./portal-action</module>		<!--action控制层-->	
+		<module>./portal-web-page</module>		<!--html, jsp等页面-->
+    	</modules>
+</project>
