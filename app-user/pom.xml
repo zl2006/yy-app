@@ -20,7 +20,7 @@
 		<module>./user-common</module>		<!--工具，实用类-->	
 		<module>./user-service</module>		<!--关键业务接口-->	
 		<module>./user-service-user</module>		<!--关键业务接口实现１-->				
-		<module>./user-web-action</module>		<!--action控制层-->	
-		<module>./user-web-page</module>		<!--html, jsp等页面-->
+		<module>./user-web-action-new</module>		<!--action控制层-->	
+		<module>./user-web-page-new</module>		<!--html, jsp等页面-->
     	</modules>
 </project>
