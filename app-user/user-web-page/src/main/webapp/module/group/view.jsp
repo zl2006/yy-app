@@ -40,7 +40,7 @@
 									<label class="col-sm-2 control-label">状态:</label>
 									<label class="col-sm-3 control-label view-content">
 										<c:if test="${data.userGroup.status ==1}">有效</c:if>
-										<c:if test="${data.userGroup.status ==0}">有效</c:if>
+										<c:if test="${data.userGroup.status ==0}">无效</c:if>
 									</label>
 								</div>
 								<div class="form-group">
