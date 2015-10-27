@@ -74,7 +74,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="item" varStatus="status" items="${data.result}">
-								<tr view="/dic/view.do?resID=36&dicID=${item.dicID}">
+								<tr view="/dic/view.do?&dicID=${item.dicID}">
 									<td>${data.pagination.index*data.pagination.pageSize + status.index + 1}</td>
 									<td>${item.dicCode }</td>
 									<td>${item.name }</td>

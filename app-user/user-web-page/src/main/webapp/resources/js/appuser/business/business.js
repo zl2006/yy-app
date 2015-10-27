@@ -10,6 +10,17 @@ define(function(require, exports, module){
 	var $ = require('$');
 	var Class = require('arale/class/2.0.0/class');
 	
+	//扩展endWith
+	String.prototype.endWith=function(str){
+		if(str==null||str==""||this.length==0||str.length>this.length)
+		  return false;
+		if(this.substring(this.length-str.length)==str)
+		  return true;
+		else
+		  return false;
+		return true;
+	}
+	
 	//默认参数
 	var default_options = {
 		/*****公共参数*/
@@ -132,7 +143,15 @@ define(function(require, exports, module){
 		 * return : true表示通过链接生效, false表示不处理链接
 		 */
 		operator:function(res, url){
-			if( "add" == res.ename){
+			/*if("preadd" == res.ename){
+				
+			}else if( "preedit" == res.ename){
+				
+			}else if( "preconfig" == res.ename){
+				
+			}else if( "config" == res.ename){
+				
+			}else if( "add" == res.ename){
 				return this.add(res,url);
 			}else if( "edit" == res.ename){
 				return this.edit(res,url);
@@ -140,52 +159,17 @@ define(function(require, exports, module){
 				return this._delete(res,url);
 			}else if( "view" == res.ename){
 				return this.view(res,url);
-			}else if( "disable" == res.ename){
+			}else*/ if( "disable" == res.ename){
 				return this.disable(res,url);
 			}else if( "enable" == res.ename){
 				return this.enable(res,url);
-			}else if( "review" == res.ename){
+			}/*else if( "review" == res.ename){
 				return this.review(res,url);
-			}else{
+			}*/else{
 				return true;
 			}
 		},
 		
-		
-		/**
-		 * 增加操作
-		 */
-		add : function(res,url){
-			return true;
-		},
-		
-		/**
-		 * 编辑操作
-		 */
-		edit : function(res, url){
-			return true;
-		},
-		
-		/**
-		 * 删除操作
-		 */
-		_delete : function(res, url){
-			return true;
-		},
-		
-		/**
-		 * 查看操作
-		 */
-		view : function(res, url){
-			return true;
-		},
-		
-		/**
-		 * 审核操作
-		 */
-		review : function(res, url){
-			return true;
-		},
 		
 		/**
 		 * 禁用操作
