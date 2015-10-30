@@ -69,13 +69,21 @@
 									<td>${data.pagination.index * data.pagination.pageSize + status.index + 1}</td>
 									<td>${item.name }</td>
 									<td>${item.url}</td>
-									<td><c:if test="${item.type == 0  }">菜单（模块）</c:if>
-										<c:if test="${item.type == 1  }">模块通用操作</c:if>
-										<c:if test="${item.type == 2  }">模块列表操作</c:if>
-										<c:if test="${item.type == 3  }">其它操作</c:if></td>
+									<td>
+										<c:choose>
+											<c:when test="${item.type == 0  }">菜单（模块）</c:when>
+											<c:when test="${item.type == 1  }">子菜单（子模块）</c:when>
+											<c:when test="${item.type == 2  }">子菜单项（功能）</c:when>
+											<c:when test="${item.type == 3  }">列表操作</c:when>
+											<c:when test="${item.type == 4 }">按钮等操作</c:when>
+											<c:otherwise>无</c:otherwise>
+										</c:choose></td>
 									<td>${item.systemCode }</td>
-									<td><c:if test="${item.status == 1}">有效</c:if> <c:if
-											test="${item.status == 0}">无效</c:if></td>
+									<td>
+										<c:choose>
+											<c:when test="${item.type == 0  }">无效</c:when>
+											<c:when test="${item.type == 1  }">有效</c:when>
+										</c:choose></td>
 									<td>
 										<a resID="51" class="popedom" condition="1" params="myResID=${item.resID}"></a>
 										<a resID="52" class="popedom" condition='<c:if test="${item.status == 0}">1</c:if>' params="myResID=${item.resID}"></a>
@@ -103,7 +111,7 @@
 	<script type="text/javascript" src="${basePath }/resources/js/appuser/app.js"></script>
 	<script type="text/javascript">
 	seajs.use(["${basePath}/resources/js/appuser/business/res_business"],function(ResBusiness){
-		var res_business = new ResBusiness({base_path : "${basePath}" , currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage} ,opers:${_OPERATOR_JSON_}});
+		var res_business = new ResBusiness({base_path : "${basePath}" , currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage} ,opers:[]});
 		res_business.init_list_page();
 	});
 	</script>

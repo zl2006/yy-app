@@ -42,7 +42,7 @@ import static org.yy.framework.basedata.Constants.*;
 * @since  [app-user/1.0]
 */
 @Controller
-@RequestMapping("resource")
+@RequestMapping("res")
 @Service(name = "资源服务", desc = "资源新增/删除/维护等操作", role = "管理员、新注册用户", models = {@Model(name = "user", desc = "用户实体", clazz = User.class)})
 public class ResourceController extends AbsUserController {
     
@@ -76,6 +76,11 @@ public class ResourceController extends AbsUserController {
         return processSuccess(moduleName + LIST_PAGE, resourceService.findResource(resDTO), resDTO);
     }
     
+    @RequestMapping(value = "presave")
+    public ModelAndView save() throws ServiceException {
+        return processSuccess(SUCCESS_PAGE, null);
+    }
+    
     @RequestMapping(value = "save")
     public ModelAndView save(org.yy.user.model.Resource res)
         throws ServiceException {
@@ -96,7 +101,7 @@ public class ResourceController extends AbsUserController {
         String resID = request.getParameter("myResID");
         res.setResID(Long.valueOf(resID));
         resourceService.updateResource(res);
-        return processSuccess(SUCCESS_PAGE, res);
+        return processSuccess(moduleName + ADD_PAGE, res);
     }
     
     @RequestMapping(value = "enable", method = {RequestMethod.GET, RequestMethod.POST})
@@ -188,7 +193,7 @@ public class ResourceController extends AbsUserController {
     /** {@inheritDoc} */
     @Override
     protected void setModuleName() {
-        this.moduleName = "module/res/";
+        this.moduleName = "res/";
         
     }
 }

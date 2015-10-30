@@ -70,7 +70,7 @@
 						</thead>
 						<tbody>
 							<c:forEach var="item" varStatus="status" items="${data.result}">
-								<tr view="/organ/view.do?organCode=${item.organCode}&resID=47" id="${item.organCode}" <c:if test="${item.hasChild == 1}"> haschild="true" </c:if> <c:if test="${item.parentOrganCode ne '-1'}"> pid="${item.parentOrganCode}"</c:if> >
+								<tr view="/organ/view.do?organCode=${item.organCode}" id="${item.organCode}" <c:if test="${item.hasChild == 1}"> haschild="true" </c:if> <c:if test="${item.parentOrganCode ne '-1'}"> pid="${item.parentOrganCode}"</c:if> >
 									<td>${data.pagination.index*data.pagination.pageSize + status.index + 1}(${item.organCode})</td>
 									<td>${item.name }</td>
 									<td>${item.tel}</td>
@@ -104,7 +104,7 @@
 	<script type="text/javascript" src="${basePath }/resources/js/appuser/app.js"></script>
 	<script type="text/javascript">
 		seajs.use(["${basePath}/resources/js/appuser/business/organ_business"],function(OrganBusiness){
-			var organ_business = new OrganBusiness({base_path : "${basePath}" , currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage} ,opers:${_OPERATOR_JSON_}});
+			var organ_business = new OrganBusiness({base_path : "${basePath}" , currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage} ,opers:[]});
 			organ_business.init_list_page();
 		});
 	</script>

@@ -106,8 +106,7 @@
 									<label class="col-sm-2 control-label" for="description">机构描述:</label>
 									<div class="col-sm-6">
 										<textarea rows="5" cols="3" placeholder="机构描述" name="description"
-											id="description" class="form-control" maxlength="255"
-											value="${data.organ.description}"></textarea>
+											id="description" class="form-control" maxlength="255" >${data.organ.description}</textarea>
 									</div>
 								</div>
 								<div class="form-group">

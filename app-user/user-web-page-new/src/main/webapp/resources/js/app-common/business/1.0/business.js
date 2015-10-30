@@ -34,7 +34,7 @@ define(function(require, exports, module){
 		submitBtn		:'#submitBtn',		
 		/*****列表页参数*/
 		data_table			: '#data_table',							//数据列表表格的ＩＤ
-		row_click				: false,											//允许行可以单击
+		row_click				: true,											//允许行可以单击
 		pagination			: '#pagination',							//分页组件的ID
 		pagination_index	: '#pagination_index',			//表单中隐藏当前页数的元素ＩＤ
 		currentPage			:	0,												// 当前页

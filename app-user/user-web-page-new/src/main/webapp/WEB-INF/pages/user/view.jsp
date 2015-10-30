@@ -37,12 +37,12 @@
                             <label for="tel">电话:</label>${data.user.tel }
                         </div>
                         <div class="pure-control-group">
-                            <label for="sex" class="pure-radio">性别： </label>
+                            <label for="sex">性别： </label>
                             <c:if test="${data.user.sex == 'F'}">女</c:if>
 							<c:if test="${data.user.sex == 'M'}">男</c:if>
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" class="pure-radio">状态： </label>
+                            <label for="status" >状态： </label>
                             <c:if test="${data.user.status ==1}">有效</c:if>
 							<c:if test="${data.user.status ==0}">无效</c:if>
                         </div>

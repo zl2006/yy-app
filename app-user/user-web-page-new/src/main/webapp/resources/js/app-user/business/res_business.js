@@ -7,12 +7,12 @@
  */
 define(function(require, exports, module){
 	
-	var Business = require('appuser/business/business.js');
-	var $ = require('$');
+	var Business = require('business');
+	var $ = require('jquery');
 	
 	
 	//子树的模板
-	var tpl ='{@each result as item,index} <tr view="/resource/view.do?myResID=&{item.resID}&resID=50" id="&{item.resID}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!="-1"} pid="&{item.parentResID}" {@/if} >  \
+	var tpl ='{@each result as item,index} <tr view="/resource/view.do?myResID=&{item.resID}" id="&{item.resID}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!="-1"} pid="&{item.parentResID}" {@/if} >  \
 		<td>&{index}</td> \
 		<td>&{item.name }</td> \
 		<td>&{item.url}</td> \
@@ -110,17 +110,17 @@ define(function(require, exports, module){
 			//2, 处理子树
 			var ttoption = {
 	            expandLevel : 1,
-	            basepath : that.options.base_path + '/resources/js/jquery/mytreetable/1.4.2/',
+	            basepath : that.options.base_path + '/resources/js/jqmytreetable-amd/1.4.2/',
 	            beforeExpand : function($treeTable, id) {
 	                //判断id是否已经有了孩子节点，如果有了就不再加载，这样就可以起到缓存的作用
 	                if ($('.' + id, $treeTable).length) { return; };
-	                $.getJSON( that.options.base_path + "/resource/listChild.json", {parentResID:id}, function( data ) { 
+	                $.getJSON( that.options.base_path + "/res/listChild.json", {parentResID:id}, function( data ) { 
 	                	var treeNodes = null;
-	                	seajs.use(['juicer','popedom'],function(juicer,popedom){
+	                	require(['juicer'],function(juicer){
 	                		juicer.set({ 'tag::interpolateOpen': '&{', 'tag::noneencodeOpen': '&&{' });
 	                		treeNodes = $(juicer(tpl, data.data));
 	                		$treeTable.addChilds(treeNodes); 
-	                		popedom.init($("*[role='popedom']",treeNodes), opers,that.operator,that);
+	                		//popedom.init($("*[role='popedom']",treeNodes), opers,that.operator,that);
 	                		
 	                		//4, 所有view行事件
 	                		treeNodes.bind('click',function(event){
@@ -136,7 +136,7 @@ define(function(require, exports, module){
 	            }
 	         };
 			
-			seajs.use('treetable',function(treetable){
+			require(['jqtreetable'],function(treetable){
 				treetable(that.options.data_table).treeTable(ttoption);
 			});
 	         

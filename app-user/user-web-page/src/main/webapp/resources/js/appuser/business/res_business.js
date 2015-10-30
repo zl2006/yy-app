@@ -16,7 +16,15 @@ define(function(require, exports, module){
 		<td>&{index}</td> \
 		<td>&{item.name }</td> \
 		<td>&{item.url}</td> \
-		<td>&{item.type }</td> \
+		<td>\
+				{@if item.type == 2 }\
+					菜单(子模块)\
+		    	{@else if item.type == 3}\
+					列表操作\
+		        {@else}\
+					按钮等其它操作\
+		        {@/if}\
+		</td> \
 		<td>&{item.systemCode }</td> \
 		<td>{@if item.status==1} 有效 {@/if} {@if item.status==0}无效{@/if}</td> \
 		<td>\

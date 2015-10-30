@@ -55,9 +55,11 @@ requirejs.config({
         
         
         /**app业务层组件*/
-        'business' : 'app-common/business/1.0/business',
-        'organ' : 'app-user/component/organ',
-        'system' : 'app-user/component/system'
+        'business' : 'app-common/business/1.0/business',					//增删改查页通用处理逻辑
+        'organ_business' : 'app-user/business/organ_business',		//组织机构列表页处理逻辑
+        'res_business' : 'app-user/business/res_business',					//资源列表页处理逻辑
+        'organ' : 'app-user/component/organ',										//组织机构弹出框
+        'system' : 'app-user/component/system'									//应用系统弹出框
     },
     shim: {
         'dialog5-plugins': {
