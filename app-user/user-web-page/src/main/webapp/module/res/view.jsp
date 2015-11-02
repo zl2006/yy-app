@@ -39,10 +39,14 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label">资源类型:</label>
 									<label class="col-sm-3 control-label view-content">
-										<c:if test="${data.res.type == 0  }">菜单（模块）</c:if>
-										<c:if test="${data.res.type == 1  }">模块通用操作</c:if>
-										<c:if test="${data.res.type == 2  }">模块列表操作</c:if>
-										<c:if test="${data.res.type == 3  }">其它操作</c:if>
+										<c:choose>
+											<c:when test="${data.res.type == 0  }">菜单（模块）</c:when>
+											<c:when test="${data.res.type == 1  }">子菜单（子模块）</c:when>
+											<c:when test="${data.res.type == 2  }">子菜单项（功能）</c:when>
+											<c:when test="${data.res.type == 3  }">列表操作</c:when>
+											<c:when test="${data.res.type == 4 }">按钮等操作</c:when>
+											<c:otherwise>无</c:otherwise>
+										</c:choose>
 									</label>
 								</div>
 								<div class="form-group">

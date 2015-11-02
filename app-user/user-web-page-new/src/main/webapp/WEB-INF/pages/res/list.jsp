@@ -42,7 +42,7 @@
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
                 <tr style="cursor: hand"  view="/res/view.do?myResID=${item.resID}" <c:if test="${ (status.index+1) % 2 == 0}">class="odd"</c:if>   id="${item.resID}" <c:if test="${item.hasChild == 1}"> haschild="true" </c:if> <c:if test="${item.parentResID ne '-1'}"> pid="${item.parentResID}"</c:if> >
-                    <td>${status.index + 1 + ( data.pagination.index * data.pagination.pageSize )}</td>
+                    <td width="80px">${status.index + 1 + ( data.pagination.index * data.pagination.pageSize )}</td>
                     <td>${item.name }</td>
 					<td>${item.url}</td>
                    <td><c:choose>
@@ -56,8 +56,8 @@
                    <td>${item.systemCode }</td>
 					<td>
 						<c:choose>
-							<c:when test="${item.type == 0  }">无效</c:when>
-							<c:when test="${item.type == 1  }">有效</c:when>
+							<c:when test="${item.status == 0  }">无效</c:when>
+							<c:when test="${item.status == 1  }">有效</c:when>
 						</c:choose></td>
                     <td width="120">
                     	<c:forEach var="itemoper" items="${_SITE_MAIN_DATA_.listOperations }">
@@ -69,6 +69,10 @@
                 </tbody>
             </table>
             <ul class="pagination" id="pagination"></ul><!-- 分页组件 -->
+             <textarea id="listoper" style="display: none">
+          	    <c:forEach var="itemoper" items="${_SITE_MAIN_DATA_.listOperations }">
+					<a href="${itemoper.url }?myResID=&{item.resID}"  style="cursor: hand;"  class="list_oper" ename="${itemoper.ename }">${itemoper.name }</a>
+			</c:forEach></textarea>
         </div><!-- content end-->
     </div>
 </div><!--main end-->

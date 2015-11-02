@@ -121,7 +121,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="orderNO">顺序:</label>
 									<div class="col-sm-1">
-										<input type="text" placeholder="顺序" name="orderNO" id="orderNO" class="form-control" value="1">
+										<input type="text" placeholder="顺序" name="orderNO" id="orderNO" class="form-control" value="${data.res.orderNO }">
 									</div>
 								</div>
 								<div class="form-group">

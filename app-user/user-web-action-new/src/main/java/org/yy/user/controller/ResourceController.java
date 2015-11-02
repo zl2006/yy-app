@@ -78,7 +78,7 @@ public class ResourceController extends AbsUserController {
     
     @RequestMapping(value = "presave")
     public ModelAndView save() throws ServiceException {
-        return processSuccess(SUCCESS_PAGE, null);
+        return processSuccess(moduleName + ADD_PAGE, null);
     }
     
     @RequestMapping(value = "save")

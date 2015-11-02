@@ -8,11 +8,9 @@
  * @create 2014-3-6
  */
 define(function(require, exports, module){
-var $ = require('$');
-require('bootstrap');
-require('bootstrappaginator');
-require('treetable');
-var juicer = require('juicer');
+	var $ = require('jqtreetable');
+	var juicer = require('juicer');
+	var dialog = require('jqlayer');
 
 (function($){
 	
@@ -28,36 +26,22 @@ var juicer = require('juicer');
 		title : '选择父资源',										//标题
 		width : '80%',											//对话框宽度
 		basePath : 'http://localhost:8087/user',				//动作基础路径
-		listAction: '/resource/list.json',						//列表动作
-		childAction : '/resource/listChild.json',				//子列表动作
+		listAction: '/res/list.json',						//列表动作
+		childAction : '/res/listChild.json',				//子列表动作
 		systemCode : '',										//指定系统下的所有资源
 		selectedResource : function(resID,name,systemCode){}				//选择资源
 	};
 	
 	//父资源模板
-	var tpl = '	<div class="modal-dialog" style="width:&{width}"> \
-	    			<div class="modal-content"> \
-	    				<div class="modal-header"> \
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> \
-							<h4 class="modal-title" id="myModalLabel">&{title}</h4> \
-						</div> \
-						<div class="modal-body"> \
-					    	<form class="form-horizontal" role="form" method="post"> \
-								<div class="form-group last-group"> \
-									<label for="systemCode" class="col-sm-1 control-label">系统编号:</label> \
-									<div class="col-sm-2"> \
-										<input type="text" class="form-control" placeholder="系统编号" name="qSystemCode" value="&{systemCode}" > \
-									</div> \
-									<label for="name" class="col-sm-1 control-label">资源名称:</label> \
-									<div class="col-sm-3"> \
-										<input type="text" class="form-control" placeholder="资源名称" name="name" value="&{name}"> \
-									</div> \
-									<div class="col-sm-1"> \
-										<button type="button" class="btn btn-primary queryBTN">查询</button> \
-									</div> \
-								</div> \
+	var tpl = '	<div style="width:98%;margin:0 auto;" >\
+							<form class="pure-form search" role="form" method="post" style="margin-top:20px;"> \
+								<label for="systemCode" >系统编号:</label> \
+								<input type="text" class="form-control  pure-u-1-5" name="qSystemCode" value="&{systemCode}"   > \
+								<label for="name" class="col-sm-1 control-label">资源名称:</label> \
+								<input type="text" class="form-control pure-u-1-5"   name="name" value="&{name}" > \
+								<button type="button" class="button-xsmall pure-button pure-button-primary queryBTN">查询</button> \
 							</form> \
-							<table width="100%" class="table table-bordered table-hover" id="treeTable1" style="margin-top:20px"> \
+							<table class="pure-table search-res" id="treeTable1" style="margin-top:20px" width="100%"> \
 								<thead> \
 									<tr> \
 										<th>序号</th> \
@@ -81,12 +65,7 @@ var juicer = require('juicer');
 							</table>\
 							<ul id="pagination">\
 							</ul> \
-					</div>  \
-				    <div class="modal-footer"> \
-				      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> \
-				    </div> \
-				  </div><!-- /.modal-content --> \
-				</div>';
+					</div>';
 	
 	//资源子树模板
 	var treetpl = '{@each result as item,index} <tr id="&{item.resID}" name="&{item.name}" systemCode="&{item.systemCode}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!=-1} pid="&{item.parentResID}" {@/if} >  \
@@ -151,10 +130,19 @@ var juicer = require('juicer');
 		var that = this;
 		var $modalEle = $('#' + options.id);
 		
-		$.getJSON( options.basePath + options.listAction,{status : 1, systemCode : that.options.systemCode}, function( data ) { 
+		$.getJSON( options.basePath + options.listAction,{status : 1}, function( data ) { 
 			if( "success" ==  data.flag){
 				that.render(data);
-				$modalEle.modal();
+				//$modalEle.modal();
+				dialog.open({
+				    type: 1, //page层
+				    area: ['900px', '450px'],
+				    title: '选择父资源',
+				    shade: 0.6, //遮罩透明度
+				    moveType: 1, //拖拽风格，0是默认，1是传统拖动
+				    shift: -1, //0-6的动画形式，-1不开启
+				    content: $modalEle//'<div style="padding:50px;">这是一个非常普通的页面层（type:1），传入了自定义的html</div>'
+				});    
 			}
         });
 	};
@@ -201,7 +189,7 @@ var juicer = require('juicer');
 		};
 		
 		if( data.data.pagination.totalPage > 0 ){
-			$('#pagination', $('#'+options.id) ).bootstrapPaginator(pgoptions);
+			//$('#pagination', $('#'+options.id) ).bootstrapPaginator(pgoptions);
 		}
 		
 		
@@ -209,7 +197,7 @@ var juicer = require('juicer');
 		var ttoption = {
                 //theme:'vsStyle',
                 expandLevel : 1,
-                basepath : options.basePath + '/resources/js/jquery/mytreetable/1.4.2/',
+                basepath : options.basePath + '/resources/js/jqmytreetable-amd/1.4.2/',
                 beforeExpand : function($treeTable, id) {
                     //判断id是否已经有了孩子节点，如果有了就不再加载，这样就可以起到缓存的作用
                     if ($('.' + id, $treeTable).length) { return; }
@@ -227,7 +215,7 @@ var juicer = require('juicer');
 	 * 关闭对话框
 	 */
 	ResSelectModal.prototype.close = function(){
-		$('#' + this.options.id).modal('hide');
+		dialog.closeAll();
 	};
 	
 

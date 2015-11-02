@@ -123,7 +123,7 @@
 								<div class="form-group">
 									<label class="col-sm-2 control-label" for="description">描述:</label>
 									<div class="col-sm-5">
-										<textarea rows="4" cols="80">${data.res.description}</textarea>
+										<textarea rows="4" cols="80" name="description">${data.res.description}</textarea>
 									</div>
 								</div>
 								<div class="form-group">

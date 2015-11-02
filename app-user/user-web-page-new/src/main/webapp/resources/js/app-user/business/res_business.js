@@ -12,18 +12,29 @@ define(function(require, exports, module){
 	
 	
 	//子树的模板
-	var tpl ='{@each result as item,index} <tr view="/resource/view.do?myResID=&{item.resID}" id="&{item.resID}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!="-1"} pid="&{item.parentResID}" {@/if} >  \
+	var tpl ='{@each result as item,index} <tr view="/res/view.do?myResID=&{item.resID}" id="&{item.resID}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!="-1"} pid="&{item.parentResID}" {@/if} >  \
 		<td>&{index}</td> \
 		<td>&{item.name }</td> \
 		<td>&{item.url}</td> \
-		<td>&{item.type }</td> \
+		<td>{@if item.type == 0 }\
+					菜单（模块）\
+			    {@else if item.type == 1}\
+					子菜单（子模块）\
+		 		{@else if item.type == 2}\
+					子菜单项（功能）\
+		 		{@else if  item.type == 3}\
+					列表操作\
+			    {@else if item.type == 4}\
+					按钮等操作\
+			    {@else}\
+			        无\
+			    {@/if}\
+    	</td> \
 		<td>&{item.systemCode }</td> \
 		<td>{@if item.status==1} 有效 {@/if} {@if item.status==0}无效{@/if}</td> \
-		<td>\
-			<a resID="51" class="popedom" role="popedom" condition="1" params="myResID=&{item.resID}"></a>\
-			<a resID="52" class="popedom" role="popedom" condition="{@if item.status==0}1{@/if}" params="myResID=&{item.resID}"></a>\
-			<a resID="53" class="popedom" role="popedom" condition="{@if item.status==1}1{@/if}" params="myResID=&{item.resID}"></a>\
-		</td>\
+		<td>'
+		+  $('#listoper').val() +
+		'</td>\
 	</tr>{@/each} ';
 	
 	var ResBusiness = Business.extend({
@@ -68,7 +79,7 @@ define(function(require, exports, module){
 		 */
 		selectSystem:function(){
 			var that=this;
-			seajs.use('system',function(SystemSelectModal){
+			require(['system'],function(SystemSelectModal){
 				var systemModal = null;
 				systemModal = new SystemSelectModal({"basePath" : that.options.base_path ,  "selectedSystem":function(systemCode,name) {
 					$('#systemCode').val(systemCode);
@@ -86,7 +97,7 @@ define(function(require, exports, module){
 		 */
 		selectResource:function(){
 			var that=this;
-			seajs.use('resource',function(ResSelectModal){
+			require(['resource'],function(ResSelectModal){
 				var resModal = null;
 				resModal = new ResSelectModal({"basePath" : that.options.base_path ,"systemCode":$('#systemCode').val(),  "selectedResource":function(resID,Name,systemCode) {
 					$('#parentResID').val(resID);
@@ -120,7 +131,6 @@ define(function(require, exports, module){
 	                		juicer.set({ 'tag::interpolateOpen': '&{', 'tag::noneencodeOpen': '&&{' });
 	                		treeNodes = $(juicer(tpl, data.data));
 	                		$treeTable.addChilds(treeNodes); 
-	                		//popedom.init($("*[role='popedom']",treeNodes), opers,that.operator,that);
 	                		
 	                		//4, 所有view行事件
 	                		treeNodes.bind('click',function(event){
@@ -130,6 +140,11 @@ define(function(require, exports, module){
 	            				}
 	            				window.location.href = that.options.base_path + $(event.currentTarget).attr('view');
 	            				return true;
+	            			});
+	                		
+	                		//5, 新的按钮操作事件
+	                		$('.list_oper', treeNodes).click(function(e){
+	            				that.operator($(this).attr('ename') ,$(this).attr('href'), e );
 	            			});
 	                	});
 	                });

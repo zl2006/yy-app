@@ -59,7 +59,8 @@ requirejs.config({
         'organ_business' : 'app-user/business/organ_business',		//组织机构列表页处理逻辑
         'res_business' : 'app-user/business/res_business',					//资源列表页处理逻辑
         'organ' : 'app-user/component/organ',										//组织机构弹出框
-        'system' : 'app-user/component/system'									//应用系统弹出框
+        'system' : 'app-user/component/system',									//应用系统弹出框
+        'resource' : 'app-user/component/resource'									//应用系统弹出框
     },
     shim: {
         'dialog5-plugins': {
