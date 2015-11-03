@@ -25,15 +25,13 @@
                             一、日志信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="groupName">用户组名称:</label>${data.userGroup.groupName }
+                            <label>用户组名称:</label>${data.userGroup.groupName }
                         </div>
                          <div class="pure-control-group">
-                            <label for="status">状态:</label>
-                            <c:if test="${data.userGroup.status ==1}">有效</c:if>
-							<c:if test="${data.userGroup.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.userGroup.status == 1}">有效</c:when><c:when test="${data.userGroup.status == 0}">无效</c:when> </c:choose> 
                         </div>
                         <div class="pure-control-group">
-                            <label for="roles">用户角色:</label>
+                            <label>用户角色:</label>
                             <c:if test="${not empty data.roles }">
 	                             <div   style="margin-top:-20px;margin-left:176px;margin-right:20px;padding: 0 10px 0 0">
 		                            	 <c:forEach var="role" items="${data.roles}">${role.name}<span class="place-15 "></span> </c:forEach>
@@ -41,7 +39,7 @@
 	                         </c:if>
                         </div>
                          <div class="pure-control-group">
-                            <label for="description">描述:</label>${data.userGroup.description }
+                            <label>描述:</label>${data.userGroup.description }
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -60,9 +58,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator',  'jqsuperslide'], function ($,   slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});

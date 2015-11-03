@@ -27,16 +27,16 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="groupName">用户组名称:</label>${data.userGroup.groupName }
+                            <label>用户组名称:</label>${data.userGroup.groupName }
                         </div>
                          <div class="pure-control-group">
-                            <label for="description">用户组描述</label>${data.userGroup.description }
+                            <label>用户组描述:</label>${data.userGroup.description }
                         </div>
                         <div class="pure-control-group">
-                            <label for="status">状态:</label><c:if test="${data.userGroup.status ==1}">有效</c:if> <c:if test="${data.userGroup.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.userGroup.status == 1}">有效</c:when><c:when test="${data.userGroup.status == 0}">无效</c:when> </c:choose> 
                         </div>
                          <div class="pure-control-group">
-                            <label for="roles">角色:</label> 
+                            <label>角色:</label> 
                             <div   style="border:1px solid #d6d6d6; margin-top:-15px;margin-left:176px;margin-right:20px;padding: 0 10px 0px 10px">
 								<c:forEach var="system" items="${data.allSystems.result }" varStatus="status">
 									<div style="margin:0px;line-height: 25px;"><b>${status.index + 1},${system.name }(${system.systemCode})</b></div>
@@ -76,9 +76,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator', 'jqsuperslide','business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });

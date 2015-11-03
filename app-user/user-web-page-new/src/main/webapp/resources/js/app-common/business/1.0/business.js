@@ -201,11 +201,22 @@ define(function(require, exports, module){
 		disable : function(res, url){
 			$.getJSON( url,  function( data ) { 
 	        	if(data.flag == "success"){
-	        		window.location.reload(true);
-	        		return false;
+	        		require(['jqlayer'], function(layer){
+	        			layer.confirm('禁用数据成功！', {
+	            		    btn: ['确定'] //按钮
+	            		}, function(){
+	            			window.location.reload(true);
+	    	        		return false;
+	            		});
+	        		})
 	        	}else{
-	        		alert('禁用操作失败');
-	        		return false;
+	        		require(['jqlayer'], function(layer){
+	        			layer.confirm('禁用数据失败！', {
+	            		    btn: ['确定'] //按钮
+	            		}, function(){
+	    	        		return false;
+	            		});
+	        		})
 	        	}
 	        });
 			return false;
@@ -217,11 +228,22 @@ define(function(require, exports, module){
 		enable : function(res, url){
 			$.getJSON( url,  function( data ) { 
 	        	if(data.flag == "success"){
-	        		window.location.reload(true);
-	        		return false;
+	        		require(['jqlayer'], function(layer){
+	        			layer.confirm('启用数据成功！', {
+	            		    btn: ['确定'] //按钮
+	            		}, function(){
+	            			window.location.reload(true);
+	    	        		return false;
+	            		});
+	        		})
 	        	}else{
-	        		alert('启用操作失败');
-	        		return false;
+	        		require(['jqlayer'], function(layer){
+	        			layer.confirm('启用数据失败！', {
+	            		    btn: ['确定'] //按钮
+	            		}, function(){
+	    	        		return false;
+	            		});
+	        		})
 	        	}
 	        });
 			return false;

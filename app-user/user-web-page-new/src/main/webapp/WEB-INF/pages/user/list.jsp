@@ -48,11 +48,11 @@
                     <td>${item.name }</td>
                     <td>${item.email}</td>
                     <td>${item.tel }</td>
-                    <td>  <c:choose><c:when test="${item.sex == 'F'}">女</c:when><c:when test="${item.sex == 'M'}">男</c:when> </c:choose></td>
-					<td> <c:choose><c:when test="${item.status == 1}">有效</c:when><c:when test="${item.status == 0}">无效</c:when> </c:choose></td>
+                    <td><c:choose><c:when test="${item.sex == 'F'}">女</c:when><c:when test="${item.sex == 'M'}">男</c:when> </c:choose></td>
+					<td><c:choose><c:when test="${item.status == 1}">有效</c:when><c:when test="${item.status == 0}">无效</c:when> </c:choose></td>
                     <td width="120">
                     	<c:forEach var="itemoper" items="${_SITE_MAIN_DATA_.listOperations }">
-							<a href="${itemoper.url }?loginID=${item.loginID}" style="cursor: hand;"  class="list_oper" ename="${itemoper.ename }">${itemoper.name }</a>
+							<a href="${itemoper.url }?loginID=${item.loginID}"   class="list_oper" ename="${itemoper.ename }">${itemoper.name }</a>
 						</c:forEach>
                     </td>
                 </tr>
