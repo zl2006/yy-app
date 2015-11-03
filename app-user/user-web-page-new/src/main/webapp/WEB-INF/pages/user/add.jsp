@@ -25,32 +25,32 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="loginID">登录账号:</label>
-                            <input id="loginID" name="loginID" type="text" placeholder="登录账号"  data-rule="required;length[8~64]" class="pure-u-1-5">
+                            <label>登录账号:</label>
+                            <input name="loginID" type="text" placeholder="登录账号"  data-rule="required;length[8~64]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">用户姓名:</label>
-                            <input id="name" name="name" type="text" placeholder="用户姓名"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>用户姓名:</label>
+                            <input  name="name" type="text" placeholder="用户姓名"  data-rule="required;length[~64]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="password">密码:</label>
-                            <input id="password" name="password" type="password" placeholder="8到32位的密码"  data-rule="required;length[8~32]" class="pure-u-1-5">
+                            <label>密码:</label>
+                            <input  name="password" type="password" placeholder="8到32位的密码"  data-rule="required;length[8~32]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="email">邮箱:</label>
-                            <input id="email" name="email" type="text" placeholder="邮箱地址()12312＠qq.com)"  data-rule="email;length[~128]" class="pure-u-2-5">
+                            <label>邮箱:</label>
+                            <input name="email" type="text" placeholder="邮箱地址(12312＠qq.com)"  data-rule="email;length[~128]" class="pure-u-2-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="tel">电话:</label>
-                            <input id="tel" name="tel" type="text" placeholder="电话"  data-rule="length[~32]" class="pure-u-1-5">
+                            <label>电话:</label>
+                            <input  name="tel" type="text" placeholder="电话"  data-rule="length[~32]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="sex" class="pure-radio">性别： </label>
+                            <label>性别:</label>
                             <input name="sex" type="radio" value="M" checked="checked">男
                             <input name="sex" type="radio" value="F" class="place-40">女
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" class="pure-radio">状态： </label>
+                            <label>状态:</label>
                             <input name="status" type="radio" value="1" checked="checked">有效
                             <input name="status" type="radio" value="0" class="place-40">无效
                         </div>
@@ -61,16 +61,16 @@
                         </div>
                         <fieldset>
                            <div class="pure-control-group">
-	                            <label for="address">地址:</label>
-	                            <input id="address" name="address" type="text" placeholder="地址"  data-rule="length[~64]" class="pure-u-2-5">
+	                            <label>地址:</label>
+	                            <input name="address" type="text" placeholder="地址"  data-rule="length[~128]" class="pure-u-2-5">
 	                        </div>
 	                        <div class="pure-control-group">
-	                            <label for="birthday">生日：</label>
-	                            <input id="birthday"  name="birthday" type="text" placeholder="出生日期" class="Wdate pure-u-1-8 " onclick="WdatePicker()">
+	                            <label>生日：</label>
+	                            <input name="birthday" type="text" placeholder="出生日期" class="Wdate pure-u-1-8 " onclick="WdatePicker()">
 	                        </div>
 	                        <div class="pure-control-group">
-	                            <label for="latnNo">所在省市:</label>
-	                            <input id="latnNo" name="latnNo" type="text" placeholder="所在省市"  data-rule="length[~64]" class="pure-u-2-5">
+	                            <label>所在省市:</label>
+	                            <input name="latnNo" type="text" placeholder="所在省市"  data-rule="length[~16]" class="pure-u-2-5">
 	                        </div>
 	                        <div class="pure-control-group">
 	                            <label for="organName">组织机构：</label>
@@ -104,25 +104,12 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator', 'jqsuperslide','business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
     		business.init_saveorupdate_page();
-    		
-    		$("#selectOrgan").on('click', function(event){
-				//按需要才加载JS文件
-				require(['organ'],function(OrganSelectModal){
-					var organModal = new OrganSelectModal({"basePath" : "${basePath}" ,  "selectedOrgan":function(organCode,organName) {
-						$('#organCode').val(organCode);
-						$('#organName').val(organName);
-						organModal.close();
-					}});
-					organModal.open();
-				});
-			});
     	});
     })
 </script>

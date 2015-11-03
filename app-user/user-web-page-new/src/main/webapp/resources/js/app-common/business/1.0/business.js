@@ -87,7 +87,7 @@ define(function(require, exports, module){
 				require(['jqajaxform'],function(form){
 					$(that.options.save_update_form, that.$ele).ajaxSubmit(frmOptions);
 				});
-			})
+			});
 			
 			//3, 表单组成部分的显示与隐藏
 			$('.showhide').on('click', function (eventObj) {
@@ -99,7 +99,20 @@ define(function(require, exports, module){
                     ff.css('display', 'none');
                     $(eventObj.currentTarget).text('显示');
                 }
-            })
+            });
+            
+			//组织机构
+            $("#selectOrgan").on('click', function(event){
+				//按需要才加载JS文件
+				require(['organ'],function(OrganSelectModal){
+					var organModal = new OrganSelectModal({"basePath" : that.options.base_path,  "selectedOrgan":function(organCode,organName) {
+						$('#organCode').val(organCode);
+						$('#organName').val(organName);
+						organModal.close();
+					}});
+					organModal.open();
+				});
+			});
         },
         
         

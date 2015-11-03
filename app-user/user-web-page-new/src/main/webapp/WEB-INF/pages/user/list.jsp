@@ -19,13 +19,13 @@
              <%@ include file="/WEB-INF/pages/common/point.jsp"%>
             <form class="pure-form search" id="query_form" action="${basePath}/user/list.do" method="post"><!--搜索表单-->
             	<input type="hidden" value="${data.pagination.index}" name="pagination.index" id="pagination_index">
-                <label for="loginID">登录账号：</label>
+                <label>登录账号:</label>
                 <input name="loginID" type="text"  class="pure-u-1-5"  value="${params.loginID }">
-                <label for="name">姓名：</label>
+                <label>姓名:</label>
                 <input name="name" type="text"  class="pure-u-1-5"  value="${params.name }">
-                <label for="tel">电话：</label>
+                <label>电话:</label>
                 <input name="tel" type="text"  class="pure-u-1-5"  value="${params.tel }">
-                <button id="submitBtn" class="pure-button pure-button-primary"><i class="fa fa-search"></i>搜索</button>
+                <button id="submitBtn" class="pure-button pure-button-primary">搜索</button>
             </form><!--search end-->
             <table class="pure-table search-res" width="100%" id="data_table"><!--搜索结果 -->
                 <thead>

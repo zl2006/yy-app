@@ -26,38 +26,30 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="loginID">登录账号:</label>
-                            ${data.user.loginID }
+                            <label>登录账号:</label>${data.user.loginID }
                             <input type="hidden" name="loginID" value="${data.user.loginID }" />
 							<input type="hidden" name="userID" value="${data.user.userID }" />
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">用户姓名:</label>
-                            ${data.user.name }
+                            <label>用户姓名:</label>${data.user.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="email">邮箱:</label>
-                            ${data.user.email }
+                            <label>邮箱:</label>${data.user.email }
                         </div>
                          <div class="pure-control-group">
-                            <label for="tel">电话:</label>
-                           ${data.user.tel }
+                            <label>电话:</label>${data.user.tel }
                         </div>
                         <div class="pure-control-group">
-                            <label for="sex" class="pure-radio">性别： </label>
-                            <c:if test="${data.user.sex =='F'}">男</c:if>
-							<c:if test="${data.user.sex =='M'}">女</c:if>
+                            <label>性别: </label><c:choose><c:when test="${data.user.sex == 'F'}">女</c:when><c:when test="${data.user.sex == 'M'}">男</c:when> </c:choose>
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" class="pure-radio">状态： </label>
-                            <c:if test="${data.user.status ==1}">有效</c:if>
-							<c:if test="${data.user.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.user.status == '1'}">有效</c:when><c:when test="${data.user.status == '0'}">无效</c:when> </c:choose>
                         </div>
                          <div class="pure-control-group">
-                            <label for="tel">组织机构:</label> ${data.user.organs[0].name }
+                            <label>组织机构:</label>${data.user.organs[0].name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="groups" class="pure-checkbox">用户组： </label>
+                            <label>用户组:</label>
                             <c:forEach var="group" items="${data.allGroups.result }">
 								<input type="checkbox"  name="groups" <c:forEach var="originGroup" items="${data.groups}">
 									<c:if test="${originGroup.userGroupID == group.userGroupID }">
@@ -68,7 +60,7 @@
 							</c:forEach>
                         </div>
                          <div class="pure-control-group">
-                            <label for="roles">角色:</label> 
+                            <label>角色:</label> 
                             <div   style="border:1px solid #d6d6d6; margin-top:-15px;margin-left:176px;margin-right:20px;padding: 0 10px 10px 10px">
 								<c:forEach var="system" items="${data.allSystems.result }" varStatus="status">
 									<div style="margin:0px;line-height: 25px;"><b>${status.index + 1},${system.name }(${system.systemCode})</b></div>

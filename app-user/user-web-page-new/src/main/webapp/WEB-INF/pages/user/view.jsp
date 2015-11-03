@@ -25,26 +25,22 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="loginID">登录账号:</label>${data.user.loginID }
+                            <label>登录账号:</label>${data.user.loginID }
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">用户姓名:</label>${data.user.name }
+                            <label>用户姓名:</label>${data.user.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="email">邮箱:</label>${data.user.email }
+                            <label>邮箱:</label>${data.user.email }
                         </div>
                          <div class="pure-control-group">
-                            <label for="tel">电话:</label>${data.user.tel }
+                            <label>电话:</label>${data.user.tel }
                         </div>
                         <div class="pure-control-group">
-                            <label for="sex">性别： </label>
-                            <c:if test="${data.user.sex == 'F'}">女</c:if>
-							<c:if test="${data.user.sex == 'M'}">男</c:if>
+                            <label>性别:</label><c:choose><c:when test="${data.user.sex == 'F'}">女</c:when><c:when test="${data.user.sex == 'M'}">男</c:when> </c:choose>
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" >状态： </label>
-                            <c:if test="${data.user.status ==1}">有效</c:if>
-							<c:if test="${data.user.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.user.status == '1'}">有效</c:when><c:when test="${data.user.status == '0'}">无效</c:when> </c:choose>
                         </div>
                     </div>
                     <div class="form-area">
@@ -53,23 +49,23 @@
                         </div>
                         <fieldset>
                            <div class="pure-control-group">
-	                            <label for="address">地址:</label>${data.user.address }
+	                            <label>地址:</label>${data.user.address }
 	                        </div>
 	                        <div class="pure-control-group">
-	                            <label for="birthday">生日：</label><fmt:formatDate value="${data.user.birthday}" type="date"></fmt:formatDate>
+	                            <label>生日:</label><fmt:formatDate value="${data.user.birthday}" type="date"></fmt:formatDate>
 	                        </div>
 	                        <div class="pure-control-group">
-	                            <label for="latnNo">所在省市:</label>${data.user.latnNo }
+	                            <label>所在省市:</label>${data.user.latnNo }
 	                        </div>
 	                        <div class="pure-control-group">
-	                            <label for="organName">组织机构：</label>${data.user.organs[0].name }
+	                            <label>组织机构:</label>${data.user.organs[0].name }
 	                        </div>
 	                         <div class="pure-control-group">
-	                            <label for="organName">用户组：</label>
+	                            <label>用户组:</label>
 	                            <c:forEach var="group" items="${data.groups}">${group.groupName}<span class="place-15 "></span></c:forEach>
 	                        </div>
 	                         <div class="pure-control-group">
-	                            <label for="organName">用户角色：</label>
+	                            <label>用户角色:</label>
 	                            <div   style="margin-top:-20px;margin-left:176px;margin-right:20px;padding: 0 10px 0 0">
 	                            	<c:forEach var="role" items="${data.roles}">${role.name}<span class="place-15 "></span></c:forEach>
 	                            </div>
@@ -91,9 +87,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator',  'jqsuperslide'], function ($,  slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});
