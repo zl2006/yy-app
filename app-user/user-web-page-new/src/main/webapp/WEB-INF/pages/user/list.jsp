@@ -21,13 +21,10 @@
             	<input type="hidden" value="${data.pagination.index}" name="pagination.index" id="pagination_index">
                 <label for="loginID">登录账号：</label>
                 <input name="loginID" type="text"  class="pure-u-1-5"  value="${params.loginID }">
-
                 <label for="name">姓名：</label>
                 <input name="name" type="text"  class="pure-u-1-5"  value="${params.name }">
-
                 <label for="tel">电话：</label>
                 <input name="tel" type="text"  class="pure-u-1-5"  value="${params.tel }">
-
                 <button id="submitBtn" class="pure-button pure-button-primary"><i class="fa fa-search"></i>搜索</button>
             </form><!--search end-->
             <table class="pure-table search-res" width="100%" id="data_table"><!--搜索结果 -->
@@ -45,14 +42,14 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
-                <tr style="cursor: hand"  view="/user/view.do?loginID=${item.loginID }" <c:if test="${ (status.index+1) % 2 == 0}">class="odd"</c:if>  >
+                <tr class="pointer"  view="/user/view.do?loginID=${item.loginID }" <c:if test="${ (status.index+1) % 2 == 0}">class="odd"</c:if>  >
                     <td>${status.index + 1 + ( data.pagination.index * data.pagination.pageSize )}</td>
                     <td>${item.loginID }</td>
                     <td>${item.name }</td>
                     <td>${item.email}</td>
                     <td>${item.tel }</td>
-                    <td><c:if test="${item.sex == 'F'}">女</c:if> <c:if test="${item.sex == 'M'}">男</c:if></td>
-					<td><c:if test="${item.status == 1}">有效</c:if> <c:if test="${item.status == 0}">无效</c:if></td>
+                    <td>  <c:choose><c:when test="${item.sex == 'F'}">女</c:when><c:when test="${item.sex == 'M'}">男</c:when> </c:choose></td>
+					<td> <c:choose><c:when test="${item.status == 1}">有效</c:when><c:when test="${item.status == 0}">无效</c:when> </c:choose></td>
                     <td width="120">
                     	<c:forEach var="itemoper" items="${_SITE_MAIN_DATA_.listOperations }">
 							<a href="${itemoper.url }?loginID=${item.loginID}" style="cursor: hand;"  class="list_oper" ename="${itemoper.ename }">${itemoper.name }</a>
@@ -70,7 +67,6 @@
 <!-- 尾部区-->
  <%@ include file="/WEB-INF/pages/common/footer.jsp"%>
 
-
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
@@ -78,7 +74,7 @@
         //sticky("#menu", {top:0, left:0});
         slide("#nav").slide({titCell:"h3", targetCell:"ul",defaultIndex:1,effect:"slideDown",delayTime:300,trigger:"click",defaultPlay:false,returnDefault:false});
         slide("#site-menu").slide({ type: "menu", titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false  });
-       	var business = new Business({base_path : "${basePath}" ,row_click:true, currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage}});
+       	var business = new Business({base_path : "${basePath}" ,row_click:true, currentPage : ${data.pagination.index+1} , totalPages: ${data.pagination.totalPage}});
 		business.init_list_page();
     })
 </script>

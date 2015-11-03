@@ -10,6 +10,29 @@ define(function(require, exports, module){
 	var $ = require('jquery');
 	var Class = require('class');
 	
+	//默认参数
+	var default_options = {
+		/*****公共参数*/
+		base_path 			: '/',														//应用基础路径
+		selector					: 'body',												//此业务展示元素所在html的表达式
+		/*****增改页参数*/
+		save_update_form 	: '#save_update_form',		//保存数据表单的ＩＤ
+		query_form					: '#query_form',						//列表查询时的表单ＩＤ
+		result_div						: '#result_info',						//ajax submit form时的响应数据存放ID
+		error_div 						: '#error_info',							//保存或更新数据等情况下的，检验出错时的结果存放ID
+		submitBtn					:'#submitBtn',						//新增保存或更新保存按钮	
+		/*****列表页参数*/
+		data_table			: '#data_table',								//数据列表表格的ＩＤ
+		row_click				: true,												//允许行可以单击
+		pagination			: '#pagination',								//分页组件的ID
+		pagination_index	: '#pagination_index',				//表单中隐藏当前页数的元素ＩＤ
+		currentPage			:	0,													// 当前页
+		totalPages 				:	0,													//总页数
+		opers							: 	[]	,												//列表操作权限
+		/**操作回调事件*/
+		saveorupdate_handle : null
+	};
+	
 	//扩展endWith
 	String.prototype.endWith=function(str){
 		if(str==null||str==""||this.length==0||str.length>this.length)
@@ -21,29 +44,7 @@ define(function(require, exports, module){
 		return true;
 	}
 	
-	//默认参数
-	var default_options = {
-		/*****公共参数*/
-		base_path 			: '/',								//应用基础路径
-		selector			: 'body',								//此业务所在html表达式
-		/*****增改页参数*/
-		save_update_form 	: '#save_update_form',		//保存数据表单的ＩＤ
-		query_form			: '#query_form',								//列表查询时的表单ＩＤ
-		result_div			: '#result_info',									//ajax submit form时的响应数据存放ID
-		error_div 			: '#error_info',										//保存或更新数据等情况下的，检验出错时的结果存放ID
-		submitBtn		:'#submitBtn',		
-		/*****列表页参数*/
-		data_table			: '#data_table',							//数据列表表格的ＩＤ
-		row_click				: true,											//允许行可以单击
-		pagination			: '#pagination',							//分页组件的ID
-		pagination_index	: '#pagination_index',			//表单中隐藏当前页数的元素ＩＤ
-		currentPage			:	0,												// 当前页
-		totalPages 			:	0,													//总页数
-		opers				: 	[]	,														//列表操作权限
-		/**操作回调事件*/
-		saveorupdate_handle : null
-	};
-	
+	//中止事件传播, 例如点击禁用/启用按钮后,不触发单击行查看数据.
 	function stopDefaultEvent(e){
 		if(e && e.preventDefault){
 			e.preventDefault();
@@ -53,11 +54,11 @@ define(function(require, exports, module){
 		return false;
 	}
 
+	//通知页面业务处理组件
     var Business = Class.create({
     	
     	/**
     	 * 构造函数
-    	 * 
     	 * @param_options 详见默认参数中的属性
     	 */
         initialize: function(param_options) {
@@ -72,16 +73,16 @@ define(function(require, exports, module){
         init_saveorupdate_page: function() {
         	var that = this;
     		
-			//1, 设置表单提交选项
+			//Step 1, 设置表单提交选项
 			var frmOptions = {
-				target:        this.options.result_div,   
-				dataType:  	   'json', 
-				timeout : 3000,
+				target:        this.options.result_div,   																				//返回结果回显
+				dataType: 'json', 																													//返回格式
+				timeout : 	3000,																														//请求超时时间
 			    beforeSubmit:  function(){return that.validate_form();}, 									//提交前验证 
 			    success:       function(data){that.saveorupdate_handle(data);} 						//提交后处理
 			};
 			
-			//2, 绑定表单提交
+			//2, 绑定表单提交,异步提交
 			$(this.options.submitBtn).click(function(){
 				require(['jqajaxform'],function(form){
 					$(that.options.save_update_form, that.$ele).ajaxSubmit(frmOptions);
@@ -123,7 +124,7 @@ define(function(require, exports, module){
 		            last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
 		            page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
 		            onPageChange: function (page,t) {
-		            	if('change' == t){
+		            	if('change' == t){	//因首次也会触发此事件,所以需要加上类型判断
 		            		$(that.options.pagination_index, that.$ele).val(page-1);
 							//当属性reset为0时表示表单实际提交时不重置页码，用于当通过按钮提交表单时要重置页码，通过分页提交时不用重置
 							$(that.options.pagination_index, that.$ele).attr('reset',0);	
@@ -133,7 +134,7 @@ define(function(require, exports, module){
 		        });
 			});
 			
-			//2,重置页码 
+			//2,变更查询条件时重置页码
 			$(this.options.query_form).submit(function(){
 				if( $(that.options.pagination_index, that.$ele).attr('reset') != 0 ){
 					$(that.options.pagination_index, that.$ele).val("0");
@@ -153,7 +154,7 @@ define(function(require, exports, module){
 				});
 			}
 			
-			//4,初始化权限操作
+			//4,初始化列表数据权限操作
 			$('.list_oper').click(function(e){
 				that.operator($(this).attr('ename') ,$(this).attr('href'), e );
 			});
@@ -161,7 +162,7 @@ define(function(require, exports, module){
         
         
         /**
-		 * 权限操作
+		 * 权限操作,禁用或启用做到通用化
 		 * @res 操作资源
 		 * @url 操作的url
 		 * return : true表示通过链接生效, false表示不处理链接
@@ -237,7 +238,6 @@ define(function(require, exports, module){
         			layer.confirm('保存或更新数据成功！', {
             		    btn: ['确定'] //按钮
             		}, function(){
-            		   // layer.msg('的确很重要', {icon: 1});
             			if( document.referrer && document.referrer != ''){
             				location.href=document.referrer
             			}else{

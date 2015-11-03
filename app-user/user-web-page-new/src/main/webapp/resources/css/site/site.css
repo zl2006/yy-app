@@ -98,6 +98,10 @@ a{
 .pure-form-aligned .pure-control-group {
     margin-bottom: 1em;
 }
+
+#data_table .pointer{
+	cursor: pointer;
+}
 /***********************************top********************************/
 #top{
     height: 30px;

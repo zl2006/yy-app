@@ -23,14 +23,7 @@
 						varStatus="status">
 				<li class="menu-item <c:if test="${_SITE_MAIN_DATA_.systemCode == sysitem.systemCode}">select</c:if>" >
 					<span><a href="${sysitem.url }" >${sysitem.name }</a></span>
-		            <ul class="menu-item-sub">
-		            	 <c:forEach var="mditem" items="${modules}"
-						varStatus="status">
-								<c:if test="${mditem.systemCode == sysitem.systemCode }">
-		                			<li><a href="${mditem.url }">${mditem.name }</a></li>
-		                		</c:if>
-		                </c:forEach>
-		            </ul>
+					<ul class="menu-item-sub"><c:forEach var="mditem" items="${modules}" varStatus="status"><c:if test="${mditem.systemCode == sysitem.systemCode }"><li><a href="${mditem.url }">${mditem.name }</a></li></c:if></c:forEach></ul>
 	            </li>
 			</c:forEach>
 		</c:if>
