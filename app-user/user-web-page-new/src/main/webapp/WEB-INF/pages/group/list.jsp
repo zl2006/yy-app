@@ -22,7 +22,8 @@
              <%@ include file="/WEB-INF/pages/common/point.jsp"%>
             <form class="pure-form search" id="query_form" action="${basePath}/group/list.do" method="post"><!--搜索表单-->
             	<input type="hidden" value="${data.pagination.index}" name="pagination.index" id="pagination_index">
-                <label>组名:</label><input name="groupName" type="text"   class="pure-u-1-5" value="${params.groupName }">
+                <label>组名:</label>
+                <input name="groupName"  type="text"   class="pure-u-1-5" value="${params.groupName }">
                 <button id="submitBtn" class="pure-button pure-button-primary">搜索</button>
             </form><!--search end-->
             <table class="pure-table search-res" width="100%" id="data_table"><!--搜索结果 -->

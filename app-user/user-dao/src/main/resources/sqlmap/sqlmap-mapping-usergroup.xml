@@ -33,10 +33,10 @@
 
 	<sql id="SQL_WHERE_USERGROUP">
 		<if test="groupName != null and groupName != ''">
-			and a.GROUP_NAME = #groupName#
+			and a.GROUP_NAME = #{groupName}
 		</if>
 		<if test="status != null and status != ''">
-			and a.STATUS = #status#
+			and a.STATUS = #{status}
 		</if>
 	</sql>
 	
