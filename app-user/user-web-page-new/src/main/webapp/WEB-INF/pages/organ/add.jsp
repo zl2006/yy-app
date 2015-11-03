@@ -94,18 +94,6 @@
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
     		business.init_saveorupdate_page();
-    		
-    		$("#selectOrgan").on('click', function(event){
-				//按需要才加载JS文件
-				require(['organ'],function(OrganSelectModal){
-					var organModal = new OrganSelectModal({"basePath" : "${basePath}" ,  "selectedOrgan":function(organCode,organName) {
-						$('#parentOrganCode').val(organCode);
-						$('#parentOrganName').val(organName);
-						organModal.close();
-					}});
-					organModal.open();
-				});
-			});
     	});
     })
 </script>

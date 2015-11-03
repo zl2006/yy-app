@@ -52,7 +52,7 @@ var dialog = require('jqlayer');
 										</thead> \
 										<tbody> \
 											{@each data.result as item,index} \
-											<tr id="&{item.organCode}"  organName="&{item.name}" class="organCode" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentOrganCode!=-1} pid="&{item.parentOrganCode}" {@/if}  > \
+											<tr id="&{item.organCode}" style="cursor:pointer" organName="&{item.name}" class="organCode" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentOrganCode!=-1} pid="&{item.parentOrganCode}" {@/if}  > \
 												<td >&{index}(&{item.organCode})</td> \
 												<td>&{item.name}</td> \
 												<td>&{item.tel}</td> \
@@ -62,16 +62,12 @@ var dialog = require('jqlayer');
 											{@/each}\
 										</tbody> \
 									</table>\
-									<ul id="pagination">\
+									<ul id="pagination" class="pagination">\
 									</ul>\
 							</div>';
-							/*
-						    <div class="modal-footer"> \
-						      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button> \
-						    </div> ';*/
 	
 	//组织机构子树模板
-	var treetpl = '{@each result as item,index} <tr id="&{item.organCode}" organName="&{item.name}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentOrganCode!=-1} pid="&{item.parentOrganCode}" {@/if} >  \
+	var treetpl = '{@each result as item,index} <tr id="&{item.organCode}" style="cursor:pointer" organName="&{item.name}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentOrganCode!=-1} pid="&{item.parentOrganCode}" {@/if} >  \
 		<td>&{index}</td> \
 		<td>&{item.name }</td> \
 		<td>&{item.tel}</td> \
@@ -83,12 +79,12 @@ var dialog = require('jqlayer');
 	/**
 	 * 构造函数
 	 * var options = {
-		title : '选择父组织机构',									//标题
-		width : '80%',											//对话框宽度
+		title : '选择父组织机构',												//标题
+		width : '80%',																	//对话框宽度
 		basePath : 'http://localhost:8087/user',				//动作基础路径
-		listAction: '/organ/list.json',							//列表动作
-		childAction : '/organ/listChild.json',					//子列表动作
-		selectedOrgan : function(organCode){}					//选择组织机构
+		listAction: '/organ/list.json',										//列表动作
+		childAction : '/organ/listChild.json',						//子列表动作
+		selectedOrgan : function(organCode){}				//选择组织机构
 	};
 	 */
 	function OrganSelectModal(paramOptions){
@@ -136,10 +132,9 @@ var dialog = require('jqlayer');
 		$.getJSON( options.basePath + options.listAction,{status : 1}, function( data ) { 
 			if( "success" ==  data.flag){
 				that.render(data);
-				//$modalEle.modal();
 				dialog.open({
 				    type: 1, //page层
-				    area: ['900px', '450px'],
+				    area: ['950px', '580px'],
 				    title: '选择组织机构',
 				    shade: 0.6, //遮罩透明度
 				    moveType: 1, //拖拽风格，0是默认，1是传统拖动
@@ -179,22 +174,26 @@ var dialog = require('jqlayer');
 			that.query(0);
 		});
 		
-		//渲染分页信息
-		/*var pgoptions = {
-			bootstrapMajorVersion : 3,
-			currentPage : data.data.pagination.index+1 ,
-			totalPages : data.data.pagination.totalPage,
-			alignment : 'right',
-			size : 'small',
-			onPageClicked : function(e, originalEvent, type, page){
-				that.query(page-1);
-			}
-		};
-		
+		//分页组件
 		if( data.data.pagination.totalPage > 0 ){
-			$('#pagination', $('#'+options.id) ).bootstrapPaginator(pgoptions);
-		}*/
-		
+			require(['jqpaginator'],function(pg){
+				pg("#pagination",$modalEle).jqPaginator({
+		            totalPages: data.data.pagination.totalPage,
+		            visiblePages: 8,
+		            currentPage:   data.data.pagination.index+1 ,
+		            first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+		            prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+		            next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+		            last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+		            page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+		            onPageChange: function (page,t) {
+		            	if('change' == t){	//因首次也会触发此事件,所以需要加上类型判断
+		            		that.query(page-1);
+		            	}
+		            }
+		        });
+			});
+		}
 		
 		//子树显示
 		var ttoption = {
@@ -212,15 +211,12 @@ var dialog = require('jqlayer');
          $('#treeTable1', $modalEle).treeTable(ttoption);
 	};
 	
-	
-	
 	/**
 	 * 关闭对话框
 	 */
 	OrganSelectModal.prototype.close = function(){
 		dialog.closeAll();
 	};
-	
 
 	module.exports = OrganSelectModal;
 })($);
