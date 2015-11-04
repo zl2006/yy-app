@@ -25,42 +25,43 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="organCode">组织机构编号:</label>
-                            <input id="organCode" name="organCode" type="text" placeholder="组织机构编号"  data-rule="required;length[~32]" class="pure-u-1-5">
+                            <label>组织机构编号:</label>
+                            <input  name="organCode" type="text" placeholder="组织机构编号"  data-rule="required;length[~32]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="parentOrganName">父组织机构:</label>
-                            <input type="text" placeholder="选择父组织机构" id="parentOrganName"   readonly="readonly" id="parentOrganName"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>父组织机构:</label>
+                            <input type="text" placeholder="选择父组织机构" id="parentOrganName"   readonly="readonly" id="parentOrganName"  data-rule="length[~64]" class="pure-u-1-5">
                             <input type="hidden" name="parentOrganCode" id="parentOrganCode" >
                             <a class="button-xsmall pure-button pure-button-primary" id="selectOrgan">选择</a>
+                            <a class="button-xsmall pure-button pure-button-primary" id="clearOrgan">清除</a>
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">机构名称:</label>
-                            <input type="text" placeholder="机构名称" name="name" id="name"   value="${data.name }"  data-rule="required;length[~128]" class="pure-u-1-5">
+                            <label>机构名称:</label>
+                            <input type="text"  name="name"  data-rule="required;length[~128]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="principal">主负责人:</label>
-                            <input type="text" placeholder="主负责人" name="principal" id="principal"  data-rule="length[~64]" class="pure-u-1-5" >
+                            <label >主负责人:</label>
+                            <input type="text"   name="principal"  data-rule="length[~64]" class="pure-u-1-5" >
                         </div>
                          <div class="pure-control-group">
-                            <label for="secondPrincipal">第二负责人:</label>
-                            <input type="text" placeholder="第二负责人" name="secondPrincipal" id="secondPrincipal"  data-rule="length[~64]" class="pure-u-1-5" >
+                            <label>第二负责人:</label>
+                            <input type="text"   name="secondPrincipal"   data-rule="length[~64]" class="pure-u-1-5" >
                         </div>
                         <div class="pure-control-group">
-                            <label for="tel">电话： </label>
-                           <input type="text" placeholder="电话" name="tel" id="tel"  data-rule="length[~32]" class="pure-u-1-5" >
+                            <label>电话:</label>
+                           <input type="text"   name="tel"   data-rule="length[~32]" class="pure-u-1-5" >
                         </div>
                         <div class="pure-control-group">
-                            <label for="fax">传真： </label>
-                            <input type="text" placeholder="传真" name="fax" id="fax" data-rule="length[~32]" class="pure-u-1-5" >
+                            <label >传真:</label>
+                            <input type="text"  name="fax" data-rule="length[~32]" class="pure-u-1-5" >
                         </div>
                         <div class="pure-control-group">
-                            <label for="postCode">邮编： </label>
-                            <input type="text" placeholder="邮编" name="postCode" id="postCode"  data-rule="length[~32]" class="pure-u-2-5">
+                            <label>邮编:</label>
+                            <input type="text"   name="postCode" data-rule="length[~32]" class="pure-u-2-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="description">机构描述： </label>
-                           <textarea rows="5" cols="35" placeholder="机构描述" name="description" id="description"  data-rule="length[~255]"></textarea>
+                            <label >机构描述:</label>
+                           <textarea rows="5" cols="45" placeholder="机构描述" name="description"  data-rule="length[~255]"></textarea>
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -87,9 +88,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator',  'jqsuperslide','organ_business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });

@@ -25,36 +25,34 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="organCode">组织机构编号:</label>${data.organ.organCode }
+                            <label>组织机构编号:</label>${data.organ.organCode }
                         </div>
                          <div class="pure-control-group">
-                            <label for=parentOrgan>父组织机构:</label>${data.parentOrgan.name}
+                            <label>父组织机构:</label>${data.parentOrgan.name}
                         </div>
                         <div class="pure-control-group">
-                            <label for="organ">机构名称:</label>${data.organ.name }
+                            <label>机构名称:</label>${data.organ.name }
                         </div>
                          <div class="pure-control-group">
-                            <label for="principal">主负责人:</label>${data.organ.principal}
+                            <label>主负责人:</label>${data.organ.principal}
                         </div>
                         <div class="pure-control-group">
-                            <label for="secondPrincipal">第二负责人： </label>${data.organ.secondPrincipal}
+                            <label>第二负责人:</label>${data.organ.secondPrincipal}
                         </div>
                         <div class="pure-control-group">
-                            <label for="tel">电话： </label>${data.organ.tel} 
+                            <label>电话:</label>${data.organ.tel} 
                         </div>
                         <div class="pure-control-group">
-                            <label for="fax">传真： </label>${data.organ.fax} 
+                            <label>传真:</label>${data.organ.fax} 
                         </div>
                         <div class="pure-control-group">
-                            <label for="postCode">邮编： </label>${data.organ.postCode} 
+                            <label>邮编:</label>${data.organ.postCode} 
                         </div>
                          <div class="pure-control-group">
-                            <label for="description">机构描述： </label>${data.organ.description}
+                            <label>机构描述:</label>${data.organ.description}
                         </div>
                          <div class="pure-control-group">
-                            <label for="status">状态： </label>
-                            <c:if test="${data.organ.status ==1}">有效</c:if>
-							<c:if test="${data.organ.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.organ.status == 1}">有效</c:when><c:when test="${data.organ.status == 0}">无效</c:when> </c:choose>
                         </div>
                     </div> 
                 </div><!-- pure-form -->
@@ -72,9 +70,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator', 'jqsuperslide'], function ($,  slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});

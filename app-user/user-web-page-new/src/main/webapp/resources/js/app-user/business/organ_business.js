@@ -44,6 +44,25 @@ define(function(require, exports, module){
 		init_saveorupdate_page:function(){
 			var that = this;
 			OrganBusiness.superclass.init_saveorupdate_page.call(this);
+			
+			$("#selectOrgan").unbind('click');
+			$("#selectOrgan").on('click', function(event){
+				//按需要才加载JS文件
+				require(['organ'],function(OrganSelectModal){
+					var organModal = new OrganSelectModal({"basePath" : that.options.base_path ,  "selectedOrgan":function(organCode,organName) {
+						$('#parentOrganCode').val(organCode);
+						$('#parentOrganName').val(organName);
+						organModal.close();
+					}});
+					organModal.open();
+				});
+			});
+			
+			//清除组件
+			$('#clearOrgan').on('click', function(event){
+				$('#parentOrganCode').val("");
+				$('#parentOrganName').val("");
+			});
 		},
 		
 		/**

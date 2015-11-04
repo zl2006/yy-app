@@ -29,43 +29,43 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="organCode">组织机构编号:</label>
-                             <input type="text"   id="organCode"  class="pure-u-1-5"  name="organCode" class="form-control" readonly="readonly" value="${data.organ.organCode }">
+                            <label>组织机构编号:</label>
+                             <input type="text"   class="pure-u-1-5"  name="organCode"  readonly="readonly" value="${data.organ.organCode }">
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">父组织机构:</label>
+                            <label>父组织机构:</label>
                             <input type="text"  id="parentOrganName" readonly="readonly" id="parentOrganName" value="${data.parentOrgan.name}">
 							<input type="hidden" name="parentOrganCode" id="parentOrganCode"  value="${data.parentOrgan.organCode}">
 							<a class="button-xsmall pure-button pure-button-primary" id="selectOrgan">选择</a>
+							 <a class="button-xsmall pure-button pure-button-primary" id="clearOrgan">清除</a>
                         </div>
                         <div class="pure-control-group">
-                            <label for="name">机构名称:</label>
+                            <label>机构名称:</label>
                             <input type="text"  name="name" id="name"  class="pure-u-1-5"   data-rule="required;length[~128]"  value="${data.organ.name }">
                         </div>
                          <div class="pure-control-group">
-                            <label for="principal">主负责人:</label>
-                            <input type="text"  name="principal" id="principal"  class="pure-u-1-5"   data-rule="length[~64]"   value="${data.organ.principal}">
+                            <label >主负责人:</label>
+                            <input type="text"  name="principal"  class="pure-u-1-5"   data-rule="length[~64]"   value="${data.organ.principal}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="secondPrincipal" >第二负责人： </label>
-                            <input type="text"  name="secondPrincipal" id="secondPrincipal"
-										class="pure-u-1-5"   data-rule="length[~64]"   value="${data.organ.secondPrincipal}">
+                            <label>第二负责人: </label>
+                            <input type="text"  name="secondPrincipal"   class="pure-u-1-5"   data-rule="length[~64]"   value="${data.organ.secondPrincipal}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="tel" >电话： </label>
-                            <input type="text"   name="tel" id="tel" class="pure-u-1-5"   data-rule="length[~32]" value="${data.organ.tel}">
+                            <label>电话:</label>
+                            <input type="text"   name="tel"  class="pure-u-1-5"   data-rule="length[~32]" value="${data.organ.tel}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="fax" >传真： </label>
+                            <label>传真:</label>
                            <input type="text"  name="fax" id="fax" class="pure-u-1-5"   data-rule="length[~32]"  value="${data.organ.fax}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="postCode" >邮编： </label>
-                            <input type="text" name="postCode" id="postCode" class="pure-u-1-5"   data-rule="length[~32]" value="${data.organ.postCode}">
+                            <label>邮编:</label>
+                            <input type="text" name="postCode"  class="pure-u-1-5"   data-rule="length[~32]" value="${data.organ.postCode}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="description" >机构描述： </label>
-                            <textarea rows="5" cols="35" placeholder="机构描述" name="description" 	id="description" data-rule="length[~255]"  >${data.organ.description}</textarea>
+                            <label>机构描述:</label>
+                            <textarea rows="5" cols="45"   name="description" 	id="description" data-rule="length[~255]"  >${data.organ.description}</textarea>
                         </div>
                         
                     </div>
@@ -92,26 +92,12 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator',  'jqsuperslide','organ_business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
     		business.init_saveorupdate_page();
-    		
-    		
-    		$("#selectOrgan").on('click', function(event){
-				//按需要才加载JS文件
-				require(['organ'],function(OrganSelectModal){
-					var organModal = new OrganSelectModal({"basePath" : "${basePath}" ,  "selectedOrgan":function(organCode,organName) {
-						$('#parentOrganCode').val(organCode);
-						$('#parentOrganName').val(organName);
-						organModal.close();
-					}});
-					organModal.open();
-				});
-			});
     	});
     })
 </script>
