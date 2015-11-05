@@ -5,7 +5,7 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>开店助手-互联网营销,用户详情</title>
+    <title>开店助手-互联网营销,系统详情</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@ include file="/WEB-INF/pages/common/head.jsp"%>
 </head>
@@ -25,24 +25,22 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="systemCode">系统编号:</label>${data.systemCode }
+                            <label>系统编号:</label>${data.systemCode }
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">应用名称:</label>${data.name }
+                            <label>应用名称:</label>${data.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="icon">应用图标:</label>${data.icon }
+                            <label>应用图标:</label>${data.icon }
                         </div>
                          <div class="pure-control-group">
-                            <label for="url">应用URL</label>${data.url }
+                            <label>应用URL:</label>${data.url }
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" >状态:</label>
-                            <c:if test="${data.status ==1}">有效</c:if>
-							<c:if test="${data.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.status == 1}">有效</c:when><c:when test="${data.status == 0}">无效</c:when> </c:choose>
                         </div>
                         <div class="pure-control-group">
-                            <label for="description">描述:</label>${data.description }
+                            <label>描述:</label>${data.description }
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -60,9 +58,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator', 'jqsuperslide'], function ($,  slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});

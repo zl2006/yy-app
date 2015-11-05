@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>开店助手-互联网营销,增加用户</title>
+    <title>开店助手-互联网营销,增加系统</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@ include file="/WEB-INF/pages/common/head.jsp"%>
     <link type="text/css" rel="stylesheet" href="${basePath }/resources/js/jqvalidator-amd/0.7.3/jquery.validator.css"/>
@@ -25,24 +25,24 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="systemCode">系统编号:</label>
-                            <input id="systemCode" name="systemCode" type="text" placeholder="系统编号"  data-rule="required;length[8~32]" class="pure-u-1-5">
+                            <label>系统编号:</label>
+                            <input name="systemCode" type="text" placeholder="系统编号"  data-rule="required;length[8~32]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">应用名称:</label>
-                            <input id="name" name="name" type="text" placeholder="用户姓名"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>应用名称:</label>
+                            <input  name="name" type="text" placeholder="用户姓名"  data-rule="required;length[~64]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="icon">应用图标:</label>
-                            <input id="icon" name="icon" type="text" placeholder="应用图标"  data-rule="length[~128]" class="pure-u-2-5">
+                            <label>应用图标:</label>
+                            <input   name="icon" type="text" placeholder="应用图标"  data-rule="length[~128]" class="pure-u-2-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="url">应用URL:</label>
-                            <input id="url" name="url" type="text" placeholder="应用URL"  data-rule="length[~128]" class="pure-u-1-5">
+                            <label>应用URL:</label>
+                            <input  name="url" type="text" placeholder="应用URL"  data-rule="length[~128]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
                             <label for="description">描述： </label>
-                            <textarea rows="4" cols="30" name="description" id="description"></textarea>
+                            <textarea rows="4" cols="45" name="description" id="description"></textarea>
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -68,9 +68,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator',  'jqsuperslide','business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
