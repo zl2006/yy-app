@@ -25,22 +25,22 @@
                             一、日志信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="operName">操作者:</label>${data.operName }
+                            <label>操作者:</label>${data.operName }
                         </div>
                          <div class="pure-control-group">
-                            <label for="busiDataType">业务类型:</label>${data.busiDataType }
+                            <label>业务类型:</label>${data.busiDataType }
                         </div>
                         <div class="pure-control-group">
-                            <label for="operType">操作类型:</label>${data.operType }
+                            <label>操作类型:</label>${data.operType }
                         </div>
                          <div class="pure-control-group">
-                            <label for="busiDataID">业务标识:</label>${data.busiDataID}
+                            <label>业务标识:</label>${data.busiDataID}
                         </div>
                         <div class="pure-control-group">
-                            <label for="createTime" >操作时间： </label>${data.createTime}
+                            <label>操作时间:</label>${data.createTime}
                         </div>
                         <div class="pure-control-group">
-                            <label for="remark" >描述： </label>${data.remark }
+                            <label>描述:</label>${data.remark }
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -59,9 +59,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator',  'jqsuperslide'], function ($,  slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});

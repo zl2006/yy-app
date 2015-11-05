@@ -21,19 +21,19 @@
              <%@ include file="/WEB-INF/pages/common/point.jsp"%>
             <form class="pure-form search" id="query_form" action="${basePath}/log/list.do" method="post"><!--搜索表单-->
             	<input type="hidden" value="${data.pagination.index}" name="pagination.index" id="pagination_index">
-                <label for="operName">操作者：</label>
+                <label>操作者：</label>
                 <input name="operName" type="text"   class="pure-u-1-6" value="${params.operName }">
 
-				<label for="startCreateTime">日志时间：</label>
+				<label>日志时间：</label>
                 <input type="text" class="pure-u-1-6" id="startCreateTime" placeholder="起始时间" name="startCreateTime" value="<fmt:formatDate value="${params.startCreateTime }" pattern="yyyy-MM-dd HH:mm:ss" />"
 						onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">到
 				<input type="text" class="pure-u-1-6" id="endCreateTime" placeholder="结束时间" name="endCreateTime" value="<fmt:formatDate value="${params.endCreateTime }" pattern="yyyy-MM-dd HH:mm:ss" />"
 						onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})">
                 
-                <label for="busiDataType">业务类型：</label>
+                <label>业务类型：</label>
                 <input name="busiDataType" type="text" class="pure-u-1-8" value="${params.busiDataType }">
 
-                <button id="submitBtn" class="pure-button pure-button-primary"><i class="fa fa-search"></i>搜索</button>
+                <button id="submitBtn" class="pure-button pure-button-primary">搜索</button>
             </form><!--search end-->
             <table class="pure-table search-res" width="100%" id="data_table"><!--搜索结果 -->
                 <thead>
@@ -49,7 +49,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
-					<tr view="/log/view.do?logID=${item.logID}">
+					<tr view="/log/view.do?logID=${item.logID}" class="pointer <c:if test="${ (status.index+1) % 2 == 0}">odd</c:if>">
 						<td>${data.pagination.index*data.pagination.pageSize + status.index + 1}</td>
 						<td>${item.operName }</td>
 						<td>${item.operType }</td>
@@ -78,8 +78,7 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    requirejs( [ 'jqsuperslide', /*'sticky',*/'business' ], function (slide/*,sticky*/,Business) {
-        //sticky("#menu", {top:0, left:0});
+    requirejs( [ 'jqsuperslide',  'business' ], function (slide ,Business) {
         slide("#nav").slide({titCell:"h3", targetCell:"ul",defaultIndex:1,effect:"slideDown",delayTime:300,trigger:"click",defaultPlay:false,returnDefault:false});
         slide("#site-menu").slide({ type: "menu", titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false  });
     	var business = new Business({base_path : "${basePath}" ,row_click:true, currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage}});
