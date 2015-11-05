@@ -25,27 +25,25 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">字典类型:</label>${data.type }
+                            <label>字典类型:</label>${data.type }
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">字典名称:</label>${data.name }
+                            <label>字典名称:</label>${data.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="dicCode">字典编码:</label>${data.dicCode }
+                            <label>字典编码:</label>${data.dicCode }
                         </div>
                          <div class="pure-control-group">
-                            <label for="value">字典值:</label>${data.value }
+                            <label>字典值:</label>${data.value }
                         </div>
                         <div class="pure-control-group">
-                            <label for="orderNO" >序号： </label>${data.orderNO }
+                            <label>序号:</label>${data.orderNO }
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" >状态： </label>
-                            <c:if test="${data.status ==1}">有效</c:if>
-							<c:if test="${data.status ==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.status == 1}">有效</c:when><c:when test="${data.status == 0}">无效</c:when> </c:choose>
                         </div>
                         <div class="pure-control-group">
-                            <label for="description"> 描述： </label>${data.description }
+                            <label> 描述:</label>${data.description }
                         </div>
                     </div> 
                 </div><!-- pure-form -->
@@ -63,9 +61,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator', 'jqsuperslide'], function ($,  slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});

@@ -25,28 +25,28 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">字典类型:</label>
-                            <input id="type" name="type" type="text" placeholder="请输入字典类型"  data-rule="required;length[~16]" class="pure-u-1-5">
+                            <label>字典类型:</label>
+                            <input name="type" type="text" placeholder="请输入字典类型"  data-rule="required;length[~16]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">字典名称:</label>
-                            <input id="name" name="name" type="text" placeholder="请输入字典名称"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>字典名称:</label>
+                            <input name="name" type="text" placeholder="请输入字典名称"  data-rule="required;length[~64]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="dicCode">字典编码:</label>
-                            <input id="dicCode" name="dicCode" type="text" placeholder="字典编码"  data-rule="required;length[~32]" class="pure-u-1-5">
+                            <label>字典编码:</label>
+                            <input name="dicCode" type="text" placeholder="字典编码"  data-rule="required;length[~32]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="value">字典值:</label>
-                            <input id="value" name="value" type="text" placeholder="字典值"  data-rule="required;length[~254]" class="pure-u-2-5">
+                            <label>字典值:</label>
+                            <input  name="value" type="text" placeholder="字典值"  data-rule="required;length[~254]" class="pure-u-2-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="orderNO">序号:</label>
-                            <input id="orderNO" name="orderNO" type="text" placeholder="序号"  data-rule="required;digits" class="pure-u-1-5">
+                            <label>序号:</label>
+                            <input name="orderNO" type="text" placeholder="序号"  data-rule="required;digits" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="description" >字典描述： </label>
-                            <textarea rows="3" cols="30" placeholder="描述" name="description" id="description" class="form-control"  data-rule="length[~254]" ></textarea>
+                            <label>字典描述:</label>
+                            <textarea rows="3" cols="30" placeholder="描述" name="description" id="description"   data-rule="length[~254]" ></textarea>
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -73,25 +73,12 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator', 'jqsuperslide','business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
     		business.init_saveorupdate_page();
-    		
-    		$("#selectOrgan").on('click', function(event){
-				//按需要才加载JS文件
-				require(['organ'],function(OrganSelectModal){
-					var organModal = new OrganSelectModal({"basePath" : "${basePath}" ,  "selectedOrgan":function(organCode,organName) {
-						$('#organCode').val(organCode);
-						$('#organName').val(organName);
-						organModal.close();
-					}});
-					organModal.open();
-				});
-			});
     	});
     })
 </script>

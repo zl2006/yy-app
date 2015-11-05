@@ -28,28 +28,28 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">字典类型:</label>
-                            <input id="type" name="type" type="text"   data-rule="required;length[~16]" class="pure-u-1-5"  value="${data.type }" >
+                            <label>字典类型:</label>
+                            <input name="type" type="text"   data-rule="required;length[~16]" class="pure-u-1-5"  value="${data.type }" >
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">字典名称:</label>
-                            <input id="name" name="name" type="text"  data-rule="required;length[~64]" class="pure-u-1-5" value="${data.name }">
+                            <label>字典名称:</label>
+                            <input name="name" type="text"  data-rule="required;length[~64]" class="pure-u-1-5" value="${data.name }">
                         </div>
                         <div class="pure-control-group">
-                            <label for="dicCode">字典编码:</label>
-                            <input id="dicCode" name="dicCode" type="text"   data-rule="length[~32]" class="pure-u-2-5" value="${data.dicCode}">
+                            <label>字典编码:</label>
+                            <input name="dicCode" type="text"   data-rule="length[~32]" class="pure-u-2-5" value="${data.dicCode}">
                         </div>
                          <div class="pure-control-group">
-                            <label for="value">字典值:</label>
-                            <input id="value" name="value" type="text"    data-rule="required;length[~254]" class="pure-u-2-5" value="${data.value}">
+                            <label>字典值:</label>
+                            <input name="value" type="text"    data-rule="required;length[~254]" class="pure-u-2-5" value="${data.value}">
                         </div>
                         <div class="pure-control-group">
-                             <label for="orderNO">序号:</label>
+                             <label>序号:</label>
                             <input id="orderNO" name="orderNO" type="text" data-rule="required;digits" class="pure-u-1-5" value="${data.orderNO}">
                         </div>
                         <div class="pure-control-group">
-                            <label for="description">字典描述:</label>
-                            <input id="description" name="description" type="text"   data-rule="length[~254]" class="pure-u-1-5" value="${data.description}">
+                            <label>字典描述:</label>
+                             <textarea rows="3" cols="30" placeholder="描述" name="description" id="description"   data-rule="length[~254]" >${data.description}</textarea>
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -74,9 +74,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator', 'jqsuperslide','business'], function ($, slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
