@@ -25,13 +25,13 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="name">资源名称:</label>${data.res.name }
+                            <label>资源名称:</label>${data.res.name }
                         </div>
                          <div class="pure-control-group">
-                            <label for="ename">资源英文名称:</label>${data.res.ename }
+                            <label>资源英文名称:</label>${data.res.ename }
                         </div>
                         <div class="pure-control-group">
-                            <label for="type">资源类型:</label>
+                            <label>资源类型:</label>
                             <c:choose>
 								<c:when test="${data.res.type == 0  }">菜单（模块）</c:when>
 								<c:when test="${data.res.type == 1  }">子菜单（子模块）</c:when>
@@ -42,22 +42,22 @@
 							</c:choose>
                         </div>
                          <div class="pure-control-group">
-                            <label for="system">资源所属系统::</label>${data.system.name }
+                            <label>资源所属系统:</label>${data.system.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="parentRes">父资源: </label>${data.parentRes.name }
+                            <label>父资源:</label>${data.parentRes.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="icon" >资源图标： </label>${data.res.icon }
+                            <label>资源图标:</label>${data.res.icon }
                         </div>
                         <div class="pure-control-group">
-                            <label for="style" >样式： </label>${data.res.style }
+                            <label>样式:</label>${data.res.style }
                         </div>
                          <div class="pure-control-group">
-                            <label for="description" >描述： </label>${data.res.description }
+                            <label>描述:</label>${data.res.description }
                         </div>
                          <div class="pure-control-group">
-                            <label for="orderNO" >顺序： </label>${data.res.orderNO }
+                            <label>顺序:</label>${data.res.orderNO }
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -75,9 +75,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
+    require(['jqvalidator',  'jqsuperslide'], function ($,  slide) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
     	});

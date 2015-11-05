@@ -25,15 +25,15 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="name">资源名称:</label>
-                            <input id="name" name="name" type="text" placeholder="资源名称"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>资源名称:</label>
+                            <input  name="name" type="text" placeholder="资源名称"  data-rule="required;length[~64]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="ename">资源英文名称:</label>
-                            <input id="ename" name="ename" type="text" placeholder="资源英文名称"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>资源英文名称:</label>
+                            <input   name="ename" type="text" placeholder="资源英文名称"  data-rule="required;length[~64]" class="pure-u-1-5">
                         </div>
                          <div class="pure-control-group">
-                            <label for="type"  class="pure-radio">资源类型:</label>
+                            <label>资源类型:</label>
                             <input name="type" type="radio" value="0" checked="checked">菜单（模块）
                             <input name="type" type="radio" value="1" class="place-40">子菜单（子模块）
                             <input name="type" type="radio" value="2" class="place-40">子菜单项（功能）
@@ -41,41 +41,43 @@
                             <input name="type" type="radio" value="4" class="place-40">按钮等操作
                         </div>
                         <div class="pure-control-group">
-                            <label for="systemName">资源所属系统:</label>
-                            <input type="text" placeholder="选择系统" id="systemName" name="systemName"  data-rule="required" class="form-control" readonly="readonly">
+                            <label>资源所属系统:</label>
+                            <input type="text" placeholder="选择系统" id="systemName" name="systemName"  data-rule="required"   class="pure-u-1-5"  readonly="readonly">
 							<input type="hidden" name="systemCode" id="systemCode">
 							 <a class="button-xsmall pure-button pure-button-primary" id="selectSystem">选择</a>
+							 <a class="button-xsmall pure-button pure-button-primary" id="clearSystem">清除</a>
                         </div>
                          <div class="pure-control-group">
-                            <label for="tel">父资源:</label>
-                            <input type="text" placeholder="选择资源" id="parentName" class="form-control" readonly="readonly">
+                            <label>父资源:</label>
+                            <input type="text" placeholder="选择资源" id="parentName"   class="pure-u-1-5"  readonly="readonly">
 							<input type="hidden" name="parentResID" id="parentResID" >
 							<a class="button-xsmall pure-button pure-button-primary" id="selectResource">选择</a>
+							<a class="button-xsmall pure-button pure-button-primary" id="clearResource">清除</a>
 						</div>
                         <div class="pure-control-group">
-                            <label for="url">资源URL: </label>
-                            <input type="text" placeholder="资源URL" name="url" 	id="url" class="form-control" data-rule="required;length[~128]"  >
+                            <label>资源URL: </label>
+                            <input type="text" placeholder="资源URL" name="url"    class="pure-u-1-5"  data-rule="required;length[~128]"  >
                         </div>
                         <div class="pure-control-group">
-                            <label for="icon" >资源图标： </label>
-                            <input type="text" placeholder="资源图标" name="icon" id="icon" class="form-control" data-rule="length[~128]" >
+                            <label >资源图标:</label>
+                            <input type="text" placeholder="资源图标" name="icon"  class="pure-u-1-5" data-rule="length[~128]" >
                         </div>
                         <div class="pure-control-group">
-                            <label for="icon" >样式： </label>
-                            <input type="text" placeholder="样式" name="style" id="style"  data-rule="length[~128]" class="pure-u-1-2">
+                            <label>样式:</label>
+                            <input type="text" placeholder="样式" name="style"    data-rule="length[~128]" class="pure-u-1-2">
                         </div>
                         <div class="pure-control-group">
-                            <label for="status" >状态： </label>
+                            <label >状态:</label>
                            <input type="radio" 	name="status" value="1" checked="checked"> 有效
 							<input type="radio" name="status" value="0"> 无效
                         </div>
                         <div class="pure-control-group">
-                            <label for="description" >描述： </label>
-                           <textarea rows="4" cols="60" name="description"></textarea>
+                            <label>描述:</label>
+                           <textarea rows="4" cols="45" name="description" data-rule="length[~128]" ></textarea>
                         </div>
                         <div class="pure-control-group">
                             <label for="orderNO" >顺序： </label>
-                            <input type="text" placeholder="顺序" name="orderNO" id="orderNO"   value="1">
+                            <input type="text" placeholder="顺序" name="orderNO"    value="1" data-rule="digits">
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -102,9 +104,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','res_business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator', 'jqsuperslide','res_business'], function ($,   slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });

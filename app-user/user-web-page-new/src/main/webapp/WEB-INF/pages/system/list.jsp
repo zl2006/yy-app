@@ -26,7 +26,7 @@
                 <label>名称：</label>
                 <input name="name" type="text"  class="pure-u-1-5"  value="${params.name }">
 
-                <button id="submitBtn" class="pure-button pure-button-primary"><i class="fa fa-search"></i>搜索</button>
+                <button id="submitBtn" class="pure-button pure-button-primary">搜索</button>
             </form><!--search end-->
             <table class="pure-table search-res" width="100%" id="data_table"><!--搜索结果 -->
                 <thead>
@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
-                <tr class="pointer" view="/system/view.do?systemCode=${item.systemCode}" <c:if test="${ (status.index+1) % 2 == 0}">class="odd"</c:if>  >
+                <tr class="pointer <c:if test="${ (status.index+1) % 2 == 0}">odd</c:if>" view="/system/view.do?systemCode=${item.systemCode}"   >
                     <td>${status.index + 1 + ( data.pagination.index * data.pagination.pageSize )}</td>
                     <td>${item.name }</td>
 					<td>${item.systemCode}</td>
@@ -75,7 +75,7 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    requirejs( [ 'jqsuperslide',  'business' ], function (slide ,Business) {
+    requirejs( [ 'jqsuperslide', 'business' ], function (slide ,Business) {
         slide("#nav").slide({titCell:"h3", targetCell:"ul",defaultIndex:1,effect:"slideDown",delayTime:300,trigger:"click",defaultPlay:false,returnDefault:false});
         slide("#site-menu").slide({ type: "menu", titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false  });
        	var business = new Business({base_path : "${basePath}" ,row_click:true, currentPage : ${data.pagination.index+1} , totalPages : ${data.pagination.totalPage}});

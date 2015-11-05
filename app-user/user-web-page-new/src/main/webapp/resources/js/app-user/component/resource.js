@@ -63,7 +63,7 @@ define(function(require, exports, module){
 									{@/each}\
 								</tbody> \
 							</table>\
-							<ul id="pagination">\
+							<ul id="pagination" class="pagination">\
 							</ul> \
 					</div>';
 	
@@ -130,13 +130,13 @@ define(function(require, exports, module){
 		var that = this;
 		var $modalEle = $('#' + options.id);
 		
-		$.getJSON( options.basePath + options.listAction,{status : 1}, function( data ) { 
+		$.getJSON( options.basePath + options.listAction,{status : 1,systemCode : that.options.systemCode}, function( data ) { 
 			if( "success" ==  data.flag){
 				that.render(data);
 				//$modalEle.modal();
 				dialog.open({
 				    type: 1, //page层
-				    area: ['900px', '450px'],
+				    area: ['900px', '580px'],
 				    title: '选择父资源',
 				    shade: 0.6, //遮罩透明度
 				    moveType: 1, //拖拽风格，0是默认，1是传统拖动
@@ -177,19 +177,24 @@ define(function(require, exports, module){
 		});
 		
 		//渲染分页信息
-		var pgoptions = {
-			bootstrapMajorVersion : 3,
-			currentPage : data.data.pagination.index+1 ,
-			totalPages : data.data.pagination.totalPage,
-			alignment : 'right',
-			size : 'small',
-			onPageClicked : function(e, originalEvent, type, page){
-				that.query(page-1);
-			}
-		};
-		
 		if( data.data.pagination.totalPage > 0 ){
-			//$('#pagination', $('#'+options.id) ).bootstrapPaginator(pgoptions);
+			require(['jqpaginator'],function(pg){
+				pg("#pagination",$modalEle).jqPaginator({
+		            totalPages: data.data.pagination.totalPage,
+		            visiblePages: 8,
+		            currentPage:   data.data.pagination.index+1 ,
+		            first: '<li class="first"><a href="javascript:void(0);">首页<\/a><\/li>',
+		            prev: '<li class="prev"><a href="javascript:void(0);"><i class="arrow arrow2"><\/i>上一页<\/a><\/li>',
+		            next: '<li class="next"><a href="javascript:void(0);">下一页<i class="arrow arrow3"><\/i><\/a><\/li>',
+		            last: '<li class="last"><a href="javascript:void(0);">末页<\/a><\/li>',
+		            page: '<li class="page"><a href="javascript:void(0);">{{page}}<\/a><\/li>',
+		            onPageChange: function (page,t) {
+		            	if('change' == t){	//因首次也会触发此事件,所以需要加上类型判断
+		            		that.query(page-1);
+		            	}
+		            }
+		        });
+			});
 		}
 		
 		

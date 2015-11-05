@@ -12,7 +12,7 @@ define(function(require, exports, module){
 	
 	
 	//子树的模板
-	var tpl ='{@each result as item,index} <tr view="/res/view.do?myResID=&{item.resID}" id="&{item.resID}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!="-1"} pid="&{item.parentResID}" {@/if} >  \
+	var tpl ='{@each result as item,index} <tr class="pointer" view="/res/view.do?myResID=&{item.resID}" id="&{item.resID}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentResID!="-1"} pid="&{item.parentResID}" {@/if} >  \
 		<td>&{index}</td> \
 		<td>&{item.name }</td> \
 		<td>&{item.url}</td> \
@@ -68,9 +68,19 @@ define(function(require, exports, module){
 			$("#selectSystem").on('click', function(event){
 				that.selectSystem();
 			});
+			$("#clearSystem").on('click', function(event){
+				$('#systemCode').val('');
+				$('#systemName').val('');
+				$('#parentResID').val('-1');
+				$('#parentName').val('');
+			});
 			//3,选择资源
 			$('#selectResource').on('click', function(event){
 				that.selectResource();
+			});
+			$('#clearResource').on('click', function(event){
+				$('#parentResID').val('-1');
+				$('#parentName').val('');
 			});
 		},
 		

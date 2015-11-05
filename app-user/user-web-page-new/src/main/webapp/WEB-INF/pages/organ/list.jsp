@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
-                <tr class="pointer" view="/organ/view.do?organCode=${item.organCode}" <c:if test="${ (status.index+1) % 2 == 0}">class="odd"</c:if>    id="${item.organCode}" <c:if test="${item.hasChild == 1}"> haschild="true" </c:if> <c:if test="${item.parentOrganCode ne '-1'}"> pid="${item.parentOrganCode}"</c:if>  >
+                <tr class="pointer <c:if test="${ (status.index+1) % 2 == 0}">odd</c:if>" view="/organ/view.do?organCode=${item.organCode}"    id="${item.organCode}" <c:if test="${item.hasChild == 1}"> haschild="true" </c:if> <c:if test="${item.parentOrganCode ne '-1'}"> pid="${item.parentOrganCode}"</c:if>  >
                     <td>${status.index + 1 + ( data.pagination.index * data.pagination.pageSize )}(${item.organCode})</td>
                     <td>${item.name }</td>
 					<td>${item.tel}</td>

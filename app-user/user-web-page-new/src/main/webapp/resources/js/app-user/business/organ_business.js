@@ -10,7 +10,7 @@ define(function(require, exports, module){
 	var Business = require('business');
 	
 	//子树的模板
-	var tpl ='{@each result as item,index} <tr view="/organ/view.do?organCode=&{item.organCode}" id="&{item.organCode}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentOrganCode!="-1"} pid="&{item.parentOrganCode}" {@/if} >  \
+	var tpl ='{@each result as item,index} <tr class="pointer" view="/organ/view.do?organCode=&{item.organCode}" id="&{item.organCode}" {@if item.hasChild==1}  haschild="true" {@/if} {@if item.parentOrganCode!="-1"} pid="&{item.parentOrganCode}" {@/if} >  \
 		<td>&{index}</td> \
 		<td>&{item.name }</td> \
 		<td>&{item.tel}</td> \

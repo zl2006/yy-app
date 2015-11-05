@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
-                <tr class="pointer"  view="/user/view.do?loginID=${item.loginID }" <c:if test="${ (status.index+1) % 2 == 0}">class="odd"</c:if>  >
+                <tr class="pointer <c:if test="${ (status.index+1) % 2 == 0}">odd</c:if>"  view="/user/view.do?loginID=${item.loginID }"   >
                     <td>${status.index + 1 + ( data.pagination.index * data.pagination.pageSize )}</td>
                     <td>${item.loginID }</td>
                     <td>${item.name }</td>

@@ -40,7 +40,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="item" varStatus="status" items="${data.result}">
-					<tr view="/group/view.do?userGroupID=${item.userGroupID}" class="pointer">
+					<tr view="/group/view.do?userGroupID=${item.userGroupID}" class="pointer <c:if test="${ (status.index+1) % 2 == 0}">odd</c:if>">
 						<td>${data.pagination.index*data.pagination.pageSize + status.index + 1}</td>
 						<td>${item.groupName }</td>
 						<td><c:choose><c:when test="${item.status == 1}">有效</c:when><c:when test="${item.status == 0}">无效</c:when> </c:choose></td>
