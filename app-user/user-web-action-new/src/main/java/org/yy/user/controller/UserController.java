@@ -30,6 +30,7 @@ import org.yy.framework.document.anno.Service;
 import org.yy.framework.document.anno.Exception;
 import org.yy.user.dto.RoleDTO;
 import org.yy.user.dto.SystemDTO;
+import org.yy.user.dto.UserConfigDTO;
 import org.yy.user.dto.UserDTO;
 import org.yy.user.dto.UserGroupDTO;
 import org.yy.user.model.Role;
@@ -187,19 +188,16 @@ public class UserController extends AbsUserController {
 	}
 
 	@RequestMapping(value = "config")
-	public ModelAndView config(@RequestParam("loginID") String loginID,
-			@RequestParam("userID") Long userID,
-			@RequestParam("groups") List<Long> groupIDs,
-			@RequestParam("roles") List<String> roleCodes)
+	public ModelAndView config(UserConfigDTO userConfigDto)
 			throws ServiceException {
 
-		userService.config(loginID, groupIDs, roleCodes);
+		userService.config(userConfigDto.getLoginID(), userConfigDto.getGroupIDs(), userConfigDto.getRoleCodes());
 
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("loginID", loginID);
-		params.put("userID", userID);
-		params.put("groups", groupIDs);
-		params.put("roles", roleCodes);
+		params.put("loginID", userConfigDto.getLoginID());
+		params.put("userID", userConfigDto.getUserID());
+		params.put("groups", userConfigDto.getGroupIDs());
+		params.put("roles", userConfigDto.getRoleCodes());
 		return processSuccess(moduleName + "/config", null, params);
 	}
 
