@@ -25,22 +25,22 @@
                             一、角色信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="roleCode">角色编号:</label>${data.role.roleCode }
+                            <label>角色编号:</label>${data.role.roleCode }
                         </div>
                          <div class="pure-control-group">
-                            <label for="system">系统:</label>${data.system.name }
+                            <label>系统:</label>${data.system.name }
                         </div>
                         <div class="pure-control-group">
-                            <label for="role">角色名称:</label>${data.role.name}
+                            <label>角色名称:</label>${data.role.name}
                         </div>
                          <div class="pure-control-group">
-                            <label for="status">状态:</label><c:if test="${data.role.status==1}">有效</c:if><c:if test="${data.role.status==0}">无效</c:if>
+                            <label>状态:</label><c:choose><c:when test="${data.role.status == 1}">有效</c:when><c:when test="${data.role.status == 0}">无效</c:when> </c:choose> 
                         </div>
                         <div class="pure-control-group">
-                            <label for="description" >描述： </label>${data.role.description }
+                            <label>描述:</label>${data.role.description }
                         </div>
                         <div class="pure-control-group">
-							<label for="res">拥有资源:</label>
+							<label>拥有资源:</label>
 							<div   style="margin-top:-20px;margin-left:176px;margin-right:20px;padding: 0 10px 10px 0">
 								<c:forEach var="res" items="${data.resources}">
 									<c:if test="${res.parentResID == -1 or empty res.parentResID }">
@@ -71,14 +71,6 @@
  
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
-<script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide'], function ($, /*sticky,*/ slide) {
-    	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
-            slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
-            slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
-    	});
-    })
-</script>
+<script type="text/javascript" src="${bastPath }/resources/js/app-user/page.js" page='{"module":"business","oper":"view"}' ></script>
 </body>
 </html>		

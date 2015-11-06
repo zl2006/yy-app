@@ -25,8 +25,8 @@
                             一、基本信息
                         </div>
                         <div class="pure-control-group">
-                            <label for="roleCode">角色编号:</label>
-                            <input id="roleCode" name="roleCode" type="text"  placeholder="请输入角色编号"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>角色编号:</label>
+                            <input  name="roleCode" type="text"  placeholder="请输入角色编号"  data-rule="required;length[~64]" class="pure-u-1-5">
                             <input type="hidden" value="1" name="status">
                         </div>
                          <div class="pure-control-group">
@@ -36,12 +36,12 @@
                             <a class="button-xsmall pure-button pure-button-primary" id="selectSystem">选择</a>
                         </div>
                          <div class="pure-control-group">
-                            <label for="name">角色名称:</label>
-                            <input id="name" name="name" type="text" placeholder="请输入角色名称"  data-rule="required;length[~64]" class="pure-u-1-5">
+                            <label>角色名称:</label>
+                            <input  name="name" type="text" placeholder="请输入角色名称"  data-rule="required;length[~64]" class="pure-u-1-5">
                         </div>
                         <div class="pure-control-group">
-                            <label for="description">描述:</label>
-                           <textarea rows="5" cols="30" placeholder="描述" name="description" id="description" data-rule="length[~255]"  ></textarea>
+                            <label>描述:</label>
+                           <textarea rows="5" cols="45" placeholder="描述" name="description" data-rule="length[~255]"  ></textarea>
                         </div>
                     </div>
                 </div><!-- pure-form -->
@@ -68,9 +68,8 @@
 <script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
-    require(['jqvalidator',/* 'sticky',*/ 'jqsuperslide','business'], function ($, /*sticky,*/ slide, Business) {
+    require(['jqvalidator',  'jqsuperslide','business'], function ($,  slide, Business) {
     	$(document).ready(function() { 
-           // sticky("#menu", {top: 0, left: 0});
             slide("#nav").slide({ titCell: "h3",  targetCell: "ul",    defaultIndex: 1, effect: "slideDown", delayTime: 300,  trigger: "click",  defaultPlay: false, returnDefault: false  });
             slide("#site-menu").slide({  type: "menu",  titCell: ".menu-item", targetCell: ".menu-item-sub", delayTime: 400, triggerTime: 0, returnDefault: false });
             var business = new Business({base_path : "${basePath}" });
@@ -87,8 +86,8 @@
 						systemModal.close();
 					}});
 					systemModal.open();
-				});//seajs.use end
-			});//click end  s
+				}); 
+			}); 
     	});
     })
 </script>
