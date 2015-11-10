@@ -1,4 +1,4 @@
-//获取当前script标签中的属性值
+//获取当前script标签中的属性值, <script src="http://localhost/a.js" data="n1=v1;n2=v2"/>
 var getScriptArgs=function(argName){//获取多个参数
     var scripts=document.getElementsByTagName("script"),
     script=scripts[scripts.length-1]; //因为当前dom加载时后面的script标签还未加载，所以最后一个就是当前的script
@@ -53,7 +53,3 @@ requirejs(['jquery','jqsuperslide'], function($,slide){
 		});
 	}
 });
-
-
-	
-	
