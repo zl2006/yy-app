@@ -7,8 +7,6 @@
     <title>开店助手-互联网营销,编辑用户组</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@ include file="/WEB-INF/pages/common/head.jsp"%>
-    <link type="text/css" rel="stylesheet" href="${basePath }/resources/js/jqvalidator-amd/0.7.3/jquery.validator.css"/>
-    <link type="text/css" rel="stylesheet" href="${basePath }/resources/js/jqlayer/2.0/skin/layer.css"/>
 </head>
 <body>
  <%@ include file="/WEB-INF/pages/common/top.jsp"%>

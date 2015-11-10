@@ -8,7 +8,6 @@
     <title>开店助手-互联网营销,字典列表</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@ include file="/WEB-INF/pages/common/head.jsp"%>
-    <link type="text/css" rel="stylesheet" href="${basePath }/resources/js/jqlayer/2.0/skin/layer.css"/>
 </head>
 <body>
  <%@ include file="/WEB-INF/pages/common/top.jsp"%>

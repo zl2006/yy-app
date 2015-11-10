@@ -2,11 +2,11 @@ requirejs.config({
     baseUrl: '/resources/js/',
     paths: {
         /*插件*/
-        'css' : 'require/plugins/css.min',                          //require加载css的插件
+        'css' : 'require/plugins/css.min',                         						 //require加载css的插件
         //'cs' : 'require/plugins/cs',
         'domReady' : 'require/plugins/domReady.min',                //require文档准备好后调用的插件
-        'i18n' : 'require/plugins/i18n.min',                        //require国际化插件
-        'text' : 'require/plugins/text.min',                        //require加载文本文件的插件
+        'i18n' : 'require/plugins/i18n.min',                        					//require国际化插件
+        'text' : 'require/plugins/text.min',                       				 //require加载文本文件的插件
 
         /*基础组件*/
         'class' : 'modules/arale-class/1.2.0/class.min',            //类组件，实现继承等操作
@@ -63,6 +63,9 @@ requirejs.config({
         'resource' : 'app-user/component/resource'									//应用系统弹出框
     },
     shim: {
+    	'jqlayer':{
+    		deps:['jquery','css!jqlayer/../../2.0/skin/layer.css']			//jqlayer会被paths中的jqlayer定义的路径替换
+    	},
         'dialog5-plugins': {
             deps: ['dialog5'],
             exports: 'art'
@@ -76,7 +79,7 @@ requirejs.config({
             exports: 'jQuery'
         },
         'jqvalidator': {
-            deps: ['jquery'],
+            deps: ['jquery','css!jqvalidator-amd/0.7.3/jquery.validator.css'],
             exports: 'jQuery'
         }
     }
