@@ -15,6 +15,6 @@
 	<!--模块声明-->
     	<modules>				
 		<module>./portal-action</module>		<!--action控制层-->	
-		<module>./portal-web-page</module>		<!--html, jsp等页面-->
+		<module>./portal-page</module>		<!--html, jsp等页面-->
     	</modules>
 </project>
