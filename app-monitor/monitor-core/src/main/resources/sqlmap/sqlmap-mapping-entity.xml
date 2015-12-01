@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="monitor">
+
+	<resultMap id="RM-ENTITY" type="TA-ENTITY">
+		<result property="cfgID" column="CFG_ID" />
+		<result property="monitorType" column="MONITOR_TYPE" />
+		<result property="monitorEntityCfg" column="MONITOR_ENTITY_CFG" />
+		<result property="monitorEntityNodes" column="MONITOR_ENTITY_NODES" />
+		<result property="managerID" column="MANAGER_ID" />
+		
+		<result property="status" column="STATUS" />
+		<result property="desc" column="DESCRIPTION" />
+		<result property="name" column="NAME" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+
+
+	<select id="FIND_ENTITY_BY_TYPE" parameterType="string" resultMap="RM-ENTITY">
+		SELECT `CFG_ID`,
+		    `MONITOR_TYPE`,
+		    `MONITOR_ENTITY_CFG`,
+		    `MONITOR_ENTITY_NODES`,
+		    `MANAGER_ID`,
+		    
+		    `STATUS`,
+		    `DESCRIPTION`,
+		    `NAME`,
+		    `CREATE_TIME`,
+		    `UPDATE_TIME`
+		FROM `TB_MONITOR_ENTITY` WHERE MONITOR_TYPE = #{value}
+	</select>
+	
+	<select id="FIND_ENTITY_BY_CFGID" parameterType="int" resultMap="RM-ENTITY">
+		SELECT `CFG_ID`,
+		    `MONITOR_TYPE`,
+		    `MONITOR_ENTITY_CFG`,
+		    `MONITOR_ENTITY_NODES`,
+		    `MANAGER_ID`,
+		    
+		    `STATUS`,
+		    `DESCRIPTION`,
+		    `NAME`,
+		    `CREATE_TIME`,
+		    `UPDATE_TIME`
+		FROM `TB_MONITOR_ENTITY` WHERE CFG_ID = #{value}
+	</select>
+	
+	<insert id="SAVE_ENTITY" parameterType="TA-ENTITY" useGeneratedKeys="true"  keyProperty="userId">
+			INSERT INTO `TB_MONITOR_ENTITY`
+				(`CFG_ID`,
+				`MONITOR_TYPE`,
+				`MONITOR_ENTITY_CFG`,
+				`MONITOR_ENTITY_NODES`,
+				`MANAGER_ID`,
+				
+				`STATUS`,
+			    `DESCRIPTION`,
+			    `NAME`,
+				`CREATE_TIME`,
+				`UPDATE_TIME`)
+				VALUES
+				(#{cfgID},
+				#{monitorType},
+				#{monitorEntityCfg},
+				#{monitorEntityNodes},
+				#{managerID},
+				
+				#{status},
+				#{desc},
+				#{name},
+				#{createTime},
+				#{updateTime})
+	</insert>
+	
+	<update id="UPDATE_ENTITY" parameterType="TA-ENTITY">
+		UPDATE `TB_MONITOR_ENTITY`
+			SET
+			`MONITOR_TYPE` = #{monitorType},
+			`MONITOR_ENTITY_CFG` =  #{monitorEntityCfg},
+			`MONITOR_ENTITY_NODES` =  #{monitorEntityNodes},
+			`MANAGER_ID` =  #{managerID},
+			`UPDATE_TIME` =  #{updateTime},
+			`STATUS` = #{status},
+			`DESCRIPTION`=#{desc},
+			`NAME` = #{name}
+			WHERE `CFG_ID` = #{cfgID}
+	</update>
+	
+	<delete id="DELETE_ENTITY" parameterType="int">
+		DELETE FROM  `TB_MONITOR_ENTITY` WHERE `CFG_ID` = #{value}
+	</delete>
+	
+</mapper>

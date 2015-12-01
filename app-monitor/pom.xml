@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.yy</groupId>
+		<artifactId>home</artifactId>
+		<version>1.0</version>
+		<relativePath>../../yy-home/pom.xml</relativePath>
+	</parent>
+    	<artifactId>monitor</artifactId>
+    	<packaging>pom</packaging>
+    	<name>monitor</name>
+
+	<!--模块声明-->
+	<modules>
+		<module>./monitor-core</module>				<!--监控核心-->
+		<module>./monitor-ds-plugin</module>			<!--数据源监控插件-->
+		<module>./monitor-web-plugin</module>			<!--web应用监控插件-->
+		<module>./monitor-console</module>			<!--监控控制台-->	
+	</modules>
+
+</project>

@@ -1,0 +1,107 @@
+#menu {
+	background: #191818 none repeat scroll 0 0;
+	float: left;
+	width: 160px;
+	top: 0;
+	bottom: 0;
+	position: fixed;
+	color: white;
+	z-index: 9999;
+}
+
+#system-set {
+	display: block;
+	bottom: 0px;
+	position: absolute;
+	line-height: 40px;
+	font-size: 20px;
+	text-align: center;
+	width: 160px;
+	background-color: #ddd;
+}
+
+#main {
+	float: right;
+	margin-left: -160px;
+	width: 100%;
+}
+
+#content {
+	margin-left: 160px;
+}
+
+#menu .title {
+	display: block;
+	height: 60px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 60px;
+	font-size: 30px;
+	border-bottom: 1px solid white;
+}
+
+.monitor-type {
+	display: block;
+	line-height: 40px;
+	font-size: 20px;
+}
+
+.monitor-type li {
+	padding-left: 30px;
+}
+
+.monitor-type li.select {
+	background-color: white;
+}
+
+.monitor-type li:hover, #system-set:hover {
+	background-color: white;
+	color: black;
+}
+
+.app-info {
+	padding: 10px;
+	margin: 20px 0px 0px 30px;
+	height: 120px;
+	border: 1px solid #ddd;
+}
+
+.app-info:hover, .app-info.select {
+	border-left: 5px blue solid;
+}
+
+.app-title {
+	display: block;
+	color: blue;
+	font-size: 20px;
+	line-height: 35px;
+}
+
+.app-desc {
+	color: #999;
+	font-size: 14px;
+	line-height: 20px;
+	overflow: hidden;
+}
+
+.machine, .monitor-list, .machine .monitor-list {
+	margin: 20px 0px 0px 30px;
+	border: 1px solid #ddd;
+	height: 500px;
+	line-height: 25px;
+}
+
+.machine .machine-list li {
+	padding: 5px;
+}
+
+.machine .machine-list li.select {
+	background-color: #999;
+}
+
+.machine .machine-title, .monitor-list .monitor-title {
+	line-height: 40px;
+	display: block;
+	font-size: 25px;
+	background-color: #ddd;
+}

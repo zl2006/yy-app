@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="monitor">
+
+	<resultMap id="RM-ENTITYITEM" type="TA-ENTITYITEM">
+		<result property="itemID" column="ITEM_ID" />
+		<result property="entityCfgID" column="ENTITY_CFG_ID" />
+		<result property="name" column="NAME" />
+		<result property="itemCfg" column="ITEM_CFG" />
+		<result property="reqTimes" column="REQ_TIMES" />
+
+		<result property="successTimes" column="SUCCESS_TIMES" />
+		<result property="failureTimes" column="FAILURE_TIMES" />
+		<result property="description" column="DESCRIPTION" />
+		<result property="status" column="STATUS" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+
+	
+	<select id="FIND_ENTITYITEM_BY_ENTITYCFGID" parameterType="int" resultMap="RM-ENTITYITEM">
+		SELECT  `ITEM_ID`,
+		    `ENTITY_CFG_ID`,
+		    `NAME`,
+		    `ITEM_CFG`,
+		    `REQ_TIMES`,
+		    `SUCCESS_TIMES`,
+		    `FAILURE_TIMES`,
+		    `DESCRIPTION`,
+		    `STATUS`,
+		    `CREATE_TIME`,
+		    `UPDATE_TIME`
+		FROM `TB_MONITOR_ITEM` WHERE `ENTITY_CFG_ID` = #{value}
+	</select>
+
+</mapper>
