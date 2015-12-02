@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import org.yy.monitor.core.entity.Plugin;
 public class IdxController extends AbsMonitorController {
 
 	@RequestMapping("/")
-	public ModelAndView index(HttpServletRequest request) {
+	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -39,7 +40,7 @@ public class IdxController extends AbsMonitorController {
 		String content = "未配置插件";
 		if(currentPlugin != null){
 			PluginView view = (PluginView) applicationContext.getBean(currentPlugin.getView());
-			content = view.render(currentPlugin);
+			content = view.render(currentPlugin,request,response);
 		}
 		
 		result.put(MonitorConstants.CONTENT, content);

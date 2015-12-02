@@ -1,5 +1,8 @@
 package org.yy.monitor.core;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.yy.monitor.core.entity.Plugin;
 
 /**
@@ -11,7 +14,13 @@ import org.yy.monitor.core.entity.Plugin;
 public interface PluginView {
 
 	/**
-	 * 获取视图
+	 * 获取插件视图内容
+	 * 
+	 * @param plugin
+	 *            插件
+	 * @param request
+	 * @param response
 	 */
-	public String render(Plugin plugin);
+	public String render(Plugin plugin, HttpServletRequest request,
+			HttpServletResponse response);
 }

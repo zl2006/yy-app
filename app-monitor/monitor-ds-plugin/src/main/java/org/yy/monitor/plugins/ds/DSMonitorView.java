@@ -1,9 +1,13 @@
 package org.yy.monitor.plugins.ds;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
-import org.yy.monitor.core.PluginView;
+import org.yy.monitor.core.AbsPluginView;
+import org.yy.monitor.core.entity.Entity;
+import org.yy.monitor.core.entity.EntityItem;
 import org.yy.monitor.core.entity.Plugin;
-import org.yy.monitor.core.util.VelocityUtil;
 
 /**
  * web监控插件视图
@@ -12,11 +16,12 @@ import org.yy.monitor.core.util.VelocityUtil;
  *
  */
 @Component("dsmonitorview")
-public class DSMonitorView implements PluginView {
+public class DSMonitorView extends AbsPluginView {
 
 	@Override
-	public String render(Plugin plugin) {
-		return VelocityUtil.mergeTemplate(plugin.getVmpath() + "index.vm", null);
+	protected void processData(Map<String, Object> data, Plugin plugin,
+			List<Entity> entitys, List<EntityItem> entityItems) {
+
 	}
 
 }

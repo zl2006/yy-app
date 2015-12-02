@@ -1,7 +1,6 @@
 package org.yy.monitor.plugins.web;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ public class WebMonitorView extends AbsPluginView {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected Object processData(Plugin plugin, List<Entity> entitys, List<EntityItem> entityItems) {
+	protected void processData(Map<String, Object> data, Plugin plugin, List<Entity> entitys, List<EntityItem> entityItems) {
 		
 		List<WebEntity> webEntitys = new ArrayList<WebEntity>();
 		List<WebEntityItem> webEntityItems = new ArrayList<WebEntityItem>();
@@ -69,24 +68,17 @@ public class WebMonitorView extends AbsPluginView {
 					Map<String,String> temp = JsonUtil.parseObject(item.getItemCfg(), Map.class);
 					BeanUtilEx.populate(webEntityItem, temp);
 				}
-				
 	
 				webEntityItems.add(webEntityItem);
 			}
 			
-			
-			
-			
 		}catch(Exception ex){
-			//ex.printStackTrace();
 			logger.error("process data failure!", ex);
 		}
 		
 		
-		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("entitys", webEntitys);
-		result.put("entityItems", webEntityItems);
-		return result;
+		data.put("entitys", webEntitys);
+		data.put("entityItems", webEntityItems);
 	}
 	
 
