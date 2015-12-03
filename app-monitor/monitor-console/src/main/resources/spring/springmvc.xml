@@ -15,10 +15,12 @@
 	<context:annotation-config />
 	<!-- 扫描java包中相关的mvc元注解 -->
 	<context:component-scan base-package="org.yy.monitor.console.controller"></context:component-scan>
+	<context:component-scan base-package="org.yy.monitor.plugins"></context:component-scan>
 
 
 	<!-- 配置后，不会被springmvc(web.xml中配置的DispatcherServlet)处理 -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/pluginres/**" location="classpath:/META-INF/plugin/" /><!-- 插件中的资源引用  -->
+	<mvc:resources mapping="/resources/**" location="/resources/" /><!-- console项目的资源 -->
   
 
 	<!-- 业务异常处理 -->

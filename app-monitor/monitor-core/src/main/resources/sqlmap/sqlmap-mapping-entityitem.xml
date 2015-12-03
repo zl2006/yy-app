@@ -34,5 +34,20 @@
 		    `UPDATE_TIME`
 		FROM `TB_MONITOR_ITEM` WHERE `ENTITY_CFG_ID` = #{value}
 	</select>
+	
+	<select id="FIND_ENTITYITEM_BY_ITEMID" parameterType="int" resultMap="RM-ENTITYITEM">
+		SELECT  `ITEM_ID`,
+		    `ENTITY_CFG_ID`,
+		    `NAME`,
+		    `ITEM_CFG`,
+		    `REQ_TIMES`,
+		    `SUCCESS_TIMES`,
+		    `FAILURE_TIMES`,
+		    `DESCRIPTION`,
+		    `STATUS`,
+		    `CREATE_TIME`,
+		    `UPDATE_TIME`
+		FROM `TB_MONITOR_ITEM` WHERE `ITEM_ID` = #{value}
+	</select>
 
 </mapper>

@@ -1,19 +1,7 @@
 package org.yy.monitor.plugins.web;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.yy.monitor.core.AbsPluginView;
-import org.yy.monitor.core.entity.Entity;
-import org.yy.monitor.core.entity.EntityItem;
-import org.yy.monitor.core.entity.Plugin;
-import org.yy.monitor.core.util.BeanUtilEx;
-import org.yy.monitor.core.util.JsonUtil;
 import org.yy.monitor.plugins.web.data.WebEntity;
 import org.yy.monitor.plugins.web.data.WebEntityItem;
 
@@ -25,12 +13,16 @@ import org.yy.monitor.plugins.web.data.WebEntityItem;
  *
  */
 @Component("webmonitorview")
-public class WebMonitorView extends AbsPluginView {
+public class WebMonitorView extends AbsPluginView<WebEntity,WebEntityItem> {
 	
-	private static Logger logger = LoggerFactory.getLogger(WebMonitorView.class);
+	//private static Logger logger = LoggerFactory.getLogger(WebMonitorView.class);
+	
+	public WebMonitorView(){
+		super(WebEntity.class,WebEntityItem.class );
+	}
 	
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	@Override
 	protected void processData(Map<String, Object> data, Plugin plugin, List<Entity> entitys, List<EntityItem> entityItems) {
 		
@@ -79,7 +71,7 @@ public class WebMonitorView extends AbsPluginView {
 		
 		data.put("entitys", webEntitys);
 		data.put("entityItems", webEntityItems);
-	}
+	}*/
 	
 
 	/*

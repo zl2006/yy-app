@@ -21,4 +21,5 @@ public final class BeanUtilEx extends BeanUtils {
 			throws InvocationTargetException, IllegalAccessException {
 		org.apache.commons.beanutils.BeanUtils.copyProperties(target, source);
 	}
+	
 }

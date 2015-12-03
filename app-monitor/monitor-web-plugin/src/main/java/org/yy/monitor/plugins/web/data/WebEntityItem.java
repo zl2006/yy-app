@@ -20,6 +20,11 @@ public class WebEntityItem extends EntityItem {
 	 */
 	private String params;
 
+	/**
+	 * 正常响应字符串
+	 */
+	private String resp;
+
 	public String getUrl() {
 		return url;
 	}
@@ -34,6 +39,14 @@ public class WebEntityItem extends EntityItem {
 
 	public void setParams(String params) {
 		this.params = params;
+	}
+
+	public String getResp() {
+		return resp;
+	}
+
+	public void setResp(String resp) {
+		this.resp = resp;
 	}
 
 }

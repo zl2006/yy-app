@@ -1,6 +1,7 @@
 package org.yy.monitor.core.entity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 监控对象
@@ -30,7 +31,8 @@ public class Entity {
 	private String monitorType;
 
 	/**
-	 * 监控配置,具体格式和解析由插件实现。\n例如：\n{\n	‘dbtype’: ‘mysql’,\n	‘url’	:	‘jdbc:…’,\n	‘user’:	‘monitor’,\n	‘pwd’	: ‘monitor’\n}
+	 * 监控配置,具体格式和解析由插件实现。\n例如：\n{\n ‘dbtype’: ‘mysql’,\n ‘url’ : ‘jdbc:…’,\n
+	 * ‘user’: ‘monitor’,\n ‘pwd’ : ‘monitor’\n}
 	 */
 	private String monitorEntityCfg;
 
@@ -43,6 +45,11 @@ public class Entity {
 	 * 创建者
 	 */
 	private Integer managerID;
+
+	/**
+	 * 结点
+	 */
+	private List<String> nodes;
 
 	/**
 	 * 状态
@@ -137,6 +144,24 @@ public class Entity {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public List<String> getNodes() {
+		return nodes;
+	}
+
+	public void setNodes(List<String> nodes) {
+		this.nodes = nodes;
+	}
+
+	@Override
+	public String toString() {
+		return "Entity [cfgID=" + cfgID + ", name=" + name + ", desc=" + desc
+				+ ", monitorType=" + monitorType + ", monitorEntityCfg="
+				+ monitorEntityCfg + ", monitorEntityNodes="
+				+ monitorEntityNodes + ", managerID=" + managerID + ", nodes="
+				+ nodes + ", status=" + status + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + "]";
 	}
 
 }
