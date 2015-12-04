@@ -11,7 +11,7 @@ public class TestResult {
 	/**
 	 * 成功或失败
 	 */
-	private boolean status;
+	private boolean status = false;
 
 	/**
 	 * 响应

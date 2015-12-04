@@ -1,8 +1,16 @@
 一、监控对象定义
 应用定义：
-
+例：{"icon":"www.oschina.net/img/logo.svg","url":"http://www.oschina.net/"}
+icon:应用图标
+url:应用地址
 
 节点定义：
-
+例：["http://192.168.0.1:8088","http://192.168.0.2:8088"]
 
 监控项定义：
+{"url":"/code/list","params":"lang=&catalog=&show=week","resp":"代码分享列表 - 开源中国社区","charset":"UTF-8","method":"POST"}
+url:监控项请求url, 完成的请求链接为http://www.oschina.net/code/list或http://192.168.0.1:8088/code/list
+params:请求参数
+resp:正确的响应字符串
+charset:请求及响应字符类型
+method:请求方法

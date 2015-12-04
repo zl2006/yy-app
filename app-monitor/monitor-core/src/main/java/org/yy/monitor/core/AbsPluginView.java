@@ -48,7 +48,7 @@ public abstract class AbsPluginView<ENTITY extends Entity, ENTITYITEM extends En
 	}
 
 	@Override
-	public String render(Plugin plugin, HttpServletRequest request,
+	public String render(Plugin plugin, Integer entityCfgID,HttpServletRequest request,
 			HttpServletResponse response) {
 
 		Map<String, Object> data = new HashMap<String, Object>();
@@ -56,16 +56,22 @@ public abstract class AbsPluginView<ENTITY extends Entity, ENTITYITEM extends En
 		// Step 1 :获取该插件类型的所有监控实体
 		List<Entity> entitys = entityService.findEntity(plugin.getCode());
 
-		// Step 2: 获取第一个监控实体的监控项
+		
+		// Step 2: 获取指定监控实体的监控项
+		if(entityCfgID == null && entitys != null && entitys.size() > 0){
+			entityCfgID = entitys.get(0).getCfgID();
+		}
+		
 		List<EntityItem> entityItems = new ArrayList<EntityItem>();
-		if (entitys != null && entitys.size() > 0) {
-			entityItems = entityItemService.findEntityItem(entitys.get(0)
-					.getCfgID());
+		if ( entityCfgID!=null) {
+			entityItems = entityItemService.findEntityItem(entityCfgID);
 		}
 
 		// Step 3:处理模板
 		data.put("contextPath", request.getContextPath());
-		processData(data, plugin, entitys, entityItems);
+		processData(data, plugin, entitys, entityItems, entityCfgID);
+		
+		// Step 4:设置当前显示的实体
 		return VelocityUtil
 				.mergeTemplate(plugin.getVmpath() + "index.vm", data);
 	}
@@ -78,19 +84,26 @@ public abstract class AbsPluginView<ENTITY extends Entity, ENTITYITEM extends En
 	 * @param plugin
 	 *            插件
 	 * @param entitys
-	 *            监控实体
+	 *            监控实体列表
 	 * @param entityItems
-	 *            监控实体项
+	 *            监控实体项列表
+	 * @param currentEntityCfgID 当前监控实体
 	 */
 	protected void processData(Map<String, Object> data, Plugin plugin,
-			List<Entity> entitys, List<EntityItem> entityItems) {
+			List<Entity> entitys, List<EntityItem> entityItems, Integer currentEntityCfgID) {
 
 		List<ENTITY> targetEntitys = new ArrayList<ENTITY>();
 		List<ENTITYITEM> targetEntityItems = new ArrayList<ENTITYITEM>();
 
 		try {
+			
 			for (Entity item : entitys) {
-				targetEntitys.add(EntityUtil.toPlugEntity(item, entityClass));
+				ENTITY temp = EntityUtil.toPlugEntity(item, entityClass);
+				targetEntitys.add(temp);
+				
+				if(temp.getCfgID().equals(currentEntityCfgID)){
+					data.put("currentEntity", temp);
+				}
 			}
 
 			for (EntityItem item : entityItems) {
@@ -105,4 +118,5 @@ public abstract class AbsPluginView<ENTITY extends Entity, ENTITYITEM extends En
 		data.put("entitys", targetEntitys);
 		data.put("entityItems", targetEntityItems);
 	}
+
 }

@@ -48,6 +48,7 @@
 
 .monitor-type li {
 	padding-left: 30px;
+	color: blue;
 }
 
 .monitor-type li.select {
@@ -56,7 +57,7 @@
 
 .monitor-type li:hover, #system-set:hover {
 	background-color: white;
-	color: black;
+	/*color: black;*/
 }
 
 .app-info {
@@ -66,8 +67,12 @@
 	border: 1px solid #ddd;
 }
 
+.app-info:hover{
+	cursor: pointer;
+}
 .app-info:hover, .app-info.select {
 	border-left: 5px blue solid;
+	border-color: blue;
 }
 
 .app-title {

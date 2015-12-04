@@ -33,14 +33,20 @@ public class IdxController extends AbsMonitorController {
 		}
 		result.put(MonitorConstants.CURRENT_PLUGIN, currentPlugin);
 
-		// Step 2:获取插件列表
+		// Step 2:获取插件列表，以便界面左侧显示
 		result.put(MonitorConstants.PLUGINS, monitorManager.getPlugins());
 		
-		// Step 3: 显示当前插件
+		// Step 3: 显示插件视图(显示当前监控实体的插件视图)
+		String entityCfgIDStr = request.getParameter("entityCfgID");
+		Integer entityCfgID = null;
+		if(StringUtils.isNotEmpty(entityCfgIDStr)){
+			entityCfgID = Integer.valueOf(entityCfgIDStr.trim());
+		}
+		
 		String content = "未配置插件";
 		if(currentPlugin != null){
 			PluginView view = (PluginView) applicationContext.getBean(currentPlugin.getView());
-			content = view.render(currentPlugin,request,response);
+			content = view.render(currentPlugin,entityCfgID,request,response);
 		}
 		
 		result.put(MonitorConstants.CONTENT, content);

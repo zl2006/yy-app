@@ -25,6 +25,16 @@ public class WebEntityItem extends EntityItem {
 	 */
 	private String resp;
 
+	/**
+	 * 字符集
+	 */
+	private String charset;
+
+	/**
+	 * 请求方法
+	 */
+	private String method;
+
 	public String getUrl() {
 		return url;
 	}
@@ -47,6 +57,22 @@ public class WebEntityItem extends EntityItem {
 
 	public void setResp(String resp) {
 		this.resp = resp;
+	}
+
+	public String getCharset() {
+		return charset;
+	}
+
+	public void setCharset(String charset) {
+		this.charset = charset;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 }

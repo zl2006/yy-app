@@ -13,14 +13,17 @@ import org.yy.monitor.core.entity.Plugin;
  */
 public interface PluginView {
 
+	
 	/**
-	 * 获取插件视图内容
+	 * 获取插件视图内容，指定显示的监控实体
 	 * 
 	 * @param plugin
-	 *            插件
+	 *          插件
+	 * @param entityCfgID
+	 * 			监控实体ID,为null将显示第一个监控实体
 	 * @param request
 	 * @param response
 	 */
-	public String render(Plugin plugin, HttpServletRequest request,
+	public String render(Plugin plugin,Integer entityCfgID, HttpServletRequest request,
 			HttpServletResponse response);
 }
