@@ -110,3 +110,14 @@
 	font-size: 25px;
 	background-color: #ddd;
 }
+
+
+#add_top {
+  bottom: 10px;
+  display: none;
+  height: 57px;
+  overflow: hidden;
+  position: fixed;
+  right: 10px;
+  width: 57px;
+}

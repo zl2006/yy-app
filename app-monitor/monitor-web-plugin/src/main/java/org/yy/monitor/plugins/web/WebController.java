@@ -14,6 +14,7 @@ import org.yy.monitor.core.entity.Entity;
 import org.yy.monitor.core.entity.EntityItem;
 import org.yy.monitor.core.entity.TestResult;
 import org.yy.monitor.core.persistence.EntityItemService;
+import org.yy.monitor.core.persistence.EntityItemTestService;
 import org.yy.monitor.core.persistence.EntityService;
 import org.yy.monitor.core.util.EntityUtil;
 import org.yy.monitor.plugins.web.data.WebEntity;
@@ -23,6 +24,10 @@ import org.yy.monitor.plugins.web.data.WebEntityItem;
 @RequestMapping("/plugins/web")
 public class WebController extends AbstractController {
 
+	
+	@Resource(name="entityItemTestService")
+	private EntityItemTestService entityItemTestService;
+	
 	@Resource(name = "entityItemService")
 	private EntityItemService entityItemService;
 
@@ -61,9 +66,9 @@ public class WebController extends AbstractController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam("itemId") Integer itemId){
-		return null;
+	@RequestMapping("/list_test")
+	public ModelAndView listEntityItemTest(@RequestParam("itemId") Integer itemId){
+		return processSuccess("", entityItemTestService.findEntityItemTest(itemId));
 	}
 	
 

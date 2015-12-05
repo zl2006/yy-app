@@ -23,5 +23,6 @@
 		<typeAlias alias="TA-MANAGER" type="org.yy.monitor.core.entity.Manager" />
 		<typeAlias alias="TA-ENTITY" type="org.yy.monitor.core.entity.Entity" />
 		<typeAlias alias="TA-ENTITYITEM" type="org.yy.monitor.core.entity.EntityItem" />
+		<typeAlias alias="TA-ENTITYITEMTEST" type="org.yy.monitor.core.entity.EntityItemTest" />
 	</typeAliases>
 </configuration>

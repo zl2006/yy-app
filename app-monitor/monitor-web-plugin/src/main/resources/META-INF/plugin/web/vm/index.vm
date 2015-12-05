@@ -2,7 +2,7 @@
 	<div id="content">
 		<div class="pure-g">
 			#foreach($entity in $data.entitys)  
-			<div class="pure-u-1-3 select_entity" href="$!{contextPath}/?plugin=WEB_MONITOR&entityCfgID=$!{entity.cfgID}">
+			<div class="pure-u-1-3 web-select-entity" href="$!{contextPath}/?plugin=WEB_MONITOR&entityCfgID=$!{entity.cfgID}">
 				<div class='app-info #if($data.currentEntity.cfgID == $entity.cfgID) select #end'>
 					<a href="javascript:void(0)" class="app-title">$entity.name</a>
 					<div class="app-desc">
@@ -55,7 +55,7 @@
 								<td>$!entityItem.url</td>
 								<td>$!entityItem.params</td>
 								<td>总数：$!entityItem.reqTimes，失败数：$!entityItem.failureTimes</td>
-								<td><a href="javascript:void(0)" itemid="$!entityItem.itemID" class="web-list">结果列表</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-test" itemid="$!entityItem.itemID">测试</a></td>
+								<td><a href="javascript:void(0)" itemid="$!entityItem.itemID" class="web-list">结果</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-test" itemid="$!entityItem.itemID">测试</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-item-config" itemid="$!entityItem.itemID">配置</a></td>
 							</tr>
 							#end
 						</tbody>

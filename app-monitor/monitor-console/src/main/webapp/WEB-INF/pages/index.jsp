@@ -25,11 +25,16 @@
 			<c:forEach var="plugin" items="${data.plugins}">
 				<a href="${contextPath }?plugin=${plugin.code}"><li <c:if test="${plugin.code eq data.currentPlugin.code }">class="select"</c:if> >${plugin.name }</li></a>
 			</c:forEach>
-		</ul>
+		</ul><!--
 		<div id="system-set">
 			<a href="javascript:void(0)">系统设置</a>
-		</div>
+		</div>  -->
 	</div>
 	${data.content }
+	
+	
+	<a id="add_top" href="javascript:;" style="display: inline;">
+		<img src="<%=contextPath%>/resources/images/add.png" width="57" height="57">
+	</a>
 </body>
 </html>

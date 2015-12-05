@@ -19,3 +19,6 @@ UPDATE `TB_MONITOR_ENTITY` SET `MONITOR_ENTITY_CFG`='{\"icon\":\"http://localhos
 UPDATE `TB_MONITOR_ENTITY` SET `MONITOR_ENTITY_CFG`='{\"icon\":\"http://localhost:8080/resources/images/3.png\",\"url\":\"http://www.panshi.com\"}' WHERE `CFG_ID`='3';
 
 INSERT INTO `TB_MONITOR_ITEM` (`ITEM_ID`, `ENTITY_CFG_ID`, `NAME`, `ITEM_CFG`, `REQ_TIMES`, `SUCCESS_TIMES`, `FAILURE_TIMES`, `STATUS`) VALUES ('5', '4', '代码列表', '{\"url\":\"/code/list\",\"params\":\"lang=&catalog=&show=week\",\"resp\":\"代码分享列表 - 开源中国社区\",\"charset\":\"GB2312\"}', '0', '0', '0', '1');
+INSERT INTO `TB_MONITOR_TEST` (`TEST_ID`, `ITEM_ID`, `TEST_TIME`, `RESULT`, `EXPECT_RESPONSE`, `ACTUL_RESPONSE`, `URL`, `PARAMS`) VALUES ('1', '5', '2015-11-11', '0', 'aaa', 'aaaaa', 'http://www.oschina.net/code/list', 'lang=&catalog=&show=week');
+INSERT INTO `TB_MONITOR_TEST` (`TEST_ID`, `ITEM_ID`, `TEST_TIME`, `RESULT`, `EXPECT_RESPONSE`, `ACTUL_RESPONSE`, `URL`, `PARAMS`) VALUES ('2', '5', '2015-11-12', '0', 'bbb', 'bbbbb', 'http://www.oschina.net/code/list', 'lang=&catalog=&show=week');
+INSERT INTO `TB_MONITOR_TEST` (`TEST_ID`, `ITEM_ID`, `TEST_TIME`, `RESULT`, `EXPECT_RESPONSE`, `ACTUL_RESPONSE`, `URL`, `PARAMS`) VALUES ('3', '5', '2015-11-13', '1', 'ccc', 'ccccc', 'http://www.oschina.net/code/list', 'lang=&catalog=&show=week');

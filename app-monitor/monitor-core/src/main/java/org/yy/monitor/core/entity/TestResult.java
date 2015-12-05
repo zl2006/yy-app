@@ -31,7 +31,11 @@ public class TestResult {
 	}
 
 	public void setResponse(String response) {
-		this.response = response;
+		if(response != null && response.length() >= 10000){
+			this.response = response.substring(0, 9999);
+		}else{
+			this.response = response;
+		}
 	}
 
 	@Override

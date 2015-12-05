@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="monitor">
+
+	<resultMap id="RM-ENTITYITEMTEST" type="TA-ENTITYITEMTEST">
+		<result property="testID" column="TEST_ID" />
+		<result property="itemID" column="ITEM_ID" />
+		<result property="testTime" column="TEST_TIME" />
+		<result property="result" column="RESULT" />
+		<result property="expectResponse" column="EXPECT_RESPONSE" />
+
+		<result property="actulResponse" column="ACTUL_RESPONSE" />
+		<result property="url" column="URL" />
+		<result property="params" column="PARAMS" />
+	</resultMap>
+	
+	<select id="FIND_ENTITYITEMTEST_BY_ITEMID" parameterType="int" resultMap="RM-ENTITYITEMTEST">
+		SELECT `TEST_ID`,
+			   `ITEM_ID`,
+			   `TEST_TIME`,
+			   `RESULT`,
+			   `EXPECT_RESPONSE`,
+			   `ACTUL_RESPONSE`,
+			   `URL`,
+			   `PARAMS`
+			FROM `TB_MONITOR_TEST` WHERE `ITEM_ID` = #{value} order by TEST_TIME desc limit 0, 20
+	</select>
+	
+	<select id="FIND_ENTITYITEMTEST_BY_TESTID" parameterType="int" resultMap="RM-ENTITYITEMTEST">
+		SELECT `TEST_ID`,
+			   `ITEM_ID`,
+			   `TEST_TIME`,
+			   `RESULT`,
+			   `EXPECT_RESPONSE`,
+			   `ACTUL_RESPONSE`,
+			   `URL`,
+			   `PARAMS`
+			FROM `TB_MONITOR_TEST` WHERE `TEST_ID` = #{value}
+	</select>
+	
+	<insert id="INSERT_ENTITYITEMTEST" parameterType="TA-ENTITYITEMTEST">
+		INSERT INTO  `TB_MONITOR_TEST`
+			(`ITEM_ID`,
+			`TEST_TIME`,
+			`RESULT`,
+			`EXPECT_RESPONSE`,
+			`ACTUL_RESPONSE`,
+			`URL`,
+			`PARAMS`)
+			VALUES
+			(#{itemID},
+			#{testTime},
+			#{result},
+			#{expectResponse},
+			#{actulResponse},
+			#{url},
+			#{params})
+	</insert>
+
+</mapper>
