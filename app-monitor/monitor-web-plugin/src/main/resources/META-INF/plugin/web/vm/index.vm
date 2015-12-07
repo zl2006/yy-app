@@ -34,28 +34,31 @@
 		<div class="pure-g">
 			<div class="pure-u-5-5">
 				<div class="monitor-list">
-					<a class="monitor-title">监控请求</a>
+                    <div class="monitor-title">监控请求<a href="javascript:;"><img style="float:right;margin-right:10px;margin-top:5px" src="$!{contextPath}/resources/images/add1.png" width="30" height="30" id="add_entity_item" title="增加监控项"></img></a></div>
 					<table class="pure-table" style="width: 100%">
 						<thead>
 							<tr>
 								<th width="10">#</th>
 								<th>业务名称</th>
-								<th>监控链接</th>
-								<th>参数</th>
-								<th width="180">请求总况</th>
-								<th width="100">操作</th>
+								<th width="160">监控链接</th>
+								<th width="170">参数</th>
+								<th width="170">请求总况</th>
+								<th width="240">操作</th>
 							</tr>
 						</thead>
 
 						<tbody>
 							#foreach($entityItem in $data.entityItems)
-							<tr class="pure-table-odd">
+							<tr #if($!velocityCount%2 ==0) class="pure-table-odd" #end>
 								<td>$!velocityCount</td>
 								<td>$!entityItem.name</td>
 								<td>$!entityItem.url</td>
 								<td>$!entityItem.params</td>
 								<td>总数：$!entityItem.reqTimes，失败数：$!entityItem.failureTimes</td>
-								<td><a href="javascript:void(0)" itemid="$!entityItem.itemID" class="web-list">结果</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-test" itemid="$!entityItem.itemID">测试</a></td>
+								<td>
+									<a href="javascript:void(0)" itemid="$!entityItem.itemID" class="web-test-result">测试结果</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-test" itemid="$!entityItem.itemID">立即测试</a>
+									&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-item-del">删除</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-item-cfg">配置</a>
+								</td>
 							</tr>
 							#end
 						</tbody>

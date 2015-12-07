@@ -42,7 +42,7 @@ $(function(){
 	});
 	
 	//web监控项结果列表
-	$('.web-list').click(function(){
+	$('.web-test-result').click(function(){
 		var itemId =  $(this).attr('itemid') ;
 		layer.load(2);
 		$.ajax({
