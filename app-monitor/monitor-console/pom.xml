@@ -19,22 +19,23 @@
 			<groupId>org.yy.framework</groupId>
 			<artifactId>framework-webframe</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.yy.monitor</groupId>
 			<artifactId>monitor-core</artifactId>
 			<version>${project.version}</version>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>org.yy.monitor</groupId>
 			<artifactId>monitor-ds-plugin</artifactId>
 			<version>${project.version}</version>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>org.yy.monitor</groupId>
 			<artifactId>monitor-web-plugin</artifactId>
 			<version>${project.version}</version>
-		</dependency> 
+		</dependency>
+
 
 		<!-- 数据库及其它组件 -->
 		<dependency>
