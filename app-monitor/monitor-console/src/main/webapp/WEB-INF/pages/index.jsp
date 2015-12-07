@@ -31,10 +31,10 @@
 		</div>  -->
 	</div>
 	${data.content }
-	
-	
-	<a id="add_top" href="javascript:;" style="display: inline;">
-		<img src="<%=contextPath%>/resources/images/add.png" width="57" height="57">
-	</a>
+	<div id="add_top" style="display: inline;">
+		<img src="<%=contextPath%>/resources/images/delete.png" width="30" height="30" id="del_plugin" title="删除">
+		<img src="<%=contextPath%>/resources/images/edit.png" width="30" height="30"  style="margin-left:10px" id="edit_plugin" title="编辑">
+		<img src="<%=contextPath%>/resources/images/add.png" width="30" height="30" style="margin-left:10px" id="add_plugin" title="新增">
+	</div>
 </body>
 </html>

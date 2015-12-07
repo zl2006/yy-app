@@ -43,7 +43,7 @@
 								<th>监控链接</th>
 								<th>参数</th>
 								<th width="180">请求总况</th>
-								<th width="150">操作</th>
+								<th width="100">操作</th>
 							</tr>
 						</thead>
 
@@ -55,7 +55,7 @@
 								<td>$!entityItem.url</td>
 								<td>$!entityItem.params</td>
 								<td>总数：$!entityItem.reqTimes，失败数：$!entityItem.failureTimes</td>
-								<td><a href="javascript:void(0)" itemid="$!entityItem.itemID" class="web-list">结果</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-test" itemid="$!entityItem.itemID">测试</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-item-config" itemid="$!entityItem.itemID">配置</a></td>
+								<td><a href="javascript:void(0)" itemid="$!entityItem.itemID" class="web-list">结果</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="web-test" itemid="$!entityItem.itemID">测试</a></td>
 							</tr>
 							#end
 						</tbody>

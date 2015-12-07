@@ -92,7 +92,7 @@
 .machine, .monitor-list, .machine .monitor-list {
 	margin: 20px 0px 0px 30px;
 	border: 1px solid #ddd;
-	height: 500px;
+	/*height: 500px;*/
 	line-height: 25px;
 }
 
@@ -115,9 +115,15 @@
 #add_top {
   bottom: 10px;
   display: none;
-  height: 57px;
+  height: 35px;
   overflow: hidden;
   position: fixed;
   right: 10px;
-  width: 57px;
+  width: 120px;
+  background-color: white;
+  border-bottom: 2px solid #ddd;
+}
+#add_top img:hover{
+	background-color: #ddd;
+	cursor: pointer;
 }
