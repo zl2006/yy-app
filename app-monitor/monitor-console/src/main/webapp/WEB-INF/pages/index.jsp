@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/index.css">
 <link rel="stylesheet" href="<%=contextPath%>/resources/css/index.css">
 <script type="text/javascript" src="<%=contextPath%>/resources/js/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="<%=contextPath%>/resources/js/jqajaxform.min.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/resources/js/layer/layer.js"></script>
 <script type="text/javascript" src="<%=contextPath%>/resources/js/juicer-min.js"></script>
 <title>监控系统</title>
@@ -31,10 +32,13 @@
 		</div>  -->
 	</div>
 	${data.content }
-	<div id="add_top" style="display: inline;">
-		<img src="<%=contextPath%>/resources/images/delete.png" width="30" height="30" id="del_plugin" title="删除">
-		<img src="<%=contextPath%>/resources/images/edit.png" width="30" height="30"  style="margin-left:10px" id="edit_plugin" title="编辑">
-		<img src="<%=contextPath%>/resources/images/add.png" width="30" height="30" style="margin-left:10px" id="add_plugin" title="新增">
+	<div id="entity-oper" style="display: inline;">
+		<img src="<%=contextPath%>/resources/images/delete.png" width="30" height="30" id="del-entity" title="删除">
+		<img src="<%=contextPath%>/resources/images/edit.png" width="30" height="30"  style="margin-left:10px" id="edit-entity" title="编辑">
+		<img src="<%=contextPath%>/resources/images/add.png" width="30" height="30" style="margin-left:10px" id="add-entity" title="新增">
 	</div>
+	
+	<div id="ajax_result" style="display: none"></div>
+	<input type="text" value="${data.currentPlugin.code }"  id="currentPluginCode"/>
 </body>
 </html>

@@ -49,13 +49,12 @@
 		FROM `TB_MONITOR_ENTITY` WHERE CFG_ID = #{value}
 	</select>
 	
-	<insert id="SAVE_ENTITY" parameterType="TA-ENTITY" useGeneratedKeys="true"  keyProperty="userId">
+	<insert id="SAVE_ENTITY" parameterType="TA-ENTITY" useGeneratedKeys="true"  keyProperty="cfgID">
 			INSERT INTO `TB_MONITOR_ENTITY`
 				(`CFG_ID`,
 				`MONITOR_TYPE`,
 				`MONITOR_ENTITY_CFG`,
 				`MONITOR_ENTITY_NODES`,
-				`MANAGER_ID`,
 				
 				`STATUS`,
 			    `DESCRIPTION`,
@@ -67,7 +66,6 @@
 				#{monitorType},
 				#{monitorEntityCfg},
 				#{monitorEntityNodes},
-				#{managerID},
 				
 				#{status},
 				#{desc},

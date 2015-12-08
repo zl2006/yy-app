@@ -112,18 +112,17 @@
 }
 
 
-#add_top {
+#entity-oper {
   bottom: 10px;
   display: none;
   height: 35px;
   overflow: hidden;
   position: fixed;
   right: 10px;
-  width: 120px;
   background-color: white;
   border-bottom: 2px solid #ddd;
 }
-#add_top img:hover{
+#entity-oper img:hover{
 	background-color: #ddd;
 	cursor: pointer;
 }
