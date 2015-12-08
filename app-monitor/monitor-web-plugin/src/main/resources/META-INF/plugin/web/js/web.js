@@ -104,7 +104,7 @@ $(function(){
 						  if( "success" == data.flag){
 							  window.location.reload();
 						  }else{
-							  layer.msg('删除失败', {icon: 5,time: 1000 });
+							  layer.msg('删除失败,请确认应用下的监控项是否被删除！', {icon: 5,time: 2000 });
 						  }
 						  
 					  }
