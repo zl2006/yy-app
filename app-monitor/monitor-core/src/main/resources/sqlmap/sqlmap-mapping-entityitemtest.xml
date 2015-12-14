@@ -58,5 +58,9 @@
 			#{url},
 			#{params})
 	</insert>
+	
+	<delete id="DELETE_ENTITYITEMTEST" parameterType="int" >
+		DELETE FROM TB_MONITOR_TEST WHERE `ITEM_ID` = #{value} 
+	</delete>
 
 </mapper>

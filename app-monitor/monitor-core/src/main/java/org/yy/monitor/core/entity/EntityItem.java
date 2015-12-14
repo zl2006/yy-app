@@ -1,6 +1,10 @@
 package org.yy.monitor.core.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 监控实体项
@@ -64,6 +68,21 @@ public class EntityItem {
 	 * 更新时间
 	 */
 	private Date updateTime;
+
+	/**
+	 * 调度规则
+	 */
+	private String schedulerCron;
+
+	/**
+	 * 通知手机配置
+	 */
+	private String notifyMobile;
+
+	/**
+	 * 通知邮箱s
+	 */
+	private String notifyEmail;
 
 	public Integer getItemID() {
 		return itemID;
@@ -151,6 +170,52 @@ public class EntityItem {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public String getNotifyMobile() {
+		return notifyMobile;
+	}
+
+	public void setNotifyMobile(String notifyMobile) {
+		this.notifyMobile = notifyMobile;
+	}
+
+	public String getNotifyEmail() {
+		return notifyEmail;
+	}
+
+	public void setNotifyEmail(String notifyEmail) {
+		this.notifyEmail = notifyEmail;
+	}
+
+	public List<String> getMobiles() {
+		List<String> mobiles = new ArrayList<String>();
+		if (StringUtils.isNotEmpty(this.getNotifyMobile())) {
+			String[] temp = this.getNotifyMobile().split(";");
+			for (int i = 0; temp != null && temp.length > 0 && i < temp.length; ++i) {
+				mobiles.add(temp[i]);
+			}
+		}
+		return mobiles;
+	}
+
+	public List<String> getEmails() {
+		List<String> emails = new ArrayList<String>();
+		if (StringUtils.isNotEmpty(this.getNotifyEmail())) {
+			String[] temp = this.getNotifyEmail().split(";");
+			for (int i = 0; temp != null && temp.length > 0 && i < temp.length; ++i) {
+				emails.add(temp[i]);
+			}
+		}
+		return emails;
+	}
+
+	public String getSchedulerCron() {
+		return schedulerCron;
+	}
+
+	public void setSchedulerCron(String schedulerCron) {
+		this.schedulerCron = schedulerCron;
 	}
 
 }

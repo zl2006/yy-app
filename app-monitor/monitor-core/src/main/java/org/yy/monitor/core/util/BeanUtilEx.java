@@ -22,4 +22,15 @@ public final class BeanUtilEx extends BeanUtils {
 		org.apache.commons.beanutils.BeanUtils.copyProperties(target, source);
 	}
 	
+	//json段处理
+	public static String jsonSeg(String name, String value){
+		StringBuilder s = new StringBuilder();
+		s.append("\"");
+		s.append(name);
+		s.append("\":");
+		s.append("\"");
+		s.append(value.toString());
+		s.append("\"");
+		return s.toString();
+	}
 }

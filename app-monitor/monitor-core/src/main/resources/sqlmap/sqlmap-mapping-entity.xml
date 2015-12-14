@@ -80,9 +80,7 @@
 			`MONITOR_TYPE` = #{monitorType},
 			`MONITOR_ENTITY_CFG` =  #{monitorEntityCfg},
 			`MONITOR_ENTITY_NODES` =  #{monitorEntityNodes},
-			`MANAGER_ID` =  #{managerID},
 			`UPDATE_TIME` =  #{updateTime},
-			`STATUS` = #{status},
 			`DESCRIPTION`=#{desc},
 			`NAME` = #{name}
 			WHERE `CFG_ID` = #{cfgID}

@@ -13,6 +13,10 @@
 
 		<result property="successTimes" column="SUCCESS_TIMES" />
 		<result property="failureTimes" column="FAILURE_TIMES" />
+		<result property="schedulerCron" column="SCHEDULER_CRON" />
+		<result property="notifyMobile" column="NOTIFY_MOBILE" />
+		<result property="notifyEmail" column="NOTIFY_EMAIL" />
+		
 		<result property="description" column="DESCRIPTION" />
 		<result property="status" column="STATUS" />
 		<result property="createTime" column="CREATE_TIME" />
@@ -28,6 +32,9 @@
 		    `REQ_TIMES`,
 		    `SUCCESS_TIMES`,
 		    `FAILURE_TIMES`,
+		    `SCHEDULER_CRON`,
+		    `NOTIFY_MOBILE`,
+		    `NOTIFY_EMAIL`,
 		    `DESCRIPTION`,
 		    `STATUS`,
 		    `CREATE_TIME`,
@@ -43,11 +50,66 @@
 		    `REQ_TIMES`,
 		    `SUCCESS_TIMES`,
 		    `FAILURE_TIMES`,
+		    `SCHEDULER_CRON`,
+		    `NOTIFY_MOBILE`,
+		    `NOTIFY_EMAIL`,
 		    `DESCRIPTION`,
 		    `STATUS`,
 		    `CREATE_TIME`,
 		    `UPDATE_TIME`
 		FROM `TB_MONITOR_ITEM` WHERE `ITEM_ID` = #{value}
 	</select>
+	
+	<insert id="SAVE_ENTITYITEM" parameterType="TA-ENTITYITEM"  useGeneratedKeys="true"  keyProperty="itemID">
+		INSERT INTO `TB_MONITOR_ITEM`
+			(`ITEM_ID`,
+			`ENTITY_CFG_ID`,
+			`NAME`,
+			`ITEM_CFG`,
+			`REQ_TIMES`,
+			`SUCCESS_TIMES`,
+			`FAILURE_TIMES`,
+			`DESCRIPTION`,
+			`STATUS`,
+			`CREATE_TIME`,
+			`UPDATE_TIME`,
+			`SCHEDULER_CRON`,
+			`NOTIFY_MOBILE`,
+			`NOTIFY_EMAIL`)
+		VALUES
+			(#{itemID},
+			#{entityCfgID},
+			#{name},
+			#{itemCfg},
+			#{reqTimes},
+			#{successTimes},
+			#{failureTimes},
+			#{description},
+			#{status},
+			#{createTime},
+			#{updateTime},
+			#{schedulerCron},
+			#{notifyMobile},
+			#{notifyEmail})
+	</insert>
+	
+	<delete id="DELETE_ENTITYITEM" parameterType="int">
+		DELETE FROM `TB_MONITOR_ITEM` WHERE ITEM_ID = #{value}
+	</delete>
+	
+	<update id="UPDATE_ENTITYITEM" parameterType="TA-ENTITYITEM">
+		UPDATE `TB_MONITOR_ITEM`
+			SET
+			`ENTITY_CFG_ID` = #{entityCfgID},
+			`NAME` = #{name},
+			`ITEM_CFG` = #{itemCfg},
+			`DESCRIPTION` = #{description},
+			`STATUS` = #{status},
+			`UPDATE_TIME` = #{updateTime},
+			`SCHEDULER_CRON` = #{schedulerCron},
+			`NOTIFY_MOBILE` = #{notifyMobile},
+			`NOTIFY_EMAIL` = #{notifyEmail}
+			WHERE `ITEM_ID` = #{itemID}
+	</update>
 
 </mapper>

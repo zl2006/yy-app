@@ -39,6 +39,6 @@
 	</div>
 	
 	<div id="ajax_result" style="display: none"></div>
-	<input type="text" value="${data.currentPlugin.code }"  id="currentPluginCode"/>
+	<input type="hidden" value="${data.currentPlugin.code }"  id="currentPluginCode"/>
 </body>
 </html>

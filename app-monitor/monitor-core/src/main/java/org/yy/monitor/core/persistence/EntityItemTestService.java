@@ -39,4 +39,13 @@ public class EntityItemTestService extends AbsMonitorService {
 	public int insertEntityItemTest(EntityItemTest test) {
 		return sqlSession.insert("monitor.INSERT_ENTITYITEMTEST", test);
 	}
+
+	/**
+	 * 
+	 * @param itemId
+	 * @return
+	 */
+	public int deleteEntityItemTest(Integer itemId) {
+		return sqlSession.delete("monitor.DELETE_ENTITYITEMTEST", itemId);
+	}
 }

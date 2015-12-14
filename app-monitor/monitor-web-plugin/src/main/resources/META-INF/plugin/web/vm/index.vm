@@ -20,7 +20,7 @@
 				<div style="margin:20px 0px 0px 30px">
 					<form class="pure-form" onsubmit="return false;">
 					<a class="machine-title">主机列表:</a>
-					<select class="pure-u-1-4" id="web_url">
+					<select class="pure-u-1-4" id="web_test_url">
 						<option value="$!data.currentEntity.url">集群($!data.currentEntity.url)</option>
 						#foreach($node in $data.currentEntity.nodes)
 						<option value="${node}">${node}</option>
@@ -57,7 +57,7 @@
 								<td>总数：$!entityItem.reqTimes，失败数：$!entityItem.failureTimes</td>
 								<td>
 									<a href="javascript:void(0)" itemid="$!entityItem.itemID" class="list-test-entity-item">测试结果</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="test-entity-item" itemid="$!entityItem.itemID">立即测试</a>
-									&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="del-entity-item">删除</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="cfg-entity-item">配置</a>
+									&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" itemid="$!entityItem.itemID"  class="del-entity-item">删除</a>&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"  itemid="$!entityItem.itemID" class="cfg-entity-item">配置</a>
 								</td>
 							</tr>
 							#end
