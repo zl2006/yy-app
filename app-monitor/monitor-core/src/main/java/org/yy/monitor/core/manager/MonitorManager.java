@@ -1,4 +1,4 @@
-package org.yy.monitor.core;
+package org.yy.monitor.core.manager;
 
 import java.io.IOException;
 import java.util.ArrayList;

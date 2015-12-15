@@ -1,10 +1,11 @@
-package org.yy.monitor.core;
+package org.yy.monitor.console.controller;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.yy.framework.base.controller.AbstractController;
 import org.yy.monitor.core.entity.Plugin;
+import org.yy.monitor.core.manager.MonitorManager;
 
 /**
  * 抽象监控控制器

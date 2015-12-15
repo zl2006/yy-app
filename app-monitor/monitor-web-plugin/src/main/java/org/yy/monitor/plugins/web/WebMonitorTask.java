@@ -1,6 +1,6 @@
 package org.yy.monitor.plugins.web;
 
-import org.yy.monitor.core.Task;
+import org.yy.monitor.core.PlugTask;
 import org.yy.monitor.plugins.web.data.WebEntity;
 import org.yy.monitor.plugins.web.data.WebEntityItem;
 
@@ -10,7 +10,7 @@ import org.yy.monitor.plugins.web.data.WebEntityItem;
  * @author zhouliang
  *
  */
-public class WebMonitorTask implements Task {
+public class WebMonitorTask implements PlugTask {
 
 	private WebEntity entity;
 	private WebEntityItem entityItem;

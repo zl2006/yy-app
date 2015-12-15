@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import org.yy.monitor.core.AbsMonitorController;
 import org.yy.monitor.core.MonitorConstants;
 import org.yy.monitor.core.PluginView;
 import org.yy.monitor.core.entity.Plugin;

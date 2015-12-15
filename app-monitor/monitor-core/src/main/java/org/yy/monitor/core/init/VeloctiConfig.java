@@ -1,4 +1,4 @@
-package org.yy.monitor.core;
+package org.yy.monitor.core.init;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * velocity配置
+ * 初始化velocity配置
  * 
  * @author zhouliang
  *

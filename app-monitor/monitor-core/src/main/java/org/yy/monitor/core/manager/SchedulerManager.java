@@ -1,10 +1,12 @@
-package org.yy.monitor.core;
+package org.yy.monitor.core.manager;
 
 import it.sauronsoftware.cron4j.Scheduler;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.yy.monitor.core.PlugTask;
 
 /**
  * 调度管理器
@@ -33,7 +35,7 @@ public class SchedulerManager {
 	 *            星期　（0-6）//0代表星期天
 	 * @param task
 	 */
-	public void start(String cron, Task task) {
+	public void start(String cron, PlugTask task) {
 		Scheduler s = new Scheduler();
 		s.schedule(cron, task);
 		s.start();
@@ -56,7 +58,7 @@ public class SchedulerManager {
 
 		SchedulerManager sm = SchedulerManager.newInstance();
 		for (int i = 0; i < 200; ++i) {
-			sm.start("* * * * *", new Task() {
+			sm.start("* * * * *", new PlugTask() {
 
 				@Override
 				public void run() {
