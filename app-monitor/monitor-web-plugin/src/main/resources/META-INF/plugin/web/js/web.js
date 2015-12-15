@@ -19,7 +19,12 @@ $(function(){
 			  data: "itemId=" + itemId + "&url=" + url,
 			  success: function(data){
 				  data.reqUrl = url;
-				  layer.open({ type: 0, shade: 0.3,  area: '700px', title:'测试结果', content: juicer(test_entity_item_tpl,data),  zIndex: layer.zIndex });         
+				  layer.open({ type: 0, shade: 0.3,  area: '700px', title:'测试结果', content: juicer(test_entity_item_tpl,data),  zIndex: layer.zIndex,
+					  yes: function(index){
+						  layer.closeAll();
+						  window.location.reload();
+					  }
+				  });         
 			  },
 			  complete:function(xhr, ts){ layer.closeAll('loading');},
 			  error:function(xhr,err_info,ex){ layer.msg('测试时，系统发生异常...',{time: 1000}); }
@@ -399,6 +404,9 @@ $(function(){
 							        <label for="name">业务名称:</label>\
 							        <input name="name" type="text" class="pure-u-2-5" value="${data.name}">\
 									<input name="itemID" type="hidden" value="${data.itemID}">\
+									<input name="reqTimes" type="hidden" value="${data.reqTimes}">\
+									<input name="successTimes" type="hidden" value="${data.successTimes}">\
+									<input name="failureTimes" type="hidden" value="${data.failureTimes}">\
 									<input name="entityCfgID" type="hidden" value="${data.entityCfgID}">\
 							    </div>\
 							    <div class="pure-control-group">\

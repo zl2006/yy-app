@@ -111,5 +111,13 @@
 			`NOTIFY_EMAIL` = #{notifyEmail}
 			WHERE `ITEM_ID` = #{itemID}
 	</update>
+	
+	
+	<update id="UPDATE_ENTITYITEM_BY_TEST" parameterType="TA-ENTITYITEM">
+		UPDATE `TB_MONITOR_ITEM` SET
+			`REQ_TIMES` = REQ_TIMES + 1,
+			`SUCCESS_TIMES` = #{successTimes},
+			`FAILURE_TIMES` = #{failureTimes} WHERE `ITEM_ID` = #{itemID}
+	</update>
 
 </mapper>

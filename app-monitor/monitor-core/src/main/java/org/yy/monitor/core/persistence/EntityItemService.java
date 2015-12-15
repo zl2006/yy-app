@@ -63,4 +63,13 @@ public class EntityItemService extends AbsMonitorService {
 		return this.sqlSession
 				.delete("monitor.DELETE_ENTITYITEM", entityItemID);
 	}
+	
+	/**
+	 * 保存监控项，测试后
+	 */
+	public int updateEntityItemByTest(EntityItem entityItem) {
+		return this.sqlSession.update("monitor.UPDATE_ENTITYITEM_BY_TEST", entityItem);
+	}
+	
+	
 }

@@ -29,7 +29,7 @@ import org.yy.monitor.plugins.web.data.WebEntityItem;
 
 @Controller
 @RequestMapping("/plugins/web")
-public class WebController extends AbstractController {
+public class WebMonitorController extends AbstractController {
 
 	@Resource(name = "entityItemTestService")
 	private EntityItemTestService entityItemTestService;
@@ -198,7 +198,7 @@ public class WebController extends AbstractController {
 		Entity entity = entityService
 				.findEntity(webEntityItem.getEntityCfgID());
 		if (webEntityItem.getSchedulerCron() != null
-				|| !"".equals(webEntityItem.getSchedulerCron().trim())) {
+				&& !"".equals(webEntityItem.getSchedulerCron().trim())) {
 			SchedulerManager.newInstance().start(
 					webEntityItem.getSchedulerCron(),
 					new WebMonitorTask(EntityUtil.toPlugEntity(entity,
@@ -260,7 +260,7 @@ public class WebController extends AbstractController {
 				.findEntity(webEntityItem.getEntityCfgID());
 		SchedulerManager.newInstance().cancel("" + webEntityItem.getItemID());
 		if (webEntityItem.getSchedulerCron() != null
-				|| !"".equals(webEntityItem.getSchedulerCron().trim())) {
+				&& !"".equals(webEntityItem.getSchedulerCron().trim())) {
 			SchedulerManager.newInstance().start(
 					webEntityItem.getSchedulerCron(),
 					new WebMonitorTask(EntityUtil.toPlugEntity(entity,

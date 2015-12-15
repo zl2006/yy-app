@@ -18,7 +18,9 @@ public class WebMonitorTask implements PlugTask {
 
 	public WebMonitorTask(WebEntity entity, WebEntityItem entityItem,
 			WebMonitorTest test) {
-
+		this.entity = entity;
+		this.entityItem = entityItem;
+		this.test = test;
 	}
 
 	@Override
