@@ -14,79 +14,86 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.yy.framework.util.http.WebUtils;
-import org.yy.monitor.core.PluginTest;
+import org.yy.monitor.core.MonitorTest;
+import org.yy.monitor.core.entity.Entity;
+import org.yy.monitor.core.entity.EntityItem;
 import org.yy.monitor.core.entity.EntityItemTest;
 import org.yy.monitor.core.entity.TestResult;
 import org.yy.monitor.core.persistence.EntityItemService;
 import org.yy.monitor.core.persistence.EntityItemTestService;
+import org.yy.monitor.core.util.EntityUtil;
 import org.yy.monitor.plugins.web.data.WebEntity;
 import org.yy.monitor.plugins.web.data.WebEntityItem;
 
 @Component("webmonitortest")
-public class WebMonitorTest implements PluginTest<WebEntity, WebEntityItem> {
-	
-	@Resource(name="entityItemService")
+public class WebMonitorTest implements MonitorTest {
+
+	@Resource(name = "entityItemService")
 	private EntityItemService entityItemService;
-	
-	@Resource(name="entityItemTestService")
+
+	@Resource(name = "entityItemTestService")
 	private EntityItemTestService entityItemTestService;
 
 	private static Logger logger = LoggerFactory
 			.getLogger(WebMonitorTest.class);
 
 	@Override
-	public TestResult test(WebEntity entity, WebEntityItem entityItem) {
+	public TestResult test(Entity entity, EntityItem entityItem) {
+
+		WebEntity webEntity = EntityUtil.toPlugEntity(entity, WebEntity.class);
+		WebEntityItem webEntityItem = EntityUtil.toPlugEntityItem(entityItem,
+				WebEntityItem.class);
 
 		TestResult testResult = new TestResult();
 
-		String url = entity.getUrl() + entityItem.getUrl();
-		String params = entityItem.getParams();
+		String url = webEntity.getUrl() + webEntityItem.getUrl();
+		String params = webEntityItem.getParams();
 
 		try {
-			//测试
+			// 测试
 			String result = "";
 			String charset = "UTF-8";
-			if(StringUtils.isNotEmpty(entityItem.getCharset())){
-				charset = entityItem.getCharset();
+			if (StringUtils.isNotEmpty(webEntityItem.getCharset())) {
+				charset = webEntityItem.getCharset();
 			}
-			if ("GET".equals(entityItem.getMethod())) {
+			if ("GET".equals(webEntityItem.getMethod())) {
 				result = WebUtils.doGet(url, getUrlParams(params),
-						entityItem.getCharset());
+						webEntityItem.getCharset());
 			} else {
-				result = WebUtils.doPost(url, getUrlParams(params),charset, 30000, 30000);
+				result = WebUtils.doPost(url, getUrlParams(params), charset,
+						30000, 30000);
 			}
 			testResult.setResponse(result);
-			testResult.setStatus(judge(result, entityItem.getResp()));
-			
+			testResult.setStatus(judge(result, webEntityItem.getResp()));
+
 		} catch (IOException e) {
 			testResult.setStatus(false);
 			testResult.setResponse("" + e);
 			logger.error("test error！", e);
 		}
-		
-		//记录结果
-		if( testResult.isStatus()){
-			entityItem.setSuccessTimes(entityItem.getSuccessTimes() + 1);
-		}else{
-			entityItem.setFailureTimes(entityItem.getFailureTimes() + 1);
+
+		// 记录结果
+		if (testResult.isStatus()) {
+			webEntityItem.setSuccessTimes(webEntityItem.getSuccessTimes() + 1);
+		} else {
+			webEntityItem.setFailureTimes(webEntityItem.getFailureTimes() + 1);
 		}
-		entityItemService.updateEntityItemByTest(entityItem);
-		
-		
+		entityItemService.updateEntityItemByTest(webEntityItem);
+
 		EntityItemTest test = new EntityItemTest();
 		test.setActulResponse(testResult.getResponse());
-		test.setExpectResponse(entityItem.getResp());
-		test.setItemID(entityItem.getItemID());
-		test.setParams(entityItem.getParams());
+		test.setExpectResponse(webEntityItem.getResp());
+		test.setItemID(webEntityItem.getItemID());
+		test.setParams(webEntityItem.getParams());
 		test.setResult(testResult.isStatus());
 		test.setTestTime(new Date());
 		test.setUrl(url);
 		entityItemTestService.insertEntityItemTest(test);
-		
+
 		return testResult;
 	}
 
-	//处理参数
+	// 处理参数
 	protected Map<String, String> getUrlParams(String param) {
 		Map<String, String> map = new HashMap<String, String>();
 		if (StringUtils.isBlank(param)) {
@@ -101,11 +108,11 @@ public class WebMonitorTest implements PluginTest<WebEntity, WebEntityItem> {
 		}
 		return map;
 	}
-	
-	//判断结果 
-	protected boolean judge(String actualResponse, String expectResponse){
+
+	// 判断结果
+	protected boolean judge(String actualResponse, String expectResponse) {
 		Pattern p = Pattern.compile(expectResponse);
 		Matcher m = p.matcher(actualResponse);
-		return actualResponse.contains(expectResponse)  || m.matches();
+		return actualResponse.contains(expectResponse) || m.matches();
 	}
 }

@@ -26,10 +26,11 @@ import org.yy.monitor.core.util.VelocityUtil;
  * @author zhouliang
  *
  */
-public abstract class AbsPluginView<ENTITY extends Entity, ENTITYITEM extends EntityItem>
-		implements PluginView {
+public abstract class AbsMonitorView<ENTITY extends Entity, ENTITYITEM extends EntityItem>
+		implements MonitorView {
 
-	private static Logger logger = LoggerFactory.getLogger(AbsPluginView.class);
+	private static Logger logger = LoggerFactory
+			.getLogger(AbsMonitorView.class);
 
 	@Resource(name = "entityService")
 	private EntityService entityService;
@@ -41,7 +42,7 @@ public abstract class AbsPluginView<ENTITY extends Entity, ENTITYITEM extends En
 
 	private Class<ENTITYITEM> entityItemClass;
 
-	public AbsPluginView(Class<ENTITY> entityClass,
+	public AbsMonitorView(Class<ENTITY> entityClass,
 			Class<ENTITYITEM> entityItemClass) {
 		this.entityClass = entityClass;
 		this.entityItemClass = entityItemClass;

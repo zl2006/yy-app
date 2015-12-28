@@ -1,7 +1,7 @@
 package org.yy.monitor.plugins.web;
 
 import org.springframework.stereotype.Component;
-import org.yy.monitor.core.AbsPluginView;
+import org.yy.monitor.core.AbsMonitorView;
 import org.yy.monitor.plugins.web.data.WebEntity;
 import org.yy.monitor.plugins.web.data.WebEntityItem;
 
@@ -13,7 +13,7 @@ import org.yy.monitor.plugins.web.data.WebEntityItem;
  *
  */
 @Component("webmonitorview")
-public class WebMonitorView extends AbsPluginView<WebEntity,WebEntityItem> {
+public class WebMonitorView extends AbsMonitorView<WebEntity,WebEntityItem> {
 	
 	//private static Logger logger = LoggerFactory.getLogger(WebMonitorView.class);
 	

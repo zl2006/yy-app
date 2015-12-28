@@ -11,14 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.yy.monitor.core.MonitorConstants;
-import org.yy.monitor.core.PluginView;
+import org.yy.monitor.core.MonitorView;
 import org.yy.monitor.core.entity.Plugin;
 
 @Controller
 public class IdxController extends AbsMonitorController {
 
 	@RequestMapping("/")
-	public ModelAndView index(HttpServletRequest request,HttpServletResponse response) {
+	public ModelAndView index(HttpServletRequest request,
+			HttpServletResponse response) {
 
 		Map<String, Object> result = new HashMap<String, Object>();
 
@@ -34,20 +35,22 @@ public class IdxController extends AbsMonitorController {
 
 		// Step 2:获取插件列表，以便界面左侧显示
 		result.put(MonitorConstants.PLUGINS, monitorManager.getPlugins());
-		
+
 		// Step 3: 显示插件视图(显示当前监控实体的插件视图)
 		String entityCfgIDStr = request.getParameter("entityCfgID");
 		Integer entityCfgID = null;
-		if(StringUtils.isNotEmpty(entityCfgIDStr)){
+		if (StringUtils.isNotEmpty(entityCfgIDStr)) {
 			entityCfgID = Integer.valueOf(entityCfgIDStr.trim());
 		}
-		
+
 		String content = "未配置插件";
-		if(currentPlugin != null){
-			PluginView view = (PluginView) applicationContext.getBean(currentPlugin.getView());
-			content = view.render(currentPlugin,entityCfgID,request,response);
+		if (currentPlugin != null) {
+			MonitorView view = (MonitorView) applicationContext
+					.getBean(currentPlugin.getView());
+			content = view
+					.render(currentPlugin, entityCfgID, request, response);
 		}
-		
+
 		result.put(MonitorConstants.CONTENT, content);
 		return processSuccess("/index", result);
 	}

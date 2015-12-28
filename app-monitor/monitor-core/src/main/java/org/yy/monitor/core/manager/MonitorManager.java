@@ -55,6 +55,7 @@ public class MonitorManager {
 				plugin.setEname(p.getProperty("plugin.ename"));
 				plugin.setVmpath(p.getProperty("plugin.vm.package"));
 				plugin.setView(p.getProperty("plugin.spring.view"));
+				plugin.setTest(p.getProperty("plugin.spring.test"));
 				if (logger.isDebugEnabled()) {
 					logger.debug("init plugins:" + r.getURL());
 				}
@@ -70,6 +71,21 @@ public class MonitorManager {
 			logger.error("init plugins error", e);
 			throw new RuntimeException(e);
 		}
+	}
+
+	// 初始化任务
+	protected void initTasks() {
+
+	}
+
+	// 根据类型获取插件
+	public Plugin getPlugin(String code) {
+		for (Plugin item : plugins) {
+			if (item.getCode().equals(code)) {
+				return item;
+			}
+		}
+		return null;
 	}
 
 	public List<Plugin> getPlugins() {

@@ -14,5 +14,6 @@
 
 	<context:component-scan base-package="org.yy.monitor"></context:component-scan>
 
+	<bean class="org.yy.monitor.core.init.MonitorInit" init-method="init"></bean>
 
 </beans>

@@ -6,7 +6,7 @@ package org.yy.monitor.core;
  * @author zhouliang
  *
  */
-public interface PlugTask extends Runnable {
+public interface MonitorTask extends Runnable {
 
 	/**
 	 * 任务名称

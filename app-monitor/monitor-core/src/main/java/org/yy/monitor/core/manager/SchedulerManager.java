@@ -6,7 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.yy.monitor.core.PlugTask;
+import org.yy.monitor.core.MonitorTask;
+
 
 /**
  * 调度管理器
@@ -35,7 +36,7 @@ public class SchedulerManager {
 	 *            星期　（0-6）//0代表星期天
 	 * @param task
 	 */
-	public void start(String cron, PlugTask task) {
+	public void start(String cron, MonitorTask task) {
 		Scheduler s = new Scheduler();
 		s.schedule(cron, task);
 		s.start();
@@ -58,7 +59,7 @@ public class SchedulerManager {
 
 		SchedulerManager sm = SchedulerManager.newInstance();
 		for (int i = 0; i < 200; ++i) {
-			sm.start("* * * * *", new PlugTask() {
+			sm.start("* * * * *", new MonitorTask() {
 
 				@Override
 				public void run() {

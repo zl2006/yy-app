@@ -24,6 +24,24 @@
 	</resultMap>
 
 	
+	<select id="FIND_ENTITYITEM_ALL"  resultMap="RM-ENTITYITEM">
+		SELECT  `ITEM_ID`,
+		    `ENTITY_CFG_ID`,
+		    `NAME`,
+		    `ITEM_CFG`,
+		    `REQ_TIMES`,
+		    `SUCCESS_TIMES`,
+		    `FAILURE_TIMES`,
+		    `SCHEDULER_CRON`,
+		    `NOTIFY_MOBILE`,
+		    `NOTIFY_EMAIL`,
+		    `DESCRIPTION`,
+		    `STATUS`,
+		    `CREATE_TIME`,
+		    `UPDATE_TIME`
+		FROM `TB_MONITOR_ITEM` WHERE  `STATUS` = 1
+	</select>
+	
 	<select id="FIND_ENTITYITEM_BY_ENTITYCFGID" parameterType="int" resultMap="RM-ENTITYITEM">
 		SELECT  `ITEM_ID`,
 		    `ENTITY_CFG_ID`,
@@ -39,7 +57,7 @@
 		    `STATUS`,
 		    `CREATE_TIME`,
 		    `UPDATE_TIME`
-		FROM `TB_MONITOR_ITEM` WHERE `ENTITY_CFG_ID` = #{value}
+		FROM `TB_MONITOR_ITEM` WHERE `ENTITY_CFG_ID` = #{value} AND `STATUS` = 1
 	</select>
 	
 	<select id="FIND_ENTITYITEM_BY_ITEMID" parameterType="int" resultMap="RM-ENTITYITEM">
@@ -57,7 +75,7 @@
 		    `STATUS`,
 		    `CREATE_TIME`,
 		    `UPDATE_TIME`
-		FROM `TB_MONITOR_ITEM` WHERE `ITEM_ID` = #{value}
+		FROM `TB_MONITOR_ITEM` WHERE `ITEM_ID` = #{value} AND `STATUS` = 1
 	</select>
 	
 	<insert id="SAVE_ENTITYITEM" parameterType="TA-ENTITYITEM"  useGeneratedKeys="true"  keyProperty="itemID">

@@ -11,7 +11,7 @@ import org.yy.monitor.core.entity.Plugin;
  * @author zhouliang
  *
  */
-public interface PluginView {
+public interface MonitorView {
 
 	/**
 	 * 获取插件视图内容，指定显示的监控实体

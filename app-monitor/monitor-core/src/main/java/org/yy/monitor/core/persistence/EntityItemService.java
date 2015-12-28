@@ -15,6 +15,15 @@ import org.yy.monitor.core.entity.EntityItem;
 public class EntityItemService extends AbsMonitorService {
 
 	/**
+	 * 查询所有的监控实体
+	 * 
+	 * @return
+	 */
+	public List<EntityItem> findAllEntityItem() {
+		return this.sqlSession.selectList("FIND_ENTITYITEM_ALL");
+	}
+
+	/**
 	 * 根据监控实体查询监控项列表
 	 * 
 	 * @param entityCfgID
@@ -44,7 +53,7 @@ public class EntityItemService extends AbsMonitorService {
 	public int saveEntityItem(EntityItem entityItem) {
 		return this.sqlSession.insert("monitor.SAVE_ENTITYITEM", entityItem);
 	}
-	
+
 	/**
 	 * 保存监控项
 	 */
@@ -63,13 +72,13 @@ public class EntityItemService extends AbsMonitorService {
 		return this.sqlSession
 				.delete("monitor.DELETE_ENTITYITEM", entityItemID);
 	}
-	
+
 	/**
 	 * 保存监控项，测试后
 	 */
 	public int updateEntityItemByTest(EntityItem entityItem) {
-		return this.sqlSession.update("monitor.UPDATE_ENTITYITEM_BY_TEST", entityItem);
+		return this.sqlSession.update("monitor.UPDATE_ENTITYITEM_BY_TEST",
+				entityItem);
 	}
-	
-	
+
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.yy.framework.base.controller.AbstractController;
+import org.yy.monitor.core.DefaultMonitorTask;
 import org.yy.monitor.core.entity.Entity;
 import org.yy.monitor.core.entity.EntityItem;
 import org.yy.monitor.core.entity.TestResult;
@@ -193,7 +194,7 @@ public class WebMonitorController extends AbstractController {
 		entityItem.setCreateTime(new Date());
 		entityItem.setUpdateTime(new Date());
 		entityItemService.saveEntityItem(entityItem);
-		
+
 		// Step 2: 任务处理
 		Entity entity = entityService
 				.findEntity(webEntityItem.getEntityCfgID());
@@ -201,10 +202,9 @@ public class WebMonitorController extends AbstractController {
 				&& !"".equals(webEntityItem.getSchedulerCron().trim())) {
 			SchedulerManager.newInstance().start(
 					webEntityItem.getSchedulerCron(),
-					new WebMonitorTask(EntityUtil.toPlugEntity(entity,
-							WebEntity.class), webEntityItem, webmonitortest));
+					new DefaultMonitorTask(webmonitortest, entity, entityItem));
 		}
-		
+
 		return processSuccess("", entityItem);
 	}
 
@@ -263,8 +263,7 @@ public class WebMonitorController extends AbstractController {
 				&& !"".equals(webEntityItem.getSchedulerCron().trim())) {
 			SchedulerManager.newInstance().start(
 					webEntityItem.getSchedulerCron(),
-					new WebMonitorTask(EntityUtil.toPlugEntity(entity,
-							WebEntity.class), webEntityItem, webmonitortest));
+					new DefaultMonitorTask(webmonitortest, entity, entityItem));
 		}
 
 		return processSuccess("", entityItem);

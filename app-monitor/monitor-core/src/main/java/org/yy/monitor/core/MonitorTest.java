@@ -5,9 +5,9 @@ import org.yy.monitor.core.entity.EntityItem;
 import org.yy.monitor.core.entity.TestResult;
 
 /**
- * 插件测试
+ * 监控测试
  */
-public interface PluginTest<T1 extends Entity, T2 extends EntityItem> {
+public interface MonitorTest {
 
 	/**
 	 * 测试监控项
@@ -18,5 +18,5 @@ public interface PluginTest<T1 extends Entity, T2 extends EntityItem> {
 	 *            监控实体项
 	 * @return
 	 */
-	public TestResult test(T1 entity, T2 entityItem);
+	public TestResult test(Entity entity, EntityItem entityItem);
 }

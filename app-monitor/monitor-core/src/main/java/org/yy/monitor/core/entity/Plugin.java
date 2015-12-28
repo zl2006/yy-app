@@ -26,6 +26,8 @@ public class Plugin implements Comparable<Plugin> {
 	// 视图展示bean名称
 	private String view = "";
 
+	private String test = "";
+
 	public String getName() {
 		return name;
 	}
@@ -74,11 +76,19 @@ public class Plugin implements Comparable<Plugin> {
 		this.view = view;
 	}
 
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
+	}
+
 	@Override
 	public String toString() {
 		return "Plugin [name=" + name + ", ename=" + ename + ", code=" + code
 				+ ", order=" + order + ", vmpath=" + vmpath + ", view=" + view
-				+ "]";
+				+ ", test=" + test + "]";
 	}
 
 	@Override

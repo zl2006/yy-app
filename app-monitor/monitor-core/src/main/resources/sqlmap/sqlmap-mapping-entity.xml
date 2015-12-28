@@ -31,7 +31,7 @@
 		    `NAME`,
 		    `CREATE_TIME`,
 		    `UPDATE_TIME`
-		FROM `TB_MONITOR_ENTITY` WHERE MONITOR_TYPE = #{value}
+		FROM `TB_MONITOR_ENTITY` WHERE MONITOR_TYPE = #{value} AND `STATUS` = 1
 	</select>
 	
 	<select id="FIND_ENTITY_BY_CFGID" parameterType="int" resultMap="RM-ENTITY">
@@ -46,7 +46,7 @@
 		    `NAME`,
 		    `CREATE_TIME`,
 		    `UPDATE_TIME`
-		FROM `TB_MONITOR_ENTITY` WHERE CFG_ID = #{value}
+		FROM `TB_MONITOR_ENTITY` WHERE CFG_ID = #{value} AND `STATUS` = 1
 	</select>
 	
 	<insert id="SAVE_ENTITY" parameterType="TA-ENTITY" useGeneratedKeys="true"  keyProperty="cfgID">

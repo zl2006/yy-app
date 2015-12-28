@@ -1,7 +1,7 @@
 package org.yy.monitor.plugins.ds;
 
 import org.springframework.stereotype.Component;
-import org.yy.monitor.core.AbsPluginView;
+import org.yy.monitor.core.AbsMonitorView;
 import org.yy.monitor.core.entity.Entity;
 import org.yy.monitor.core.entity.EntityItem;
 
@@ -12,10 +12,10 @@ import org.yy.monitor.core.entity.EntityItem;
  *
  */
 @Component("dsmonitorview")
-public class DSMonitorView extends AbsPluginView<Entity,EntityItem> {
+public class DSMonitorView extends AbsMonitorView<Entity, EntityItem> {
 
-	public DSMonitorView(){
-		super(Entity.class,EntityItem.class);
+	public DSMonitorView() {
+		super(Entity.class, EntityItem.class);
 	}
 
 }
