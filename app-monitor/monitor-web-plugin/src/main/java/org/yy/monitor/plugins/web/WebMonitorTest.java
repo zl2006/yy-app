@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.yy.framework.util.http.WebUtils;
+import org.yy.framework.util.net.WebUtils;
 import org.yy.monitor.core.MonitorTest;
 import org.yy.monitor.core.entity.Entity;
 import org.yy.monitor.core.entity.EntityItem;
