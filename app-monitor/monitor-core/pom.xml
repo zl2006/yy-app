@@ -25,10 +25,10 @@
 			<artifactId>framework-webframe</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>it.sauronsoftware</groupId>
-			<artifactId>cron4j</artifactId>
-		</dependency>
+			<dependency>
+			    <groupId>it.sauronsoftware.cron4j</groupId>
+			    <artifactId>cron4j</artifactId>
+			</dependency>
 
 
 		<dependency><!--反射工具类 -->
