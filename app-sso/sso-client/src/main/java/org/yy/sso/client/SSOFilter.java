@@ -23,7 +23,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.yy.framework.util.http.WebUtils;
+import org.yy.framework.util.net.WebUtils;
 
 import com.alibaba.fastjson.JSONObject;
 
