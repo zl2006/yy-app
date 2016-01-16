@@ -11,7 +11,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录页面</title>
-<link rel="stylesheet" href="${basePath}/resources/css/login.css">
+<link rel="stylesheet" href='${applicationScope.pageConfig["resources.path"] }/app/sso/css/login.css'>
 </head>
 <body id="body-mint" class="mint login d2c ">
 	<div id="background-gradient">
@@ -78,8 +78,8 @@
 			</div>
 		</div>
 	</div>
-	<script src="${basePath }/resources/js/jquery-1.10.2.min.js"
+	<script src='${applicationScope.pageConfig["resources.path"] }/js/amd-alter/base-jquery/1.11.1/jquery.min.js'
 		type="text/javascript"></script>
-	<script src="${basePath}/resources/js/login.js"></script>
+	<script src='${applicationScope.pageConfig["resources.path"] }/app/sso/js/login.js'></script>
 </body>
 </html>
