@@ -63,9 +63,6 @@
 </div>
 <!--main end-->
  <%@ include file="/WEB-INF/pages/common/footer.jsp"%>
-<script language="javascript" type="text/javascript" src="${basePath }/resources/js/my97date/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
-<script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
 <script type="text/javascript">
     require(['jqvalidator',  'jqsuperslide','business'], function ($,  slide, Business) {
     	$(document).ready(function() { 

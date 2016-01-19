@@ -67,9 +67,6 @@
 <!--main end-->
  <%@ include file="/WEB-INF/pages/common/footer.jsp"%>
  
-<script language="javascript" type="text/javascript" src="${basePath }/resources/js/my97date/4.8/WdatePicker.js"></script>
-<script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
-<script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
-<script type="text/javascript" src="${bastPath }/resources/js/app-user/page.js" page='{"module":"business","oper":"addoredit"}' data='{"base_path" : "${basePath}" }'></script>
+<script type="text/javascript"  src='${applicationScope.pageConfig["resources.path"] }/app/user/js/page.js'  page='{"module":"business","oper":"addoredit"}' data='{"base_path" : "${basePath}" }'></script>
 </body>
 </html>		

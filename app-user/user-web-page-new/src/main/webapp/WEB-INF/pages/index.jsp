@@ -7,7 +7,7 @@
     <title>开店助手-互联网营销</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@ include file="/WEB-INF/pages/common/head.jsp"%>
-    <link rel="stylesheet" href="resources/css/site/index.css">
+    <link rel="stylesheet" href='${applicationScope.pageConfig["resources.path"] }/app/user/css/site/index.css'>
 </head>
 <body>
  <%@ include file="/WEB-INF/pages/common/top.jsp"%>
@@ -16,7 +16,7 @@
 
 <!--广告区域-->
 <div id="banner">
-    <img src="resources/images/demo/index_banner.png" width="100%">
+    <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/index_banner.png' width="100%">
 </div><!--banner end-->
 
 
@@ -26,13 +26,13 @@
     <div class="statis-group"><!--统计组-->
         <div class="statis"><!--统计-->
             <div class="title">
-                <img src="resources/images/site/statis_logo.jpg">
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/site/statis_logo.jpg'>
                 <a>活动统计</a>
             </div>
             <div class="content">
                 <a><label>活动:</label> 总计（６）&nbsp;&nbsp;进行中（２）&nbsp;&nbsp;即将过期（１）</a>
-                <a><label>会员:</label> 总计（23.5W）&nbsp;&nbsp;&nbsp;昨日新增（1000）<img src="resources/images/site/up.jpg" style="vertical-align: -6px" alt="">　</a>
-              <a><label>参与:</label> 总计（436W）&nbsp;&nbsp;&nbsp;昨日新增（8234）<img src="resources/images/site/up.jpg" style="vertical-align: -6px"  alt="">  </a>
+                <a><label>会员:</label> 总计（23.5W）&nbsp;&nbsp;&nbsp;昨日新增（1000）<img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/site/up.jpg' style="vertical-align: -6px" alt="">　</a>
+              <a><label>参与:</label> 总计（436W）&nbsp;&nbsp;&nbsp;昨日新增（8234）<img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/site/up.jpg' style="vertical-align: -6px"  alt="">  </a>
             </div>
             <div class="oper">
                 <button class="pure-button pure-button-primary">策划活动</button>
@@ -41,9 +41,9 @@
         </div><!-- statis end-->
         <div class="dynamic"><!--动态-->
             <div class="title">
-                <img src="resources/images/site/dynamic_logo.jpg">
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/site/dynamic_logo.jpg'>
                 <a>会员动态</a>
-                <img src="resources/images/site/refresh.jpg" style="float:right">
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/site/refresh.jpg' style="float:right">
             </div>
             <div class="content">
                 <a>逍遥***子参与春节扫码拿红包活动。</a>
@@ -56,7 +56,7 @@
     </div>
     <div class="notice"><!--公告-->
         <div class="title">
-            <img src="resources/images/site/notice_logo.jpg">
+            <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/site/notice_logo.jpg'>
             <a>系统公告</a>
         </div>
         <div class="content">
@@ -187,42 +187,42 @@
     <div class="content">
         <ul>
             <li>
-                <img src="resources/images/demo/template.jpg" alt="">
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/template.jpg' alt="">
                 <div class="info">
                     扫码溯源<br>
                     行业:饮料
                 </div>
             </li>
             <li>
-                <img src="resources/images/demo/template1.jpg" >
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/template1.jpg' >
                 <div class="info">
                     扫码溯源<br>
                     行业:饮料
                 </div>
             </li>
             <li>
-                <img src="resources/images/demo/template.jpg" >
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/template.jpg' >
                 <div class="info">
                     扫码溯源<br>
                     行业:饮料
                 </div>
             </li>
             <li>
-                <img src="resources/images/demo/template1.jpg" >
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/template1.jpg' >
                     <div class="info">
                     扫码溯源<br>
                     行业:饮料
                 </div>
             </li>
             <li>
-                <img src="resources/images/demo/template.jpg" >
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/template.jpg' >
                 <div class="info">
                     扫码溯源<br>
                     行业:饮料
                 </div>
             </li>
             <li>
-                <img src="resources/images/demo/template1.jpg" >
+                <img src='${applicationScope.pageConfig["resources.path"] }/app/user/images/demo/template1.jpg'>
                 <div class="info">
                     扫码溯源<br>
                     行业:饮料
@@ -231,12 +231,7 @@
         </ul>
     </div>
 </div><!--cnt-template end-->
-
  <%@ include file="/WEB-INF/pages/common/footer.jsp"%>
-
-
-<script type="text/javascript" src="resources/js/require/2.1.11/require.min.js"></script>
-<script type="text/javascript" src="resources/js/require.config.js"></script>
 <script type="text/javascript">
     requirejs(['jqsuperslide','sticky'], function (slide,sticky) {
         sticky("#menu", {top:0, left:0});

@@ -8,7 +8,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <%@ include file="/WEB-INF/pages/common/head.jsp"%>
     <link type="text/css" rel="stylesheet" href="${basePath }/resources/js/jqvalidator-amd/0.7.3/jquery.validator.css"/>
-    <link type="text/css" rel="stylesheet" href="${basePath }/resources/js/jqlayer/2.0/skin/layer.css"/>
 </head>
 <body>
  <%@ include file="/WEB-INF/pages/common/top.jsp"%>
@@ -78,7 +77,7 @@
                 </div><!-- pure-form -->
                 <div class="form-oper">
                     	<button type="button" id="submitBtn" class="pure-button pure-button-primary pure-u-1-8 button-large">提交</button>
-                    	<a class="pure-button button-large pure-u-1-8" href="${basePath }/group/list.do">返回</a>
+                    	<a class="pure-button button-large pure-u-1-8" href="${basePath }/role/list.do">返回</a>
                	</div>
                	<div class="form-group"><!-- 错误信息 -->
 						<div class="col-sm-offset-2 col-sm-10">
@@ -95,8 +94,6 @@
 <!--main end-->
  <%@ include file="/WEB-INF/pages/common/footer.jsp"%>
  
-<script type="text/javascript" src="${basePath }/resources/js/require/2.1.11/require.min.js"></script>
-<script type="text/javascript" src="${basePath }/resources/js/require.config.js"></script>
-<script type="text/javascript" src="${bastPath }/resources/js/app-user/page.js" page='{"module":"business","oper":"addoredit"}' data='{"base_path" : "${basePath}" }'></script>
+<script type="text/javascript" src='${applicationScope.pageConfig["resources.path"] }/app/user/js/page.js' page='{"module":"business","oper":"addoredit"}' data='{"base_path" : "${basePath}" }'></script>
 </body>
 </html>		
