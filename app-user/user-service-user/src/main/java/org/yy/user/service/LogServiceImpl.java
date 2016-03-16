@@ -8,6 +8,9 @@
  */
 package org.yy.user.service;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.yy.framework.basedata.exception.ServiceException;
 import org.yy.framework.basedata.query.ResultDto;
 import org.yy.user.dao.LogDao;
@@ -21,8 +24,10 @@ import org.yy.user.model.Log;
  * @version  [1.0, 2014年3月16日]
  * @since  [app-user/1.0]
  */
+@Service("logService")
 public class LogServiceImpl implements LogService {
     
+    @Resource(name="logDAO")
     private LogDao logDao;
     
     /** {@inheritDoc} */

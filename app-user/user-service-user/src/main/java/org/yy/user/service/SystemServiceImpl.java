@@ -10,8 +10,11 @@ package org.yy.user.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.yy.framework.base.validator.ValidateError;
-import org.yy.framework.base.validator.ValidateUtil;
+import org.yy.framework.base.validator.ValidateService;
 import org.yy.framework.basedata.exception.ServiceException;
 import org.yy.framework.basedata.query.ResultDto;
 import org.yy.user.dao.SystemDao;
@@ -26,8 +29,10 @@ import org.yy.user.model.User;
 * @version  [1.0, 2013年12月4日]
 * @since  [app-user/1.0]
 */
+@Service("systemService")
 public class SystemServiceImpl implements SystemService {
     
+    @Resource(name="systemDAO")
     private SystemDao systemDao;
     
     /** {@inheritDoc} */
@@ -56,7 +61,7 @@ public class SystemServiceImpl implements SystemService {
 	@Override
 	public void insertSystem(System system) throws ServiceException {
 		//数据验证
-        List<ValidateError> errors = ValidateUtil.validate(system);
+        List<ValidateError> errors = ValidateService.validate(system);
         if (errors.size() > 0) {
             throw new ServiceException("SYSTEM_VLIDA_ERROR", errors.toString());
         }

@@ -10,6 +10,7 @@ package org.yy.user.dao.impl;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Repository;
 import org.yy.framework.base.dao.AbstractMyBatisDao;
 import org.yy.framework.basedata.exception.DaoException;
 import org.yy.framework.basedata.query.ResultDto;
@@ -32,6 +33,7 @@ import static org.yy.user.model.User.*;
 * @version  [1.0, 2013年11月21日]
 * @since  [app-user/1.0]
 */
+@Repository("userDAO")
 public class UserDaoImpl extends AbstractMyBatisDao implements UserDao {
     
     /** {@inheritDoc} */

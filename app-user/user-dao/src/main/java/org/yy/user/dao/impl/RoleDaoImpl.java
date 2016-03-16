@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
 import org.yy.framework.base.dao.AbstractMyBatisDao;
 import org.yy.framework.basedata.exception.DaoException;
 import org.yy.framework.basedata.query.ResultDto;
@@ -38,6 +39,7 @@ import static org.yy.user.model.Role.*;
 * @version  [1.0, 2013年11月24日]
 * @since  [app-user/1.0]
 */
+@Repository("roleDAO")
 public class RoleDaoImpl extends AbstractMyBatisDao implements RoleDao {
     
     /** {@inheritDoc} */

@@ -11,8 +11,11 @@ package org.yy.user.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.yy.framework.base.validator.ValidateError;
-import org.yy.framework.base.validator.ValidateUtil;
+import org.yy.framework.base.validator.ValidateService;
 import org.yy.framework.basedata.exception.ServiceException;
 import org.yy.framework.basedata.query.ResultDto;
 import org.yy.user.dao.RoleDao;
@@ -29,10 +32,13 @@ import org.yy.user.model.UserGroup;
 * @version  [1.0, 2014年1月16日]
 * @since  [app-user/1.0]
 */
+@Service("userGroupService")
 public class UserGroupServiceImpl implements UserGroupService {
     
+    @Resource(name="userGroupDAO")
     private UserGroupDao userGroupDao;
     
+    @Resource(name="roleDAO")
     private RoleDao roleDao;
     
     /** {@inheritDoc} */
@@ -45,7 +51,7 @@ public class UserGroupServiceImpl implements UserGroupService {
     @Override
 	public void insertUserGroup(UserGroup userGroup) throws ServiceException {
     	//数据验证
-        List<ValidateError> errors = ValidateUtil.validate(userGroup);
+        List<ValidateError> errors = ValidateService.validate(userGroup);
         if (errors.size() > 0) {
             throw new ServiceException("USERGROUP_VALIDATE_ERROR", errors.toString());
         }
@@ -79,7 +85,7 @@ public class UserGroupServiceImpl implements UserGroupService {
     @Override
     public void updateUserGroup(UserGroup userGroup)
         throws ServiceException {
-        List<ValidateError> errors = ValidateUtil.validate(userGroup);
+        List<ValidateError> errors = ValidateService.validate(userGroup);
         if (errors.size() > 0) {
             throw new ServiceException("USERGROUP_VALIDATE_ERROR", errors.toString());
         }

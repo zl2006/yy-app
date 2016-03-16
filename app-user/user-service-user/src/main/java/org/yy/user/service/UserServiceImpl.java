@@ -12,10 +12,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 import org.yy.framework.base.validator.ValidateError;
-import org.yy.framework.base.validator.ValidateUtil;
+import org.yy.framework.base.validator.ValidateService;
 import org.yy.framework.basedata.exception.ServiceException;
 import org.yy.framework.basedata.query.ResultDto;
 import org.yy.user.dao.OrganDao;
@@ -35,11 +38,19 @@ import org.yy.user.model.UserGroup;
 * @version  [1.0, 2013年12月1日]
 * @since  [app-user/1.0]
 */
+@Service("userService")
 public class UserServiceImpl implements UserService {
     
+    @Resource(name="userDAO")
     protected UserDao userDao;
+    
+    @Resource(name="organDAO")
     protected OrganDao organDao;
+    
+    @Resource(name="userGroupDAO")
     protected UserGroupDao userGroupDao;
+    
+    @Resource(name="roleDAO")
     protected RoleDao roleDao;
     
     /** {@inheritDoc} */
@@ -52,7 +63,7 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(new Date());
         
         //1,校验用户信息
-        List<ValidateError> errors = ValidateUtil.validate(user);
+        List<ValidateError> errors = ValidateService.validate(user);
         if (errors.size() > 0) {
             throw new ServiceException("USER_VALIDATE_ERROR", errors.toString());
         }
@@ -82,7 +93,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(User user)
         throws ServiceException {
         //1,校验用户信息
-        List<ValidateError> errors = ValidateUtil.validate(user,"userID","loginID","name");
+        List<ValidateError> errors = ValidateService.validate(user,"userID","loginID","name");
         if (errors.size() > 0) {
         	 throw new ServiceException("USER_VLIDA_ERROR", errors.toString());
         }

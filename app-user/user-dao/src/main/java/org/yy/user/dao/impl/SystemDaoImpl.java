@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 import org.yy.framework.base.dao.AbstractMyBatisDao;
 import org.yy.framework.basedata.exception.DaoException;
 import org.yy.framework.basedata.query.ResultDto;
@@ -35,6 +36,7 @@ import static org.yy.user.model.System.*;
 * @version  [1.0, 2013年11月23日]
 * @since  [app-user/1.0]
 */
+@Repository("systemDAO")
 public class SystemDaoImpl extends AbstractMyBatisDao implements SystemDao {
     
     /** {@inheritDoc} */

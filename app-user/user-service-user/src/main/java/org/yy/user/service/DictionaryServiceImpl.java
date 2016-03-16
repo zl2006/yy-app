@@ -11,8 +11,11 @@ package org.yy.user.service;
 import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
 import org.yy.framework.base.validator.ValidateError;
-import org.yy.framework.base.validator.ValidateUtil;
+import org.yy.framework.base.validator.ValidateService;
 import org.yy.framework.basedata.exception.ServiceException;
 import org.yy.framework.basedata.query.ResultDto;
 import org.yy.user.dao.DictionaryDao;
@@ -26,8 +29,10 @@ import org.yy.user.model.Dictionary;
  * @version  [1.0, 2014年3月16日]
  * @since  [app－user/1.0]
  */
+@Service("dictionaryService")
 public class DictionaryServiceImpl implements DictionaryService {
     
+    @Resource(name="dictionaryDAO")
     private DictionaryDao dictionaryDao;
     
     /** {@inheritDoc} */
@@ -49,7 +54,7 @@ public class DictionaryServiceImpl implements DictionaryService {
         dic.setUpdateTime(new Date());
         
         //数据验证
-        List<ValidateError> errors = ValidateUtil.validate(dic);
+        List<ValidateError> errors = ValidateService.validate(dic);
         if (errors.size() > 0) {
             throw new ServiceException("DIC_VALIDATE_ERROR", errors.toString());
         }
@@ -73,7 +78,7 @@ public class DictionaryServiceImpl implements DictionaryService {
     public void updateDictionary(Dictionary dic)
         throws ServiceException {
       //数据验证
-        List<ValidateError> errors = ValidateUtil.validate(dic);
+        List<ValidateError> errors = ValidateService.validate(dic);
         if (errors.size() > 0) {
             throw new ServiceException("DIC_VALIDATE_ERROR", errors.toString());
         }

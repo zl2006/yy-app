@@ -11,6 +11,7 @@ package org.yy.user.service;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 import org.yy.framework.basedata.exception.ServiceException;
 import org.yy.framework.basedata.query.Pagination;
 import org.yy.framework.basedata.query.ResultDto;
@@ -28,8 +29,10 @@ import org.yy.user.model.User;
 * @version  [1.0, 2013年12月5日]
 * @since  [app-user/1.0]
 */
+@Service("resourceService")
 public class ResourceServiceImpl implements ResourceService {
     
+    @javax.annotation.Resource(name="resourceDAO")
     private ResourceDao resourceDao;
     
     /** {@inheritDoc} */

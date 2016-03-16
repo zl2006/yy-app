@@ -14,6 +14,7 @@ import static org.yy.user.model.Dictionary.namespace;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
 import org.yy.framework.base.dao.AbstractMyBatisDao;
 import org.yy.framework.basedata.exception.DaoException;
 import org.yy.framework.basedata.query.ResultDto;
@@ -33,6 +34,7 @@ import com.google.code.ssm.api.UpdateSingleCache;
 * @version  [1.0, 2013年11月22日]
 * @since  [app-user/1.0]
 */
+@Repository("dictionaryDAO")
 public class DictionaryDaoImpl extends AbstractMyBatisDao implements DictionaryDao {
     
     /** {@inheritDoc} */

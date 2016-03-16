@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.yy.framework.base.test.AbstractSpringTest;
-import org.yy.framework.base.validator.ValidateUtil;
+import org.yy.framework.base.validator.ValidateService;
 import org.yy.user.model.Role;
 import org.yy.user.model.User;
 
@@ -40,8 +40,8 @@ public class UserServiceTest extends AbstractSpringTest {
         List<Role> roles = new ArrayList<Role>();
         roles.add(role);
         
-        System.out.println( ValidateUtil.validate(u) );
+        System.out.println( ValidateService.validate(u) );
         
-        System.out.println( ValidateUtil.validate(u,"sex","name") );
+        System.out.println( ValidateService.validate(u,"sex","name") );
     }
 }
