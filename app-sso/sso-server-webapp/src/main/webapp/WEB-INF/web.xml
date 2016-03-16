@@ -18,9 +18,9 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 	<!-- end -->
-	
-	
-	
+
+
+
 
 	<!-- ***********************************spring config *********************************** -->
 	<context-param>
@@ -30,7 +30,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -44,14 +44,14 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<!-- ************************************************************************************* -->
-	
-	
-	
-	
-	
+
+
+
+
+
 	<!-- ***********************************app config *********************************** -->
 	<listener>
-		<listener-class>org.yy.sso.listener.AppListener</listener-class>
+		<listener-class>org.yy.framework.base.listener.AppInitListener</listener-class>
 	</listener>
 	<!-- ******************************************************************************** -->
 

@@ -11,7 +11,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录页面</title>
-<link rel="stylesheet" href='${applicationScope.pageConfig["resources.path"] }/app/sso/css/login.css'>
+<link rel="stylesheet"
+	href='${applicationScope.pageConfig["resources.path"] }/app/sso/css/login.css'>
 </head>
 <body id="body-mint" class="mint login d2c ">
 	<div id="background-gradient">
@@ -41,7 +42,8 @@
 							</div>
 							<form method="post" id="form-login"
 								action="${basePath}/dologin.do">
-								<input type="hidden" value="${param.return_url}" name="return_url">
+								<input type="hidden" value="${param.return_url}"
+									name="return_url">
 								<fieldset>
 									<ol>
 										<li id="li_username"><label for="form-login-username">登录账号</label><input
@@ -78,8 +80,10 @@
 			</div>
 		</div>
 	</div>
-	<script src='${applicationScope.pageConfig["resources.path"] }/js/amd-alter/base-jquery/1.11.1/jquery.min.js'
+	<script
+		src='${applicationScope.pageConfig["resources.path"] }/js/amd-alter/base-jquery/1.11.1/jquery.min.js'
 		type="text/javascript"></script>
-	<script src='${applicationScope.pageConfig["resources.path"] }/app/sso/js/login.js'></script>
+	<script
+		src='${applicationScope.pageConfig["resources.path"] }/app/sso/js/login.js'></script>
 </body>
 </html>
