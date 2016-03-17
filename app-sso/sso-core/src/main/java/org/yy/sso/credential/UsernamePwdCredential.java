@@ -20,7 +20,7 @@ public class UsernamePwdCredential implements Credential {
     /**
     * 注释内容
     */
-    private static final long serialVersionUID = 8296983053986837839L;
+    private static final long serialVersionUID = -9219561911783171884L;
     
     /**用户名*/
     private String username;
@@ -29,37 +29,32 @@ public class UsernamePwdCredential implements Credential {
     private String password;
     
     /**
-    * @return 返回 username
-    */
+     * 验证码
+     */
+    private String kaptcha;
+    
     public String getUsername() {
         return username;
     }
     
-    /**
-    * @param 对username进行赋值
-    */
     public void setUsername(String username) {
         this.username = username;
     }
     
-    /**
-    * @return 返回 password
-    */
     public String getPassword() {
         return password;
     }
     
-    /**
-    * @param 对password进行赋值
-    */
     public void setPassword(String password) {
         this.password = password;
     }
     
-    /** {@inheritDoc} */
-    @Override
-    public String toString() {
-        return "UsernamePwdCredential [username=" + username + ", password=" + password + "]";
+    public String getKaptcha() {
+        return kaptcha;
+    }
+    
+    public void setKaptcha(String kaptcha) {
+        this.kaptcha = kaptcha;
     }
     
     /** {@inheritDoc} */
@@ -67,6 +62,7 @@ public class UsernamePwdCredential implements Credential {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((kaptcha == null) ? 0 : kaptcha.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((username == null) ? 0 : username.hashCode());
         return result;
@@ -82,6 +78,12 @@ public class UsernamePwdCredential implements Credential {
         if (getClass() != obj.getClass())
             return false;
         UsernamePwdCredential other = (UsernamePwdCredential)obj;
+        if (kaptcha == null) {
+            if (other.kaptcha != null)
+                return false;
+        }
+        else if (!kaptcha.equals(other.kaptcha))
+            return false;
         if (password == null) {
             if (other.password != null)
                 return false;
@@ -95,6 +97,12 @@ public class UsernamePwdCredential implements Credential {
         else if (!username.equals(other.username))
             return false;
         return true;
+    }
+    
+    /** {@inheritDoc} */
+    @Override
+    public String toString() {
+        return "UsernamePwdCredential [username=" + username + ", password=" + password + ", kaptcha=" + kaptcha + "]";
     }
     
     /** {@inheritDoc} */
