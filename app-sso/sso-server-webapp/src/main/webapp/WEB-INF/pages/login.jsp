@@ -54,6 +54,10 @@
 											type="password" name="password" class="text" id="password"
 											value="${params.password}">
 											<div class="vError" id="err_pwd">${errors.password }</div></li>
+										<li id="li_kaptcha"><label for="form-login-kaptcha">验证码</label><input
+											type="text" name="kaptcha" class="text" id="kaptcha"
+											value="${params.kaptcha}">&nbsp;<img width="50" src="${basePath }/kaptcha.do" style="vertical-align:middle">
+											<div class="vError" id="err_kaptcha">${errors.kaptcha }</div></li>
 										<li id="remember_me"><input type="checkbox"
 											name="remember" class="checkbox"><label
 											for="form-login-remember">&nbsp;在本计算机上记住账号 </label></li>

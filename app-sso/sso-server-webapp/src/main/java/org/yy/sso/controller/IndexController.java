@@ -8,6 +8,9 @@
 */
 package org.yy.sso.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +26,7 @@ import org.yy.sso.SSOConstants;
 import org.yy.sso.ValidateResult;
 import org.yy.sso.auth.AuthResult;
 import org.yy.sso.credential.UsernamePwdCredential;
+
 import static org.yy.framework.basedata.Constants.*;
 
 /**
@@ -59,13 +63,20 @@ public class IndexController extends AbstractController {
     @RequestMapping("/dologin")
     public ModelAndView dologin(UsernamePwdCredential user, HttpServletRequest request, HttpServletResponse response) {
         
-        //判断回调url是否为空
+        //Step 1 : 判断回调url是否为空
         String returnUrl = request.getParameter("return_url");
         if (StringUtils.isEmpty(returnUrl)) {
             return processFailure("error", null, null, null, "return_url param is null!");
         }
         
-        //授权操作,返回授权结果及令牌信息。并存储Token到容器中。
+        //Step 2: Captch校验
+        if(StringUtils.isEmpty(user.getKaptcha()) || !checkKaptcha(request, user.getKaptcha())){
+            Map<String,String> r = new HashMap<String, String>();
+            r.put("kaptcha", "验证码错误");
+            return processFailure(ERROR_500_CODE, "login", user, "login failure!", r);
+        }
+        
+        //Step 2: 授权操作,返回授权结果及令牌信息。并存储Token到容器中。
         AuthResult authResult = null;
         try {
             authResult = centralAuthService.authentication(user);
